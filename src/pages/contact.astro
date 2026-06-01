@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { liveSiteImages } from '../data/liveSiteImages';
+
+const calendlyUrl = 'https://calendly.com/sarah-sbabuyersagency';
+---
+
+<Layout
+  title="Contact | SBA Buyers Agency"
+  description="Book a call with SBA Buyers Agency or contact Sarah Smith in Bendigo, Victoria."
+>
+  <section class="signature-dark">
+    <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-[1fr_0.9fr] lg:gap-14">
+      <div class="scroll-reveal">
+        <p class="section-kicker text-gold-bright">Contact</p>
+        <h1 class="mt-5 max-w-5xl text-6xl sm:text-7xl">
+          You Do Not Need Everything Figured Out Before You <em class="gold-text italic">Reach Out.</em>
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+          Start with one calm conversation and no obligation.
+        </p>
+      </div>
+
+      <aside class="scroll-reveal relative overflow-hidden rounded-[1.35rem] border border-line-dark bg-black-2" style="--reveal-delay: 120ms">
+        <img
+          src={liveSiteImages.sarahWorking}
+          alt="Sarah Smith from SBA Buyers Agency"
+          class="aspect-[5/4] size-full object-cover object-[54%_45%]"
+        />
+        <div class="absolute inset-0 bg-[linear-gradient(0deg,rgba(11,11,11,.74),transparent_58%)]"></div>
+        <div class="absolute inset-x-0 bottom-0 p-7">
+          <p class="section-kicker text-gold-bright">Direct contact</p>
+          <div class="mt-5 space-y-2 text-sm leading-7 text-soft-light">
+            <p>Bendigo VIC 3555</p>
+            <p><a class="font-semibold text-gold-bright" href="tel:0438784423">0438 784 423</a></p>
+            <p><a class="font-semibold text-gold-bright" href="mailto:sarah@sbabuyersagency.com">sarah@sbabuyersagency.com</a></p>
+          </div>
+          <div class="mt-5 flex flex-wrap gap-4 text-sm font-semibold text-gold-bright">
+            <a href="https://www.instagram.com/sarah_smith_buyers_agent" rel="noreferrer">Instagram</a>
+            <a href="https://www.linkedin.com/in/sarah-smith-73b183345" rel="noreferrer">LinkedIn</a>
+            <a href="https://www.facebook.com/people/Sarah-Smith-Regional-Vic-Most-Trusted-Buyers-Agent/61565111191180/" rel="noreferrer">Facebook</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell grid gap-7 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="scroll-reveal gold-card rounded-lg p-7">
+        <p class="section-kicker">Send an enquiry</p>
+        <h2 class="mt-4 text-5xl">Tell Sarah where you are.</h2>
+        <form class="mt-8 grid gap-5" name="contact" method="post" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact" />
+          <label class="grid gap-2 text-sm font-semibold">
+            Name
+            <input class="rounded-lg border border-line bg-white px-4 py-3 font-sans" type="text" name="name" autocomplete="name" required />
+          </label>
+          <label class="grid gap-2 text-sm font-semibold">
+            Email
+            <input class="rounded-lg border border-line bg-white px-4 py-3 font-sans" type="email" name="email" autocomplete="email" required />
+          </label>
+          <label class="grid gap-2 text-sm font-semibold">
+            Phone
+            <input class="rounded-lg border border-line bg-white px-4 py-3 font-sans" type="tel" name="phone" autocomplete="tel" />
+          </label>
+          <label class="grid gap-2 text-sm font-semibold">
+            Message
+            <textarea class="min-h-36 rounded-lg border border-line bg-white px-4 py-3 font-sans" name="message" required></textarea>
+          </label>
+          <Button type="submit" class="w-fit">Send Enquiry</Button>
+        </form>
+      </div>
+
+      <div class="scroll-reveal gold-card rounded-lg p-7" style="--reveal-delay: 120ms">
+        <p class="section-kicker">Book directly</p>
+        <h2 class="mt-4 text-5xl">Choose a time.</h2>
+        <iframe
+          class="mt-8 h-[42rem] w-full rounded-lg border border-line bg-white"
+          src="https://calendly.com/sarah-sbabuyersagency"
+          title="Book a Call"
+          loading="lazy"
+        ></iframe>
+        <Button href={calendlyUrl} class="mt-6 w-full">Open Calendly</Button>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+</Layout>

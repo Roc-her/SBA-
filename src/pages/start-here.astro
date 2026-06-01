@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { liveSiteImages } from '../data/liveSiteImages';
+
+const steps = [
+  ['1', 'Step One', 'Meet Sarah', 'Read the story behind SBA', '/about-sarah', 'Read Sarah\'s Story ->'],
+  ['2', 'Step Two', 'Understand the Method', 'Confidence comes from a process', '/method', 'Explore the Method ->'],
+  ['3', 'Step Three', 'Use Free Resources', 'Learn without pressure', '/resources', 'Browse Resources ->'],
+  ['4', 'Step Four', 'Book the Call', 'Start with five calm minutes', 'https://calendly.com/sarah-sbabuyersagency', 'Book a Call ->'],
+];
+---
+
+<Layout
+  title="Start Here | SBA Buyers Agency"
+  description="A calm guided entry point for overwhelmed property buyers."
+>
+  <section class="signature-dark">
+    <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-[1fr_0.9fr] lg:gap-14">
+      <div class="scroll-reveal">
+        <p class="section-kicker text-gold-bright">Start here</p>
+        <h1 class="mt-5 max-w-5xl text-6xl sm:text-7xl">
+          If You're Feeling Overwhelmed, You're In The <em class="gold-text italic">Right Place.</em>
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+          You do not need everything figured out today.
+        </p>
+      </div>
+      <figure class="scroll-reveal relative ml-auto w-full max-w-[520px]" style="--reveal-delay: 120ms">
+        <div class="absolute -inset-4 rounded-[1.75rem] bg-[radial-gradient(circle_at_65%_20%,rgba(228,201,126,.22),transparent_18rem)] blur-xl"></div>
+        <div class="relative rounded-[1.5rem] p-px gold-fill shadow-soft">
+          <div class="relative aspect-[5/4] overflow-hidden rounded-[1.45rem] bg-black">
+            <img
+              src={liveSiteImages.startHereSarah}
+              alt="Sarah Smith from SBA Buyers Agency"
+              class="absolute inset-0 size-full object-cover object-[58%_48%]"
+            />
+            <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,11,11,.26),transparent_48%),linear-gradient(0deg,rgba(11,11,11,.72),transparent_58%)]"></div>
+            <figcaption class="absolute bottom-5 left-5 right-5 rounded-lg border border-gold/40 bg-black/92 p-5 shadow-[0_20px_60px_-28px_rgba(0,0,0,.95)] backdrop-blur-md">
+              <p class="max-w-md font-serif text-3xl leading-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,.85)]">
+                Start small. Get clear. Move when the decision is protected.
+              </p>
+            </figcaption>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="mx-auto max-w-[1080px] px-6 sm:px-10">
+      <div class="scroll-reveal mb-6 max-w-3xl">
+        <p class="section-kicker">A guided journey</p>
+        <h2 class="mt-3 text-4xl sm:text-5xl">
+          Four calm steps from unsure to <em class="gold-text italic">clear.</em>
+        </h2>
+        <p class="mt-3 max-w-2xl text-sm leading-7 text-muted">
+          Start with one step, then choose the next move when it feels steady.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        {steps.map(([number, label, title, copy, href, cta], index) => (
+          <article class="scroll-reveal group relative overflow-hidden rounded-xl border border-line bg-white px-6 py-5 shadow-[0_18px_55px_-44px_rgba(11,11,11,.58)] transition duration-300 hover:-translate-y-[7px] hover:scale-[1.01] hover:border-gold/70 hover:shadow-[0_34px_90px_-42px_rgba(11,11,11,.78)]" style={`--reveal-delay: ${index * 90}ms`}>
+            <span class="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 gold-fill transition duration-300 group-hover:scale-y-100" aria-hidden="true"></span>
+            <div class="grid gap-5 md:grid-cols-[6rem_minmax(0,1fr)_auto] md:items-center md:gap-6">
+            <div>
+              <p class="font-serif text-[2.8rem] leading-none gold-text">{number}</p>
+              <p class="mt-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-gold-deep">{label}</p>
+            </div>
+            <div>
+              <h3 class="text-[1.45rem] leading-tight text-ink">{title}</h3>
+              <p class="mt-1 text-sm leading-6 text-muted">{copy}</p>
+            </div>
+            <Button href={href} variant={index === 3 ? 'primary' : 'secondary'} class="w-full whitespace-nowrap !px-6 !py-3 text-[0.72rem] md:w-auto">
+              {cta}
+            </Button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+</Layout>

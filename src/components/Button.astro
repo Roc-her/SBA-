@@ -1,0 +1,29 @@
+---
+const {
+  href,
+  variant = 'primary',
+  class: className = '',
+  type = 'button',
+  ...attrs
+} = Astro.props;
+
+const baseClass =
+  'inline-flex items-center justify-center text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 disabled:pointer-events-none disabled:opacity-60';
+
+const variants = {
+  primary: 'btn-gold focus-visible:outline-gold-bright',
+  secondary: 'btn-outline focus-visible:outline-gold-bright',
+};
+
+const classes = `${baseClass} ${variants[variant] ?? variants.primary} ${className}`;
+---
+
+{href ? (
+  <a href={href} class={classes} {...attrs}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} {...attrs}>
+    <slot />
+  </button>
+)}

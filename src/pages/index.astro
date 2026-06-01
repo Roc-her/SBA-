@@ -1,0 +1,315 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { liveSiteImages } from '../data/liveSiteImages';
+
+const calendlyUrl = 'https://calendly.com/sarah-sbabuyersagency';
+
+const trustItems = [
+  'Independent advocacy',
+  'Protection before property',
+  'Regional Victoria specialists',
+  'No pressure, ever',
+];
+
+const problemPoints = [
+  ['Endless noise', 'Every podcast, agent and headline says something different.'],
+  ['High stakes', 'One wrong move on a purchase this size is expensive to undo.'],
+  ['No one in your corner', 'Every other agent in the deal is paid to act for the seller.'],
+];
+
+const methodRows = [
+  ['5', 'Minutes of Courage', 'Start with one honest conversation.', 'Begin'],
+  ['4', 'Pillars of Strategy', 'Clarify budget, brief, suburb and fit.', 'Foundation'],
+  ['3', 'Layers of Protection', 'Test data, contract risk and emotion.', 'Safeguard'],
+];
+
+const reviews = [
+  [
+    'Matt',
+    'As a first-time homebuyer, I felt overwhelmed, until Sarah stepped in. She helped me secure a better mortgage, find the perfect home, and answered all my questions with patience. I could not have done it without her. I highly recommend!',
+  ],
+  [
+    'El',
+    'Sarah\'s program is amazing! With her skills and connections, she saved me money and gave me the confidence to build my empire. Everyone needs a Sarah - thank you!',
+  ],
+  [
+    'Caleb',
+    'At 19, I was nervous about buying my first home, but Sarah made it easy. Her guidance, dedication, and clear advice were invaluable. Thank you, Sarah, for helping me secure my dream property!',
+  ],
+  [
+    'Tim & Erin',
+    'Sarah made our dream home a reality. Her kindness, expertise, and dedication guided us through every step, from securing a great mortgage to finding the perfect home. We are forever grateful!',
+  ],
+];
+
+const serviceCards = [
+  ['i', 'Full Buyer\'s Advocacy', 'Strategy, search, due diligence and settlement support.', 'Best when you want the whole process held.'],
+  ['ii', 'Negotiation Only', 'Unemotional negotiation when you have found the property.', 'Best when the property is found but the pressure is high.'],
+  ['iii', 'Strategic Advisory', 'Clarity before you buy, wait or change direction.', 'Best when you need the next right move.'],
+];
+
+const serviceMoments = ['Strategy first', 'Pressure removed', 'Decision clarity'];
+
+const homeServiceImages = [
+  liveSiteImages.regionalHome,
+  liveSiteImages.propertyStorm,
+  liveSiteImages.propertyOutdoor,
+];
+---
+
+<Layout
+  title="SBA Buyers Agency | Property Without Pressure"
+  description="Buy property with confidence, not pressure, with SBA Buyers Agency in Bendigo, Victoria."
+>
+  <section class="signature-dark overflow-hidden">
+    <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-2 lg:gap-14">
+      <div class="scroll-reveal max-w-[540px]">
+        <p class="section-kicker text-gold-bright">Property Without Pressure</p>
+        <h1 class="mt-5 text-6xl sm:text-7xl">
+          Buy property with <em class="gold-text italic">confidence,</em> not pressure.
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+          Strategic protection and advocacy for busy buyers who want clarity.
+        </p>
+
+        <!-- TODO: replace with Sarah's real Google rating / review count / experience before launch -->
+        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-semibold text-soft-light">
+          <div class="inline-flex items-center gap-3">
+            <span class="gold-text tracking-[0.08em]" aria-label="5 star rating">★★★★★</span>
+            <span><span class="text-gold-bright">5.0</span> · {'{{REVIEW_COUNT}}'} client reviews</span>
+          </div>
+          <span class="hidden h-5 w-px gold-fill sm:inline-block" aria-hidden="true"></span>
+          <span>Independent advocacy across Bendigo & regional Victoria</span>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center gap-5">
+          <Button href={calendlyUrl}>Book a Call</Button>
+          <a href="/method" class="group inline-flex items-center gap-2 text-sm font-semibold text-gold-bright">
+            Explore the Method
+            <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="scroll-reveal flex justify-start lg:justify-end" style="--reveal-delay: 120ms">
+        <figure class="relative w-full max-w-[440px]">
+          <div class="absolute -inset-4 rounded-[1.75rem] bg-[radial-gradient(circle_at_65%_20%,rgba(228,201,126,.26),transparent_18rem)] blur-xl"></div>
+          <div class="relative rounded-[1.75rem] p-px gold-fill shadow-soft">
+            <div class="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-soft-light">
+              <img
+                src={liveSiteImages.landingSarah}
+                alt="Sarah Smith from SBA Buyers Agency"
+                class="absolute inset-0 size-full object-cover"
+              />
+              <div class="absolute right-[18px] top-[18px] z-[3] rounded-[100px] border border-gold bg-black px-[1.3em] py-[0.7em] text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_30px_-14px_rgba(0,0,0,.6)]">
+                ✦ On Your Side, Only
+              </div>
+              <figcaption class="absolute bottom-[18px] left-[18px] z-[3] rounded-[100px] border border-gold bg-black px-[1.3em] py-[0.7em] text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_30px_-14px_rgba(0,0,0,.6)]">
+                ✦ SBA Buyers Agency
+              </figcaption>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="signature-dark border-t border-soft-light">
+    <div class="overflow-hidden py-5">
+      <div class="trust-marquee flex w-max gap-16 text-sm font-semibold text-soft-light">
+        {[...trustItems, ...trustItems].map((item) => (
+          <div class="flex min-w-max items-center gap-3">
+            <span class="size-2 rounded-full gold-fill" aria-hidden="true"></span>
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+      <div class="scroll-reveal relative max-w-3xl overflow-hidden rounded-lg border border-line bg-white p-7 shadow-[0_22px_70px_-52px_rgba(11,11,11,.5)]">
+        <div class="absolute inset-x-0 top-0 h-1 gold-fill"></div>
+        <p class="pointer-events-none absolute right-6 top-5 font-serif text-[8rem] leading-none opacity-[0.06] gold-text md:text-[10rem]" aria-hidden="true">
+          01
+        </p>
+        <div class="relative">
+          <p class="section-kicker">The real problem</p>
+          <h2 class="mt-4 max-w-2xl text-5xl sm:text-6xl">
+            It isn't property. It's the fear of <em class="gold-text italic">getting it wrong.</em>
+          </h2>
+          <p class="mt-5 max-w-xl text-base leading-8 text-muted">
+            Buyers drown in information when what they really need is clarity.
+          </p>
+          <p class="mt-5 max-w-xl font-serif text-3xl leading-tight text-ink">
+            More information is not the same as protection.
+          </p>
+          <div class="mt-6 grid gap-3 border-t border-line pt-5 text-xs font-semibold uppercase tracking-[0.16em] text-gold-deep sm:grid-cols-3">
+            <span>Noise</span>
+            <span>Pressure</span>
+            <span>Risk</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative scroll-reveal" style="--reveal-delay: 100ms">
+        <div class="space-y-5">
+          {problemPoints.map(([title, copy], index) => (
+            <div class="group relative pl-[58px]" style={`--reveal-delay: ${index * 70}ms`}>
+              {index < problemPoints.length - 1 && (
+                <span class="absolute left-[9px] top-[31px] h-[calc(100%+1.25rem)] w-[2px] -translate-x-1/2 bg-[linear-gradient(180deg,rgba(228,201,126,0)_0%,rgba(228,201,126,.9)_18%,rgba(194,160,91,.7)_55%,rgba(156,124,56,0)_100%)] shadow-[0_0_18px_rgba(228,201,126,.28)]" aria-hidden="true"></span>
+              )}
+              <span class="absolute left-[9px] top-[31px] z-10 size-[18px] -translate-x-1/2 rounded-full border-2 border-gold bg-white transition duration-200 group-hover:scale-125 group-hover:border-transparent group-hover:bg-[linear-gradient(135deg,#E4C97E_0%,#C2A05B_45%,#9C7C38_100%)] group-hover:shadow-[0_0_22px_rgba(228,201,126,.42)]"></span>
+              <article class="rounded-lg border border-line bg-white p-[22px] transition duration-200 group-hover:-translate-y-[5px] group-hover:border-gold group-hover:shadow-soft">
+                <h3 class="text-3xl">{title}</h3>
+                <p class="mt-2 text-sm leading-7 text-muted">{copy}</p>
+              </article>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="signature-dark">
+    <div class="section-shell py-10 md:py-14">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker text-gold-bright">The Method</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          The 5·4·3·2·1 Method
+        </h2>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-soft-light">
+          Five calm steps that take you from overwhelmed to a confident decision — here are the first three.
+        </p>
+      </div>
+
+      <div class="flare-border-y grid overflow-hidden md:grid-cols-3">
+        {methodRows.map(([number, title, copy, tag], index) => (
+          <article class="group scroll-reveal border-b border-soft-light bg-black/80 p-6 transition hover:bg-[rgba(228,201,126,.08)] md:border-b-0 md:border-r md:last:border-r-0" style={`--reveal-delay: ${index * 55}ms`}>
+            <p class="font-serif text-[3.6rem] leading-none gold-text">{number}</p>
+            <h3 class="mt-4 text-3xl">{title}</h3>
+            <p class="mt-3 text-sm leading-6 text-soft-light">{copy}</p>
+            <p class="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-gold-bright">{tag}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center">
+        <Button href="/method" variant="secondary">
+          See the full method -&gt;
+        </Button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="signature-dark border-t border-line-dark mt-5">
+    <div class="py-10">
+      <div class="section-shell">
+      <div class="scroll-reveal mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="section-kicker text-gold-bright">Client words</p>
+          <h2 class="mt-3 text-4xl sm:text-5xl">
+            Calm guidance, <em class="gold-text italic">real confidence.</em>
+          </h2>
+        </div>
+      </div>
+      </div>
+
+      <div class="overflow-hidden py-2" aria-label="Client reviews">
+        <div class="review-marquee">
+          {[0, 1].map((group) => (
+            <div class="review-marquee-group" aria-hidden={group === 1 ? 'true' : undefined}>
+              {reviews.map(([name, quote]) => (
+                <article class="relative flex min-h-[205px] w-[min(76vw,29rem)] shrink-0 flex-col rounded-xl border border-white/10 bg-black-2 p-6 text-offwhite shadow-[0_22px_60px_-42px_rgba(228,201,126,.42)] md:min-h-[218px]">
+                  <div class="flex items-center justify-between gap-5">
+                    <p class="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold-bright">Client note</p>
+                    <p class="gold-text text-xs tracking-[0.12em]" aria-label="5 star review">★★★★★</p>
+                  </div>
+                  <p class="mt-6 font-serif text-[1.25rem] leading-tight text-offwhite md:text-[1.4rem]">
+                    {quote}
+                  </p>
+                  <div class="mt-auto flex items-center gap-3 pt-6">
+                    <span class="h-px w-9 gold-fill" aria-hidden="true"></span>
+                    <p class="font-serif text-xl leading-none text-offwhite">{name}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.55fr)] lg:items-end">
+        <div>
+          <p class="section-kicker">Services</p>
+          <h2 class="mt-4 text-5xl sm:text-6xl">
+            Support shaped around where you <em class="gold-text italic">are.</em>
+          </h2>
+          <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
+            Three calm starting points. Choose the help that matches your pressure point.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-line bg-white/70 p-5 shadow-[0_22px_70px_-58px_rgba(11,11,11,.6)]">
+          <p class="font-serif text-2xl leading-tight text-ink">Start with the support your decision needs most.</p>
+          <div class="mt-4 grid gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-gold-deep sm:grid-cols-3 lg:grid-cols-1">
+            {serviceMoments.map((moment) => (
+              <span class="border-t border-line pt-2">{moment}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        {serviceCards.map(([roman, title, copy, bestFor], index) => (
+          <a
+            href="/services"
+            class="scroll-reveal gold-card group relative overflow-hidden rounded-xl p-0 transition duration-300 hover:-translate-y-[10px] hover:border-gold hover:bg-white hover:shadow-[0_34px_90px_-42px_rgba(11,11,11,.75)]"
+            style={`--reveal-delay: ${index * 80}ms`}
+          >
+            <div class="relative overflow-hidden border-b border-line">
+              <img
+                src={homeServiceImages[index]}
+                alt=""
+                class="aspect-[16/8] w-full object-cover transition duration-500 group-hover:scale-[1.06]"
+              />
+              <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,11,11,0)_40%,rgba(11,11,11,.58)_100%)] opacity-80 transition group-hover:opacity-95"></div>
+              <div class="absolute bottom-4 left-5 rounded-full border border-gold/70 bg-black/80 px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-offwhite shadow-[0_14px_34px_-20px_rgba(0,0,0,.8)]">
+                {serviceMoments[index]}
+              </div>
+            </div>
+            <div class="absolute right-6 top-[calc(50%+1rem)] font-serif text-7xl leading-none text-black opacity-[0.035] transition group-hover:opacity-[0.07]" aria-hidden="true">
+              {roman}
+            </div>
+            <div class="relative flex min-h-[210px] flex-col p-7">
+              <p class="font-serif text-3xl italic leading-none gold-text">{roman}</p>
+              <h3 class="mt-2 text-3xl text-ink">{title}</h3>
+              <p class="mt-3 text-[0.9rem] leading-[1.55] text-muted">{copy}</p>
+              <p class="mt-4 border-l border-gold/60 pl-4 text-[0.78rem] font-medium leading-6 text-muted">{bestFor}</p>
+              <div class="mt-auto flex items-center justify-between border-t border-line pt-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep transition group-hover:tracking-[0.2em]">
+                <span>Explore</span>
+                <span class="transition group-hover:translate-x-1" aria-hidden="true">-&gt;</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-7 text-center">
+        <Button href="/services" variant="secondary">
+          View all services -&gt;
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+</Layout>

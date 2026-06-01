@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+
+const methodRows = [
+  ['5', 'Minutes of Courage', 'The first step is a short, honest conversation. It names the decision before the market noise takes over.', 'Begin'],
+  ['4', 'Pillars of Strategy', 'Budget, brief, location and life fit become the foundation. The search gets smaller and sharper.', 'Foundation'],
+  ['3', 'Layers of Protection', 'The property is tested through data, contract risk and emotional bias. Protection comes before excitement.', 'Safeguard'],
+  ['2', 'Mindset Shifts', 'Buyers move from panic to process. A good decision can include walking away.', 'Reframe'],
+  ['1', 'Confident Decision', 'The final answer is clear enough to act, pause or stop. Confidence comes from what has been checked.', 'Arrive'],
+];
+
+const beliefs = [
+  ['Noise is not research', 'More opinions do not always create better decisions.'],
+  ['Urgency is not strategy', 'Pressure should be tested before it is trusted.'],
+  ['Protection is progress', 'Avoiding the wrong purchase is a successful outcome.'],
+];
+
+const chartSteps = [
+  ['5', 'Courage', '40%'],
+  ['4', 'Strategy', '55%'],
+  ['3', 'Protection', '70%'],
+  ['2', 'Mindset', '85%'],
+  ['1', 'Decision', '100%'],
+];
+---
+
+<Layout
+  title="The 5-4-3-2-1 Method | SBA Buyers Agency"
+  description="Sarah Smith's 5-4-3-2-1 Method is a calm property decision-making framework."
+>
+  <section class="signature-dark">
+    <div class="section-shell grid min-h-[440px] items-center gap-10 pb-12 pt-9 lg:grid-cols-[1fr_0.86fr] lg:gap-14">
+      <div class="scroll-reveal max-w-[760px]">
+        <p class="section-kicker text-gold-bright">The 5-4-3-2-1 Method</p>
+        <h1 class="mt-5 text-6xl sm:text-7xl">
+          A process built on protection, clarity and <em class="gold-text italic">confidence.</em>
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+          Confidence comes from process, not knowing everything.
+        </p>
+      </div>
+
+      <div class="scroll-reveal hidden lg:block" style="--reveal-delay: 140ms" aria-label="5-4-3-2-1 Method progress chart">
+        <div class="relative ml-auto max-w-[540px] rounded-[1.35rem] border border-line-dark bg-black-2/70 p-7 shadow-soft backdrop-blur">
+          <div class="pointer-events-none absolute inset-0 rounded-[1.35rem] bg-[radial-gradient(circle_at_72%_18%,rgba(228,201,126,.13),transparent_16rem)]"></div>
+          <div class="relative grid grid-cols-5 gap-6 px-1">
+            {chartSteps.map(([number, label, height], index) => (
+              <div class="group flex min-w-0 flex-col items-center">
+                <div class="relative flex h-[262px] w-full items-end justify-center border-b border-line-dark">
+                  <div
+                    class="flex w-full flex-col items-center transition duration-300 group-hover:-translate-y-1"
+                    style={`height: ${height}`}
+                  >
+                    <p class="mb-3 font-serif text-5xl leading-none gold-text transition duration-300 group-hover:brightness-125">
+                      {number}
+                    </p>
+                  <div
+                    class="min-h-0 w-full max-w-[3.35rem] flex-1 rounded-t-[1.2rem] bg-[linear-gradient(180deg,#E4C97E_0%,#C2A05B_48%,#9C7C38_100%)] opacity-90 shadow-[0_0_28px_-14px_rgba(228,201,126,.9)] transition duration-300 group-hover:opacity-100 group-hover:brightness-110 group-hover:shadow-[0_0_34px_-10px_rgba(228,201,126,1)]"
+                    aria-hidden="true"
+                  ></div>
+                  </div>
+                </div>
+                <p class="mt-4 text-center text-[0.6rem] font-semibold uppercase tracking-[0.11em] text-gold-bright">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p class="relative mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-soft-light">
+            Building from one conversation to one confident decision
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker">What most people get wrong</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          They try to feel certain before they have a <em class="gold-text italic">process.</em>
+        </h2>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
+          The method gives uncertainty a structure, so each next step has a job.
+        </p>
+      </div>
+
+      <div class="overflow-hidden border-y border-line">
+        {methodRows.map(([number, title, copy, tag], index) => (
+          <article class="group scroll-reveal grid gap-4 border-b border-line py-[30px] transition last:border-b-0 hover:translate-x-2 md:grid-cols-[7rem_1fr_auto] md:items-center" style={`--reveal-delay: ${index * 70}ms`}>
+            <p class="font-serif text-7xl leading-none gold-text">{number}</p>
+            <div>
+              <h3 class="text-4xl">{title}</h3>
+              <p class="mt-2 max-w-3xl text-sm leading-7 text-muted">{copy}</p>
+            </div>
+            <span class="w-fit rounded-full border border-line px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep">
+              {tag}
+            </span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="signature-dark">
+    <div class="section-shell py-10 md:py-14">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker text-gold-bright">Philosophy</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          Strong decisions are calm before they are <em class="gold-text italic">confident.</em>
+        </h2>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        {beliefs.map(([title, copy], index) => (
+          <article class="scroll-reveal rounded-lg border border-soft-light bg-soft-light p-7" style={`--reveal-delay: ${index * 70}ms`}>
+            <h3 class="text-4xl">{title}</h3>
+            <p class="mt-4 text-sm leading-7 text-soft-light">{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+</Layout>

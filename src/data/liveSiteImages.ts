@@ -1,0 +1,16 @@
+export const liveSiteImages = {
+  sarahPortrait: '/images/sarah-headshot.png',
+  sarahWorking: '/images/sarah-white-fence-book.png',
+  landingSarah: '/images/sarah-portrait-wall.png',
+  startHereSarah: '/images/sarah-fence-wide.png',
+  aboutSarah: '/images/sarah-black-gate.png',
+  sarahCar: '/images/sarah-car-selfie.png',
+  sbaBook: '/images/sba-book.png',
+  regionalHome: '/images/live-home.jpg',
+  propertyInterior: '/images/landing-sarah-1.jpeg',
+  propertyExterior: '/images/landing-sarah-4.jpeg',
+  propertyStorm: '/images/landing-sarah-2.jpeg',
+  propertyOutdoor: '/images/landing-sarah-3.jpeg',
+  sarahWallLegacy: '/images/about-us-secondary.jpg',
+  sarahPortraitLegacy: '/images/about-us-sarah.jpeg',
+};

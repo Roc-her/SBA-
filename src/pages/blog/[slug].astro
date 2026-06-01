@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import FinalCTA from '../../components/FinalCTA.astro';
+import { liveSiteImages } from '../../data/liveSiteImages';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} | SBA Buyers Agency`} description={post.data.description}>
+  <article>
+    <header class="signature-dark">
+      <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-[1fr_0.68fr] lg:gap-14">
+        <div>
+          <a class="text-sm font-semibold text-gold-bright" href="/blog">Back to Blog</a>
+          <p class="section-kicker mt-8 text-gold-bright">{post.data.category}</p>
+          <h1 class="mt-5 max-w-4xl text-6xl sm:text-7xl">
+            {post.data.title}
+          </h1>
+          <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+            {post.data.description}
+          </p>
+        </div>
+        <figure class="relative justify-self-start lg:justify-self-end">
+          <div class="max-w-[430px] rounded-[1.35rem] border border-line-dark bg-black-2 p-4 shadow-soft">
+            <img
+              src={post.data.category === 'Regional Victoria Property' ? liveSiteImages.propertyExterior : liveSiteImages.propertyInterior}
+              alt="Regional Victoria property"
+              class="aspect-[4/3] w-full rounded-[0.95rem] object-cover"
+            />
+          </div>
+        </figure>
+      </div>
+    </header>
+
+    <section class="page-section">
+      <div class="section-shell">
+        <div class="prose-sba mx-auto max-w-3xl gold-card rounded-lg p-7">
+          <Content />
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <FinalCTA />
+</Layout>

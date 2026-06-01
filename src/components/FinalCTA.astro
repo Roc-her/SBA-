@@ -1,0 +1,20 @@
+---
+import Button from './Button.astro';
+
+const calendlyUrl = 'https://calendly.com/sarah-sbabuyersagency';
+---
+
+<section class="signature-dark">
+  <div class="section-shell py-12 text-center md:py-[68px]">
+    <p class="section-kicker justify-center text-gold-bright before:bg-[linear-gradient(135deg,#E4C97E_0%,#C2A05B_45%,#9C7C38_100%)]">
+      Five Minutes of Courage
+    </p>
+    <h2 class="mx-auto mt-5 max-w-3xl font-serif text-5xl font-semibold leading-tight text-offwhite md:text-6xl">
+      Five minutes could save you <em class="gold-text italic">years</em> of costly mistakes.
+    </h2>
+    <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-soft-light">
+      Start with one calm conversation and no pressure to move before you are ready.
+    </p>
+    <Button href={calendlyUrl} class="mt-8">Book a Call</Button>
+  </div>
+</section>

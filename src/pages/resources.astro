@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { liveSiteImages } from '../data/liveSiteImages';
+
+const filters = ['All', 'Free Guides', 'Calculators', 'Quizzes'];
+
+const resources = [
+  ['Free Guides', 'Buyer\'s Checklist', 'A calm checklist for brief, budget, due diligence and next steps.'],
+  ['Free Guides', 'Due Diligence Guide', 'Simple prompts for testing risk before emotion takes over.'],
+  ['Free Guides', '7 Costly Mistakes', 'A practical guide to the decisions buyers often regret later.'],
+  ['Calculators', 'Borrowing Power', 'Estimate your buying range before you start comparing homes.'],
+  ['Calculators', 'Stamp Duty', 'Check one of the easiest costs to underestimate.'],
+  ['Calculators', 'Deposit', 'Understand how your savings translate into usable buying power.'],
+  ['Calculators', 'Rent vs Buy', 'Compare the trade-offs without turning the decision into noise.'],
+  ['Quizzes', 'Are You Ready to Buy?', 'A quick check for budget, brief, data and emotional readiness.'],
+  ['Quizzes', 'Should You Use a Buyer\'s Agent?', 'Work out whether support would protect this decision.'],
+];
+---
+
+<Layout
+  title="Resources | SBA Buyers Agency"
+  description="Free property guides, calculators and quizzes from SBA Buyers Agency."
+>
+  <section class="signature-dark">
+    <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-[1fr_0.72fr] lg:gap-14">
+      <div class="scroll-reveal max-w-[680px]">
+        <p class="section-kicker text-gold-bright">Resources</p>
+        <h1 class="mt-5 text-6xl sm:text-7xl">
+          Learn at your own <em class="gold-text italic">pace.</em>
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+          Practical tools for slower, calmer property decisions.
+        </p>
+      </div>
+      <figure class="scroll-reveal relative justify-self-start lg:justify-self-end" style="--reveal-delay: 120ms">
+        <div class="absolute -inset-5 rounded-[1.75rem] bg-[radial-gradient(circle_at_50%_50%,rgba(228,201,126,.18),transparent_18rem)] blur-xl"></div>
+        <div class="relative max-w-[360px] rounded-[1.5rem] border border-line-dark bg-black-2 p-5 shadow-soft">
+          <img
+            src={liveSiteImages.sbaBook}
+            alt="SBA buyer resource guide"
+            class="aspect-[4/5] w-full rounded-[1rem] object-cover"
+          />
+          <figcaption class="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold-bright">
+            Free guides and practical tools
+          </figcaption>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker">Resource library</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          Built to grow as buyers need better <em class="gold-text italic">questions.</em>
+        </h2>
+      </div>
+
+      <div class="mb-8 flex flex-wrap gap-3">
+        {filters.map((filter) => (
+          <button class="resource-filter btn-outline" type="button" data-filter={filter}>
+            {filter}
+          </button>
+        ))}
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {resources.map(([group, title, copy], index) => (
+          <article class="resource-card scroll-reveal gold-card rounded-lg p-7" data-group={group} style={`--reveal-delay: ${index * 45}ms`}>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">{group}</p>
+            <h3 class="mt-5 text-4xl">{title}</h3>
+            <p class="mt-4 text-sm leading-7 text-muted">{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+
+  <script>
+    const filters = document.querySelectorAll('.resource-filter');
+    const cards = document.querySelectorAll('.resource-card');
+
+    filters.forEach((filter) => {
+      filter.addEventListener('click', () => {
+        const selected = filter.getAttribute('data-filter');
+        cards.forEach((card) => {
+          card.classList.toggle('hidden', selected !== 'All' && card.getAttribute('data-group') !== selected);
+        });
+      });
+    });
+  </script>
+</Layout>

@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import FinalCTA from '../../components/FinalCTA.astro';
+import { liveSiteImages } from '../../data/liveSiteImages';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const categories = [
+  'All',
+  'Regional Victoria Property',
+  'Property Education',
+  'Women & Wealth',
+  'Market Commentary',
+];
+
+const blogImages = [
+  liveSiteImages.propertyExterior,
+  liveSiteImages.propertyInterior,
+  liveSiteImages.propertyOutdoor,
+  liveSiteImages.propertyStorm,
+];
+---
+
+<Layout
+  title="Blog | SBA Buyers Agency"
+  description="Calm notes on buying well, regional Victoria property and protected decision-making."
+>
+  <section class="signature-dark">
+    <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-[1fr_0.72fr] lg:gap-14">
+      <div class="scroll-reveal max-w-[680px]">
+        <p class="section-kicker text-gold-bright">Blog</p>
+        <h1 class="mt-5 text-6xl sm:text-7xl">
+          Notes on buying <em class="gold-text italic">well.</em>
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+          Short, honest thinking for calmer property decisions.
+        </p>
+      </div>
+      <figure class="scroll-reveal relative w-full justify-self-start lg:justify-self-end" style="--reveal-delay: 120ms">
+        <div class="absolute -inset-4 rounded-[1.75rem] bg-[radial-gradient(circle_at_45%_45%,rgba(228,201,126,.18),transparent_17rem)] blur-xl"></div>
+        <div class="relative ml-auto max-w-[520px] rounded-[1.5rem] p-px gold-fill shadow-soft">
+          <div class="relative aspect-[16/11] overflow-hidden rounded-[1.42rem] bg-black">
+            <img
+              src={liveSiteImages.propertyStorm}
+              alt="Regional Victoria home exterior"
+              class="absolute inset-0 size-full object-cover object-[50%_42%]"
+            />
+            <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,11,11,.4),transparent_50%),linear-gradient(0deg,rgba(11,11,11,.72),transparent_56%)]"></div>
+            <figcaption class="absolute bottom-5 left-5 right-5 rounded-lg border border-gold/35 bg-black/86 p-4 backdrop-blur-md">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-bright">
+                Guides, notes and calm buyer education
+              </p>
+            </figcaption>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker">Latest notes</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          Clear ideas without the market <em class="gold-text italic">noise.</em>
+        </h2>
+      </div>
+
+      <div class="mb-8 flex flex-wrap gap-3">
+        {categories.map((category) => (
+          <button class="blog-filter btn-outline" type="button" data-category={category}>
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2">
+        {posts.map((post, index) => (
+          <article class="blog-card scroll-reveal gold-card rounded-lg p-7 transition hover:-translate-y-1" data-category={post.data.category} style={`--reveal-delay: ${index * 80}ms`}>
+            <div class="mb-6 overflow-hidden rounded-md border border-line bg-off-white-2">
+              <img
+                src={blogImages[index % blogImages.length]}
+                alt=""
+                class="aspect-[16/7] w-full object-cover"
+              />
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">{post.data.category}</p>
+            <h3 class="mt-4 text-4xl">{post.data.title}</h3>
+            <p class="mt-4 text-sm leading-7 text-muted">{post.data.description}</p>
+            <a class="mt-8 inline-flex gap-1 text-sm font-semibold text-gold-deep" href={`/blog/${post.slug}`}>
+              Read article <span aria-hidden="true">-&gt;</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+
+  <script>
+    const filters = document.querySelectorAll('.blog-filter');
+    const cards = document.querySelectorAll('.blog-card');
+
+    filters.forEach((filter) => {
+      filter.addEventListener('click', () => {
+        const category = filter.getAttribute('data-category');
+        cards.forEach((card) => {
+          card.classList.toggle('hidden', category !== 'All' && card.getAttribute('data-category') !== category);
+        });
+      });
+    });
+  </script>
+</Layout>

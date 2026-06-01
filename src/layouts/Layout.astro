@@ -1,0 +1,338 @@
+---
+import '../styles/global.css';
+import Button from '../components/Button.astro';
+
+const {
+  title = 'SBA Buyers Agency',
+  description = 'Calm, strategic buyer advocacy from Bendigo, Victoria.',
+  image = '/og-image.svg',
+} = Astro.props;
+
+const navItems = [
+  ['Start Here', '/start-here'],
+  ['About Sarah', '/about-sarah'],
+  ['Services', '/services'],
+  ['The Method', '/method'],
+  ['Contact', '/contact'],
+];
+
+const learnItems = [
+  ['Resources', '/resources'],
+  ['Blog', '/blog'],
+];
+
+const calendlyUrl = 'https://calendly.com/sarah-sbabuyersagency';
+const facebookUrl = 'https://www.facebook.com/people/Sarah-Smith-Regional-Vic-Most-Trusted-Buyers-Agent/61565111191180/';
+const linkedInUrl = 'https://www.linkedin.com/in/sarah-smith-73b183345';
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActivePath = (href: string) => {
+  const normalizedHref = href.replace(/\/$/, '') || '/';
+  return currentPath === normalizedHref || (normalizedHref !== '/' && currentPath.startsWith(`${normalizedHref}/`));
+};
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://www.sbabuyersagency.com').toString();
+const imageUrl = new URL(image, Astro.site ?? 'https://www.sbabuyersagency.com').toString();
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'SBA Buyers Agency',
+  url: 'https://www.sbabuyersagency.com',
+  telephone: '0438 784 423',
+  email: 'sarah@sbabuyersagency.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Bendigo',
+    addressRegion: 'VIC',
+    postalCode: '3555',
+    addressCountry: 'AU',
+  },
+  areaServed: ['Bendigo', 'Ballarat', 'Shepparton', 'Regional Victoria'],
+  openingHours: 'Mo-Fr 09:00-17:00',
+  sameAs: [
+    facebookUrl,
+    'https://www.instagram.com/sarah_smith_buyers_agent',
+    linkedInUrl,
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SBA Buyers Agency" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-gold-bright focus:px-5 focus:py-3 focus:text-black"
+    >
+      Skip to content
+    </a>
+
+    <header class="site-header fixed inset-x-0 top-0 z-40 border-b backdrop-blur">
+      <div class="section-shell flex min-h-[76px] items-center justify-between gap-5 py-3">
+        <a href="/" class="group inline-flex items-center gap-3" aria-label="SBA Buyers Agency home">
+          <span class="grid size-11 place-items-center overflow-hidden rounded-full p-px gold-fill">
+            <span class="grid size-full place-items-center rounded-full bg-black">
+              <img src="/logo.svg" alt="" class="hidden size-full object-contain" />
+            </span>
+          </span>
+          <span class="leading-tight">
+            <span class="block font-serif text-2xl font-semibold text-offwhite">SBA Buyers Agency</span>
+            <span class="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep">
+              Bendigo VIC
+            </span>
+          </span>
+        </a>
+
+        <nav class="hidden items-center gap-6 text-sm font-semibold text-soft-light lg:flex" aria-label="Primary navigation">
+          {navItems.map(([label, href]) => {
+            const active = isActivePath(href);
+            return (
+            <a
+              class:list={[
+                'group/nav relative transition hover:text-offwhite',
+                active ? 'text-gold-bright' : '',
+              ]}
+              href={href}
+              aria-current={active ? 'page' : undefined}
+            >
+              {label}
+              <span class:list={[
+                'absolute -bottom-2 left-0 h-px w-full origin-left gold-fill transition group-hover/nav:scale-x-100',
+                active ? 'scale-x-100' : 'scale-x-0',
+              ]}></span>
+            </a>
+            );
+          })}
+          {(() => {
+            const active = learnItems.some(([, href]) => isActivePath(href));
+            return (
+              <details class="group/learn relative">
+                <summary
+                  class:list={[
+                    'flex cursor-pointer list-none items-center gap-1 transition hover:text-offwhite',
+                    active ? 'text-gold-bright' : '',
+                  ]}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  Learn
+                  <span class="text-[0.7em] transition group-open/learn:rotate-180" aria-hidden="true">∨</span>
+                  <span class:list={[
+                    'absolute -bottom-2 left-0 h-px w-full origin-left gold-fill transition group-hover/learn:scale-x-100',
+                    active ? 'scale-x-100' : 'scale-x-0',
+                  ]}></span>
+                </summary>
+                <div class="absolute left-1/2 top-full mt-5 w-56 -translate-x-1/2 rounded-2xl border border-line-dark bg-black p-3 shadow-soft">
+                  <nav class="grid gap-1" aria-label="Learn navigation">
+                    {learnItems.map(([label, href]) => {
+                      const itemActive = isActivePath(href);
+                      return (
+                        <a
+                          class:list={[
+                            'rounded-xl px-4 py-3 text-sm transition hover:bg-white hover:text-black',
+                            itemActive ? 'bg-white text-black' : 'text-soft-light',
+                          ]}
+                          href={href}
+                          aria-current={itemActive ? 'page' : undefined}
+                        >
+                          {label}
+                        </a>
+                      );
+                    })}
+                  </nav>
+                </div>
+              </details>
+            );
+          })()}
+        </nav>
+
+        <Button href={calendlyUrl} class="hidden lg:inline-flex">
+          Book a Call
+        </Button>
+
+        <details class="relative lg:hidden">
+          <summary class="cursor-pointer list-none rounded-full border border-line-dark px-4 py-2 text-sm font-semibold text-offwhite">
+            Menu
+          </summary>
+          <div class="absolute right-0 mt-3 w-72 rounded-2xl border border-line-dark bg-black p-4 shadow-soft">
+            <nav class="grid gap-3 text-sm font-semibold text-soft-light" aria-label="Mobile navigation">
+              {navItems.map(([label, href]) => {
+                const active = isActivePath(href);
+                return (
+                <a
+                  class:list={[
+                    'rounded-lg px-2 py-2 transition hover:bg-white hover:text-black',
+                    active ? 'bg-white text-black' : '',
+                  ]}
+                  href={href}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {label}
+                </a>
+                );
+              })}
+              <div class="border-t border-line-dark pt-3">
+                <p class="px-2 pb-1 text-[0.68rem] uppercase tracking-[0.18em] text-gold-bright">Learn</p>
+                <div class="grid gap-1">
+                  {learnItems.map(([label, href]) => {
+                    const active = isActivePath(href);
+                    return (
+                    <a
+                      class:list={[
+                        'rounded-lg px-2 py-2 transition hover:bg-white hover:text-black',
+                        active ? 'bg-white text-black' : '',
+                      ]}
+                      href={href}
+                      aria-current={active ? 'page' : undefined}
+                    >
+                      {label}
+                    </a>
+                    );
+                  })}
+                </div>
+              </div>
+              <Button href={calendlyUrl} class="mt-2 w-full">
+                Book a Call
+              </Button>
+            </nav>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <footer class="site-footer text-offwhite">
+      <div class="gold-rule h-px"></div>
+      <div class="section-shell grid gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr_0.85fr_1fr]">
+        <div>
+          <a href="/" class="inline-flex items-center gap-3" aria-label="SBA Buyers Agency home">
+            <span class="grid size-11 place-items-center overflow-hidden rounded-full p-px gold-fill">
+              <span class="grid size-full place-items-center rounded-full bg-black">
+                <img src="/logo.svg" alt="" class="hidden size-full object-contain" />
+              </span>
+            </span>
+            <span class="leading-tight">
+              <span class="block font-serif text-2xl font-semibold text-offwhite">SBA Buyers Agency</span>
+              <span class="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-bright">Bendigo VIC</span>
+            </span>
+          </a>
+          <p class="mt-5 max-w-sm text-sm leading-7 text-soft-light">
+            Calm guidance for thoughtful buyers ready to move with clarity, care and quiet confidence.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-gold-bright">Explore</p>
+          <nav class="mt-5 grid gap-3 text-sm text-soft-light" aria-label="Footer navigation">
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/start-here">Start Here</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/about-sarah">About Sarah</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/services">Services</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/method">The Method</a>
+          </nav>
+          <div class="mt-7 flex gap-3" aria-label="Social media">
+            <a class="group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition hover:-translate-y-0.5 hover:border-transparent hover:text-black hover:gold-fill" href="https://www.instagram.com/sarah_smith_buyers_agent" rel="noreferrer" aria-label="Instagram">
+              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"></rect>
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"></circle>
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"></circle>
+              </svg>
+            </a>
+            <a class="group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition hover:-translate-y-0.5 hover:border-transparent hover:text-black hover:gold-fill" href={linkedInUrl} rel="noreferrer" aria-label="LinkedIn">
+              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M6.94 8.9H3.8V20h3.14V8.9ZM5.37 4a1.82 1.82 0 1 0 0 3.64A1.82 1.82 0 0 0 5.37 4ZM20.2 13.88c0-3.17-1.69-5.22-4.43-5.22-1.55 0-2.59.84-3.02 1.65h-.04V8.9H9.7V20h3.14v-5.5c0-1.45.27-2.85 2.07-2.85 1.77 0 1.8 1.66 1.8 2.95V20h3.14v-6.12h.35Z"></path>
+              </svg>
+            </a>
+            <a class="group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition hover:-translate-y-0.5 hover:border-transparent hover:text-black hover:gold-fill" href={facebookUrl} rel="noreferrer" aria-label="Facebook">
+              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M14.1 8.45V6.9c0-.75.5-.93.85-.93h2.16V2.63L14.14 2.6c-3.3 0-4.05 2.47-4.05 4.05v1.8H7.5v3.43h2.59V21h4.01v-9.12h2.72l.36-3.43H14.1Z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-gold-bright">Learn</p>
+          <nav class="mt-5 grid gap-3 text-sm text-soft-light" aria-label="Learning navigation">
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources">Resources</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources">Calculators</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources">Free Guides</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/blog">Blog</a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-gold-bright">Connect</p>
+          <address class="mt-5 space-y-3 text-sm not-italic leading-7 text-soft-light">
+            <p>Bendigo VIC 3555</p>
+            <p><a class="transition hover:text-gold-bright" href="tel:0438784423">0438 784 423</a></p>
+            <p><a class="transition hover:text-gold-bright" href="mailto:sarah@sbabuyersagency.com">sarah@sbabuyersagency.com</a></p>
+          </address>
+          <a class="btn-gold mt-6 inline-flex items-center justify-center" href={calendlyUrl}>
+            Book a Call -&gt;
+          </a>
+        </div>
+      </div>
+
+      <div class="border-t border-line-dark">
+        <div class="section-shell flex flex-col gap-3 py-5 text-xs text-muted md:flex-row md:items-center md:justify-between">
+          <p>© 2026 SBA Buyers Agency</p>
+          <p>Property Without Pressure. Guidance Without Judgement.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const siteHeader = document.querySelector('.site-header');
+
+      if (siteHeader) {
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        const updateHeader = () => {
+          const currentScrollY = window.scrollY;
+          const menuOpen = Boolean(siteHeader.querySelector('details[open]'));
+          const shouldHide = currentScrollY > lastScrollY && currentScrollY > 90 && !menuOpen;
+
+          siteHeader.classList.toggle('is-hidden', shouldHide);
+          lastScrollY = Math.max(currentScrollY, 0);
+          ticking = false;
+        };
+
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              window.requestAnimationFrame(updateHeader);
+              ticking = true;
+            }
+          },
+          { passive: true },
+        );
+      }
+    </script>
+  </body>
+</html>

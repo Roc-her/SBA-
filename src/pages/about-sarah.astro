@@ -1,0 +1,255 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { liveSiteImages } from '../data/liveSiteImages';
+
+const storyBeats = [
+  {
+    number: '01',
+    label: 'Nurse first',
+    summary: 'Sarah worked nights, double shifts and weekends because hard work felt like the safest path.',
+    paragraphs: [
+      'She believed doing more would create security. So she picked up the extra shifts, said yes to the hard rosters and kept pushing.',
+      'It is a belief many capable people carry: if the future feels uncertain, work harder until it feels safer.',
+    ],
+  },
+  {
+    number: '02',
+    label: 'Missing moments',
+    summary: 'School assemblies and sport days slipped past while she kept trying to build security.',
+    quote: 'You said you\'d come, Mum.',
+    paragraphs: [
+      'The milestones she could not get back made her realise working harder was costing the life she was trying to protect.',
+      'That was not just a money problem. It was a life problem asking for a different strategy.',
+    ],
+  },
+  {
+    number: '03',
+    label: 'The property lesson',
+    summary: 'A costly emotional purchase taught her that hope and trust are not enough.',
+    paragraphs: [
+      'Trusting the wrong advice and buying emotionally cost her dearly. It knocked her confidence and changed how she looked at risk.',
+      'Good property decisions come from structure, protection and discipline, not hope.',
+    ],
+  },
+  {
+    number: '04',
+    label: 'Why SBA exists',
+    summary: 'She built SBA so buyers could have structure, truth and protection before pressure arrives.',
+    quote: 'No buyer should have to learn protection the expensive way.',
+    paragraphs: [
+      'SBA exists so buyers can make decisions with honest guidance, a clear process and protection before pressure arrives.',
+      'Sarah\'s role is to make sure you are never alone in the decision.',
+    ],
+  },
+];
+
+const values = ['Honest', 'Independent', 'Protective', 'Strategic'];
+---
+
+<Layout
+  title="About Sarah | SBA Buyers Agency"
+  description="Meet Sarah Smith, founder of SBA Buyers Agency in Bendigo, Victoria."
+>
+  <section class="signature-dark">
+    <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-[1fr_0.9fr] lg:gap-14">
+      <div class="scroll-reveal max-w-[640px]">
+        <p class="section-kicker text-gold-bright">About Sarah</p>
+        <h1 class="mt-5 text-6xl sm:text-7xl">
+          The person who'll be in your <em class="gold-text italic">corner.</em>
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
+          Sarah brings lived experience, calm strategy and honest buyer advocacy.
+        </p>
+      </div>
+
+      <figure class="scroll-reveal justify-self-start lg:justify-self-end" style="--reveal-delay: 120ms">
+        <div class="w-full max-w-[420px] rounded-[1.75rem] p-px gold-fill shadow-soft">
+          <div class="aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-soft-light">
+            <img
+              src={liveSiteImages.sarahPortrait}
+              alt="Sarah Smith, founder of SBA Buyers Agency"
+              class="size-full object-cover"
+            />
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker">Sarah's story</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          The road that built <em class="gold-text italic">SBA.</em>
+        </h2>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
+          Tap each chapter to read more.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {storyBeats.map((beat, index) => (
+          <article
+            class="story-accordion-card scroll-reveal group relative overflow-hidden rounded-xl border border-line bg-white shadow-[0_18px_55px_-44px_rgba(11,11,11,.58)] transition duration-300 hover:-translate-y-[5px] hover:border-gold/70 hover:shadow-[0_34px_90px_-44px_rgba(11,11,11,.76)]"
+            style={`--reveal-delay: ${index * 70}ms`}
+            data-story-card
+          >
+            <span class="story-gold-bar absolute inset-y-0 left-0 w-1 origin-top scale-y-0 gold-fill transition duration-300 group-hover:scale-y-100" aria-hidden="true"></span>
+            <button
+              class="grid w-full gap-5 p-[26px] text-left md:grid-cols-[6.8rem_minmax(0,1fr)_auto] md:items-center md:gap-[30px]"
+              type="button"
+              aria-expanded="false"
+              aria-controls={`story-panel-${index}`}
+              data-story-trigger
+            >
+              <div>
+                <p class="font-serif text-[3.4rem] leading-none gold-text">{beat.number}</p>
+              </div>
+              <div>
+                <h3 class="text-[1.6rem] leading-tight text-ink">{beat.label}</h3>
+                <p class="mt-2 text-sm leading-7 text-muted">{beat.summary}</p>
+              </div>
+              <span class="story-chevron flex size-[34px] items-center justify-center rounded-full border border-gold text-gold-deep transition duration-300" aria-hidden="true">
+                <span class="translate-y-[-1px] text-sm font-semibold">v</span>
+              </span>
+            </button>
+            <div
+              id={`story-panel-${index}`}
+              class="story-panel max-h-0 overflow-hidden transition-[max-height] duration-500 ease-out"
+              data-story-panel
+            >
+              <div class="px-[26px] pb-[26px] md:pl-[calc(6.8rem+56px)]">
+                <div class="border-t border-line pt-5">
+                  {beat.quote && (
+                    <blockquote class="mb-4 border-l border-gold pl-4 font-serif text-3xl leading-tight">
+                      <em class="gold-text italic">{beat.quote}</em>
+                    </blockquote>
+                  )}
+                  <div class="space-y-3 text-sm leading-7 text-muted">
+                    {beat.paragraphs.map((paragraph) => (
+                      <p>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="signature-dark">
+    <div class="section-shell py-10 md:py-14">
+      <div class="grid items-center gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
+        <figure class="scroll-reveal relative">
+          <div class="absolute -inset-4 rounded-[2rem] bg-[radial-gradient(circle_at_28%_18%,rgba(228,201,126,.18),transparent_17rem)] blur-xl"></div>
+          <div class="relative rounded-[1.75rem] p-px gold-fill shadow-[0_36px_100px_-58px_rgba(228,201,126,.5)]">
+            <div class="relative aspect-[5/4] overflow-hidden rounded-[1.65rem] bg-black">
+              <img
+                src={liveSiteImages.startHereSarah}
+                alt="Sarah Smith with her property notes"
+                class="absolute inset-0 size-full object-cover object-[58%_40%]"
+              />
+              <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,11,11,.18),transparent_48%),linear-gradient(0deg,rgba(11,11,11,.72),transparent_56%)]"></div>
+              <div class="absolute bottom-5 left-5 right-5 flex flex-wrap items-center justify-between gap-3 border-t border-line-dark pt-4">
+                <p class="text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-gold-bright">Regional Victoria</p>
+                <p class="text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-offwhite">Protection before pressure</p>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <div class="scroll-reveal" style="--reveal-delay: 120ms">
+          <div class="relative overflow-hidden rounded-[1.4rem] border border-line-dark bg-black-2/72 p-7 shadow-soft backdrop-blur md:p-8">
+            <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_12%,rgba(228,201,126,.14),transparent_18rem)]"></div>
+            <div class="relative">
+              <p class="section-kicker text-gold-bright">The belief</p>
+              <h2 class="mt-4 text-5xl sm:text-6xl">
+                Strategy should protect the life you're <em class="gold-text italic">building.</em>
+              </h2>
+              <div class="mt-7 border-l border-gold pl-6">
+                <blockquote class="font-serif text-4xl leading-tight sm:text-5xl">
+                  <em class="gold-text italic">Wealth should support life, not consume it.</em>
+                </blockquote>
+                <p class="mt-5 max-w-xl text-sm leading-7 text-soft-light">
+                  That belief sits underneath every brief, every negotiation and every moment Sarah tells a buyer to pause.
+                </p>
+              </div>
+              <div class="mt-7 grid gap-3 border-t border-line-dark pt-5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold-bright sm:grid-cols-3">
+                <span>Clarity</span>
+                <span>Protection</span>
+                <span>Discipline</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker">Values</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          The way Sarah shows <em class="gold-text italic">up.</em>
+        </h2>
+      </div>
+
+      <div class="relative overflow-hidden rounded-xl border border-line bg-white shadow-[0_22px_70px_-52px_rgba(11,11,11,.64)]">
+        <span class="pointer-events-none absolute left-0 right-0 top-[4.65rem] hidden h-px bg-gold lg:block" aria-hidden="true"></span>
+        <div class="grid lg:grid-cols-4">
+        {values.map((value, index) => (
+          <div
+            class="scroll-reveal group relative min-h-[13rem] border-b border-line px-7 py-7 text-center transition duration-300 hover:bg-off-white-2 lg:border-b-0 lg:border-r lg:last:border-r-0"
+            style={`--reveal-delay: ${index * 60}ms`}
+          >
+            <span class="absolute left-1/2 top-[4.65rem] hidden h-9 w-px -translate-x-1/2 bg-gold lg:block" aria-hidden="true"></span>
+            <span class="relative z-10 mx-auto flex size-[4.3rem] items-center justify-center rounded-full border border-gold bg-white shadow-[0_18px_45px_-30px_rgba(11,11,11,.65)] transition duration-300 group-hover:scale-110 group-hover:bg-[linear-gradient(135deg,#E4C97E,#C2A05B_45%,#9C7C38)]">
+              <span class="font-serif text-3xl leading-none gold-text transition duration-300">0{index + 1}</span>
+            </span>
+            <p class="mt-12 font-serif text-4xl leading-tight text-ink transition duration-300 group-hover:-translate-y-1">{value}</p>
+          </div>
+        ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+
+  <script>
+    const storyCards = document.querySelectorAll('[data-story-card]');
+
+    storyCards.forEach((card) => {
+      const trigger = card.querySelector('[data-story-trigger]');
+      const panel = card.querySelector('[data-story-panel]');
+
+      if (!(trigger instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+      trigger.addEventListener('click', () => {
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+        card.toggleAttribute('data-open', !isOpen);
+        panel.style.maxHeight = isOpen ? '0px' : `${panel.scrollHeight}px`;
+      });
+    });
+  </script>
+
+  <style>
+    .story-accordion-card[data-open] .story-gold-bar {
+      transform: scaleY(1);
+    }
+
+    .story-accordion-card[data-open] .story-chevron {
+      background: var(--grad-gold);
+      border-color: transparent;
+      color: var(--black);
+      transform: rotate(180deg);
+    }
+  </style>
+</Layout>
