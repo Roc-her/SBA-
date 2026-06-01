@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">SBA Buyers Agency</title>
+  <desc id="desc">Quiet Authority meets Grounded Coastal Luxury brand card.</desc>
+  <rect width="1200" height="630" fill="#262420"/>
+  <rect x="70" y="70" width="1060" height="490" rx="28" fill="none" stroke="#C2A05B" stroke-width="3"/>
+  <text x="120" y="245" fill="#C2A05B" font-family="Georgia, serif" font-size="44" font-weight="700">SBA Buyers Agency</text>
+  <text x="120" y="340" fill="#F5F1E8" font-family="Georgia, serif" font-size="72" font-weight="600">Property Without Pressure.</text>
+  <text x="120" y="410" fill="#F5F1E8" font-family="Georgia, serif" font-size="72" font-weight="600">Guidance Without Judgement.</text>
+  <text x="120" y="495" fill="#DCD4C4" font-family="Arial, sans-serif" font-size="28">Bendigo VIC · Regional Victoria buyer advocacy</text>
+</svg>
