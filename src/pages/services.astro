@@ -10,6 +10,7 @@ const services = [
     description: 'Strategy, search, due diligence, negotiation and settlement support.',
     who: 'Busy buyers who need capacity, clarity and protection.',
     image: liveSiteImages.propertyInterior,
+    focus: 'End-to-end support',
   },
   {
     roman: 'II',
@@ -17,6 +18,7 @@ const services = [
     description: 'Experienced negotiation once you have found the property.',
     who: 'Buyers who want emotion removed from price and terms.',
     image: liveSiteImages.propertyExterior,
+    focus: 'Price and terms',
   },
   {
     roman: 'III',
@@ -24,13 +26,15 @@ const services = [
     description: 'Independent selling guidance across agent choice, fees and campaign feedback.',
     who: 'Sellers who want their interests represented clearly.',
     image: liveSiteImages.propertyOutdoor,
+    focus: 'Selling with clarity',
   },
   {
     roman: 'IV',
     title: 'Auction Representation',
     description: 'Calm bidding with a pre-agreed strategy and firm limits.',
     who: 'Buyers who need discipline in a high-pressure room.',
-    image: liveSiteImages.sarahWorking,
+    image: liveSiteImages.propertyStorm,
+    focus: 'Auction discipline',
   },
   {
     roman: 'V',
@@ -38,6 +42,7 @@ const services = [
     description: 'A focused clarity session before buying, waiting or changing direction.',
     who: 'People not ready to buy yet, but ready to think well.',
     image: liveSiteImages.sbaBook,
+    focus: 'Decision clarity',
   },
 ];
 ---
@@ -101,38 +106,44 @@ const services = [
         </h2>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-6">
         {services.map((service, index) => (
           <article
-            class="scroll-reveal group relative overflow-hidden rounded-xl border border-line bg-white shadow-[0_18px_55px_-44px_rgba(11,11,11,.58)] transition duration-300 hover:-translate-y-[6px] hover:border-gold/70 hover:shadow-[0_34px_90px_-44px_rgba(11,11,11,.76)]"
+            class="scroll-reveal group relative overflow-hidden rounded-2xl border border-line bg-white shadow-[0_26px_90px_-64px_rgba(11,11,11,.72)] transition duration-300 hover:-translate-y-[6px] hover:border-gold/70 hover:shadow-[0_40px_110px_-64px_rgba(11,11,11,.86)]"
             style={`--reveal-delay: ${index * 70}ms`}
           >
-            <span class="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 gold-fill transition duration-300 group-hover:scale-y-100" aria-hidden="true"></span>
-            <div class="grid gap-0 lg:grid-cols-[18rem_6rem_minmax(0,1fr)_minmax(15rem,0.82fr)] lg:items-stretch">
-              <div class="border-b border-line bg-off-white-2 p-3 lg:border-b-0 lg:border-r">
-                <div class="flex h-full min-h-[13rem] items-center justify-center overflow-hidden rounded-lg bg-white">
+            <span class="absolute inset-x-0 top-0 h-1 gold-fill" aria-hidden="true"></span>
+            <div class={`grid lg:min-h-[23rem] lg:grid-cols-[0.92fr_1.08fr] ${index % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
+              <div class="relative min-h-[17rem] overflow-hidden bg-black lg:min-h-full">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(228,201,126,.16),transparent_18rem)]"></div>
                   <img
                     src={service.image}
-                    alt=""
-                    class="max-h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
+                    alt={`${service.title} service visual`}
+                    class:list={[
+                      'absolute inset-0 size-full object-cover opacity-88 transition duration-700 group-hover:scale-[1.04]',
+                    ]}
                   />
+                <div class="absolute inset-0 bg-[linear-gradient(0deg,rgba(11,11,11,.72),transparent_55%),linear-gradient(90deg,rgba(11,11,11,.18),transparent_45%)]"></div>
+                <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-5 border-t border-line-dark pt-4">
+                  <p class="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold-bright">{service.focus}</p>
+                  <p class="font-serif text-6xl leading-none gold-text">{service.roman}</p>
                 </div>
               </div>
 
-              <div class="flex items-center border-b border-line px-6 py-5 lg:border-b-0 lg:border-r lg:px-5">
-                <p class="font-serif text-6xl leading-none gold-text">{service.roman}</p>
-              </div>
+              <div class="relative flex flex-col justify-center p-7 md:p-9">
+                <p class="text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-gold-deep">Service {service.roman}</p>
+                <h3 class="mt-4 max-w-xl text-5xl leading-[0.98]">{service.title}</h3>
+                <p class="mt-5 max-w-xl text-base leading-8 text-muted">{service.description}</p>
 
-              <div class="border-b border-line px-6 py-6 lg:border-b-0 lg:border-r lg:px-7">
-                <p class="text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-gold-deep">Service</p>
-                <h3 class="mt-3 text-4xl leading-tight">{service.title}</h3>
-                <p class="mt-3 max-w-xl text-sm leading-7 text-muted">{service.description}</p>
-              </div>
+                <div class="mt-8 grid gap-5 border-y border-line py-5 sm:grid-cols-[0.45fr_1fr]">
+                  <p class="text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-gold-deep">Who it's for</p>
+                  <p class="text-sm leading-7 text-muted">{service.who}</p>
+                </div>
 
-              <div class="flex flex-col justify-center px-6 py-6 lg:px-7">
-                <p class="text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-gold-deep">Who it's for</p>
-                <p class="mt-3 text-sm leading-7 text-muted">{service.who}</p>
-                <div class="mt-5 h-px w-full bg-[linear-gradient(90deg,#C2A05B,rgba(194,160,91,0))]" aria-hidden="true"></div>
+                <a href="/contact" class="group/link mt-7 inline-flex w-fit items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep">
+                  Ask about this service
+                  <span class="transition group-hover/link:translate-x-1" aria-hidden="true">-&gt;</span>
+                </a>
               </div>
             </div>
           </article>

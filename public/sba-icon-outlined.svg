@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">SBA Buyers Agency icon</title>
+  <desc id="desc">Circular gold-on-black SBA stamp.</desc>
+  <defs>
+    <linearGradient id="sbaGold" x1="180" y1="140" x2="830" y2="870" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E4C97E"/>
+      <stop offset="0.45" stop-color="#C2A05B"/>
+      <stop offset="1" stop-color="#9C7C38"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="#0B0B0B"/>
+  <circle cx="512" cy="512" r="330" fill="none" stroke="url(#sbaGold)" stroke-width="17"/>
+  <circle cx="512" cy="512" r="250" fill="none" stroke="url(#sbaGold)" stroke-width="11" opacity="0.42"/>
+  <g transform="translate(512 512) scale(.92) translate(-512 -512)" fill="none" stroke="url(#sbaGold)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M386 405c-24-28-92-24-105 19-12 40 31 58 72 75 45 19 84 40 68 88-18 55-105 65-150 20" stroke-width="32"/>
+    <path d="M477 397v226" stroke-width="30"/>
+    <path d="M477 405h76c61 0 81 71 31 101 68 23 51 116-24 116h-83" stroke-width="29"/>
+    <path d="M477 506h78" stroke-width="26"/>
+    <path d="M626 622l88-225 88 225" stroke-width="31"/>
+    <path d="M666 536h95" stroke-width="26"/>
+  </g>
+</svg>

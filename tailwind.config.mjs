@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        white: 'var(--white)',
+        white: '#FFFFFF',
         'off-white-2': 'var(--off-white-2)',
         ink: 'var(--ink)',
         black: 'var(--black)',

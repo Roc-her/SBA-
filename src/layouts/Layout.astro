@@ -5,7 +5,7 @@ import Button from '../components/Button.astro';
 const {
   title = 'SBA Buyers Agency',
   description = 'Calm, strategic buyer advocacy from Bendigo, Victoria.',
-  image = '/og-image.svg',
+  image = '/sba-logo-transparent.png',
 } = Astro.props;
 
 const navItems = [
@@ -13,7 +13,6 @@ const navItems = [
   ['About Sarah', '/about-sarah'],
   ['Services', '/services'],
   ['The Method', '/method'],
-  ['Contact', '/contact'],
 ];
 
 const learnItems = [
@@ -62,6 +61,8 @@ const localBusinessSchema = {
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/sba-logo-transparent.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/sba-icon-512.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -90,28 +91,24 @@ const localBusinessSchema = {
     </a>
 
     <header class="site-header fixed inset-x-0 top-0 z-40 border-b backdrop-blur">
-      <div class="section-shell flex min-h-[76px] items-center justify-between gap-5 py-3">
-        <a href="/" class="group inline-flex items-center gap-3" aria-label="SBA Buyers Agency home">
-          <span class="grid size-11 place-items-center overflow-hidden rounded-full p-px gold-fill">
-            <span class="grid size-full place-items-center rounded-full bg-black">
-              <img src="/logo.svg" alt="" class="hidden size-full object-contain" />
-            </span>
-          </span>
-          <span class="leading-tight">
-            <span class="block font-serif text-2xl font-semibold text-offwhite">SBA Buyers Agency</span>
-            <span class="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep">
-              Bendigo VIC
-            </span>
-          </span>
+      <div class="section-shell flex min-h-[86px] items-center justify-between gap-8 py-2">
+        <a href="/" class="site-logo group inline-flex shrink-0 items-center" aria-label="SBA Buyers Agency home">
+          <img
+            src="/sba-logo-transparent.png"
+            alt="SBA Buyers Agency"
+            class="site-logo-img object-contain"
+            width="76"
+            height="76"
+          />
         </a>
 
-        <nav class="hidden items-center gap-6 text-sm font-semibold text-soft-light lg:flex" aria-label="Primary navigation">
+        <nav class="hidden items-center justify-end gap-6 text-sm font-semibold text-current lg:flex" aria-label="Primary navigation">
           {navItems.map(([label, href]) => {
             const active = isActivePath(href);
             return (
             <a
               class:list={[
-                'group/nav relative transition hover:text-offwhite',
+                'group/nav relative transition hover:text-gold-deep',
                 active ? 'text-gold-bright' : '',
               ]}
               href={href}
@@ -131,7 +128,7 @@ const localBusinessSchema = {
               <details class="group/learn relative">
                 <summary
                   class:list={[
-                    'flex cursor-pointer list-none items-center gap-1 transition hover:text-offwhite',
+                    'flex cursor-pointer list-none items-center gap-1 transition hover:text-gold-deep',
                     active ? 'text-gold-bright' : '',
                   ]}
                   aria-current={active ? 'page' : undefined}
@@ -143,19 +140,25 @@ const localBusinessSchema = {
                     active ? 'scale-x-100' : 'scale-x-0',
                   ]}></span>
                 </summary>
-                <div class="absolute left-1/2 top-full mt-5 w-56 -translate-x-1/2 rounded-2xl border border-line-dark bg-black p-3 shadow-soft">
+                <div class="absolute left-1/2 top-full mt-5 w-56 -translate-x-1/2 overflow-hidden rounded-2xl border border-gold/45 bg-black p-3 shadow-[0_26px_70px_-42px_rgba(228,201,126,.55),0_24px_80px_-46px_rgba(0,0,0,.95)]">
+                  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(228,201,126,.18),transparent_9rem),radial-gradient(circle_at_100%_100%,rgba(164,133,63,.16),transparent_9rem)]" aria-hidden="true"></div>
+                  <span class="absolute inset-x-0 top-0 h-px gold-fill" aria-hidden="true"></span>
                   <nav class="grid gap-1" aria-label="Learn navigation">
                     {learnItems.map(([label, href]) => {
                       const itemActive = isActivePath(href);
                       return (
                         <a
                           class:list={[
-                            'rounded-xl px-4 py-3 text-sm transition hover:bg-white hover:text-black',
-                            itemActive ? 'bg-white text-black' : 'text-soft-light',
+                            'relative rounded-xl border border-transparent px-4 py-3 text-sm transition hover:border-gold/45 hover:bg-white/6 hover:text-gold-bright',
+                            itemActive ? 'border-gold/55 bg-white/8 text-gold-bright' : 'text-offwhite',
                           ]}
                           href={href}
                           aria-current={itemActive ? 'page' : undefined}
                         >
+                          <span class:list={[
+                            'absolute bottom-2 left-4 h-px w-8 gold-fill transition',
+                            itemActive ? 'opacity-100' : 'opacity-0',
+                          ]}></span>
                           {label}
                         </a>
                       );
@@ -165,14 +168,29 @@ const localBusinessSchema = {
               </details>
             );
           })()}
+          {(() => {
+            const active = isActivePath('/contact');
+            return (
+              <a
+                class:list={[
+                  'group/nav relative transition hover:text-gold-deep',
+                  active ? 'text-gold-bright' : '',
+                ]}
+                href="/contact"
+                aria-current={active ? 'page' : undefined}
+              >
+                Contact
+                <span class:list={[
+                  'absolute -bottom-2 left-0 h-px w-full origin-left gold-fill transition group-hover/nav:scale-x-100',
+                  active ? 'scale-x-100' : 'scale-x-0',
+                ]}></span>
+              </a>
+            );
+          })()}
         </nav>
 
-        <Button href={calendlyUrl} class="hidden lg:inline-flex">
-          Book a Call
-        </Button>
-
         <details class="relative lg:hidden">
-          <summary class="cursor-pointer list-none rounded-full border border-line-dark px-4 py-2 text-sm font-semibold text-offwhite">
+          <summary class="cursor-pointer list-none rounded-full border border-gold/45 px-4 py-2 text-sm font-semibold text-current">
             Menu
           </summary>
           <div class="absolute right-0 mt-3 w-72 rounded-2xl border border-line-dark bg-black p-4 shadow-soft">
@@ -200,8 +218,8 @@ const localBusinessSchema = {
                     return (
                     <a
                       class:list={[
-                        'rounded-lg px-2 py-2 transition hover:bg-white hover:text-black',
-                        active ? 'bg-white text-black' : '',
+                        'rounded-lg border border-transparent px-2 py-2 transition hover:border-gold/45 hover:bg-white/6 hover:text-gold-bright',
+                        active ? 'border-gold/55 bg-white/8 text-gold-bright' : '',
                       ]}
                       href={href}
                       aria-current={active ? 'page' : undefined}
@@ -212,12 +230,28 @@ const localBusinessSchema = {
                   })}
                 </div>
               </div>
-              <Button href={calendlyUrl} class="mt-2 w-full">
-                Book a Call
-              </Button>
+              {(() => {
+                const active = isActivePath('/contact');
+                return (
+                  <a
+                    class:list={[
+                      'rounded-lg px-2 py-2 transition hover:bg-white hover:text-black',
+                      active ? 'bg-white text-black' : '',
+                    ]}
+                    href="/contact"
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    Contact
+                  </a>
+                );
+              })()}
             </nav>
           </div>
         </details>
+
+        <Button href={calendlyUrl} class="hidden lg:inline-flex">
+          Book a Call
+        </Button>
       </div>
     </header>
 
@@ -227,22 +261,39 @@ const localBusinessSchema = {
 
     <footer class="site-footer text-offwhite">
       <div class="gold-rule h-px"></div>
-      <div class="section-shell grid gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr_0.85fr_1fr]">
+      <div class="section-shell grid gap-9 pb-12 pt-8 lg:grid-cols-[1.15fr_0.85fr_0.85fr_1fr]">
         <div>
-          <a href="/" class="inline-flex items-center gap-3" aria-label="SBA Buyers Agency home">
-            <span class="grid size-11 place-items-center overflow-hidden rounded-full p-px gold-fill">
-              <span class="grid size-full place-items-center rounded-full bg-black">
-                <img src="/logo.svg" alt="" class="hidden size-full object-contain" />
-              </span>
-            </span>
-            <span class="leading-tight">
-              <span class="block font-serif text-2xl font-semibold text-offwhite">SBA Buyers Agency</span>
-              <span class="block text-xs font-semibold uppercase tracking-[0.18em] text-gold-bright">Bendigo VIC</span>
-            </span>
+          <a href="/" class="inline-flex items-center" aria-label="SBA Buyers Agency home">
+            <img
+              src="/sba-logo-transparent.png"
+              alt="SBA Buyers Agency"
+              class="footer-logo-img object-contain"
+              width="96"
+              height="96"
+            />
           </a>
-          <p class="mt-5 max-w-sm text-sm leading-7 text-soft-light">
+          <p class="mt-4 max-w-sm text-sm leading-7 text-soft-light">
             Calm guidance for thoughtful buyers ready to move with clarity, care and quiet confidence.
           </p>
+          <div class="mt-6 flex gap-3" aria-label="Social media">
+            <a class="social-icon group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition" href="https://www.instagram.com/sarah_smith_buyers_agent" rel="noreferrer" aria-label="Instagram">
+              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"></rect>
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"></circle>
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"></circle>
+              </svg>
+            </a>
+            <a class="social-icon group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition" href={linkedInUrl} rel="noreferrer" aria-label="LinkedIn">
+              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M6.94 8.9H3.8V20h3.14V8.9ZM5.37 4a1.82 1.82 0 1 0 0 3.64A1.82 1.82 0 0 0 5.37 4ZM20.2 13.88c0-3.17-1.69-5.22-4.43-5.22-1.55 0-2.59.84-3.02 1.65h-.04V8.9H9.7V20h3.14v-5.5c0-1.45.27-2.85 2.07-2.85 1.77 0 1.8 1.66 1.8 2.95V20h3.14v-6.12h.35Z"></path>
+              </svg>
+            </a>
+            <a class="social-icon group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition" href={facebookUrl} rel="noreferrer" aria-label="Facebook">
+              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M14.1 8.45V6.9c0-.75.5-.93.85-.93h2.16V2.63L14.14 2.6c-3.3 0-4.05 2.47-4.05 4.05v1.8H7.5v3.43h2.59V21h4.01v-9.12h2.72l.36-3.43H14.1Z"></path>
+              </svg>
+            </a>
+          </div>
         </div>
 
         <div>
@@ -253,25 +304,6 @@ const localBusinessSchema = {
             <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/services">Services</a>
             <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/method">The Method</a>
           </nav>
-          <div class="mt-7 flex gap-3" aria-label="Social media">
-            <a class="group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition hover:-translate-y-0.5 hover:border-transparent hover:text-black hover:gold-fill" href="https://www.instagram.com/sarah_smith_buyers_agent" rel="noreferrer" aria-label="Instagram">
-              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="none">
-                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"></rect>
-                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"></circle>
-                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"></circle>
-              </svg>
-            </a>
-            <a class="group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition hover:-translate-y-0.5 hover:border-transparent hover:text-black hover:gold-fill" href={linkedInUrl} rel="noreferrer" aria-label="LinkedIn">
-              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                <path d="M6.94 8.9H3.8V20h3.14V8.9ZM5.37 4a1.82 1.82 0 1 0 0 3.64A1.82 1.82 0 0 0 5.37 4ZM20.2 13.88c0-3.17-1.69-5.22-4.43-5.22-1.55 0-2.59.84-3.02 1.65h-.04V8.9H9.7V20h3.14v-5.5c0-1.45.27-2.85 2.07-2.85 1.77 0 1.8 1.66 1.8 2.95V20h3.14v-6.12h.35Z"></path>
-              </svg>
-            </a>
-            <a class="group grid size-10 place-items-center rounded-full border border-gold text-gold-bright transition hover:-translate-y-0.5 hover:border-transparent hover:text-black hover:gold-fill" href={facebookUrl} rel="noreferrer" aria-label="Facebook">
-              <svg class="size-4" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                <path d="M14.1 8.45V6.9c0-.75.5-.93.85-.93h2.16V2.63L14.14 2.6c-3.3 0-4.05 2.47-4.05 4.05v1.8H7.5v3.43h2.59V21h4.01v-9.12h2.72l.36-3.43H14.1Z"></path>
-              </svg>
-            </a>
-          </div>
         </div>
 
         <div>
@@ -285,15 +317,12 @@ const localBusinessSchema = {
         </div>
 
         <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-gold-bright">Connect</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-gold-bright">Contact</p>
           <address class="mt-5 space-y-3 text-sm not-italic leading-7 text-soft-light">
             <p>Bendigo VIC 3555</p>
             <p><a class="transition hover:text-gold-bright" href="tel:0438784423">0438 784 423</a></p>
             <p><a class="transition hover:text-gold-bright" href="mailto:sarah@sbabuyersagency.com">sarah@sbabuyersagency.com</a></p>
           </address>
-          <a class="btn-gold mt-6 inline-flex items-center justify-center" href={calendlyUrl}>
-            Book a Call -&gt;
-          </a>
         </div>
       </div>
 
@@ -316,11 +345,18 @@ const localBusinessSchema = {
           const currentScrollY = window.scrollY;
           const menuOpen = Boolean(siteHeader.querySelector('details[open]'));
           const shouldHide = currentScrollY > lastScrollY && currentScrollY > 90 && !menuOpen;
+          const sampleY = Math.min(siteHeader.getBoundingClientRect().bottom + 8, window.innerHeight - 1);
+          const sampleX = Math.floor(window.innerWidth / 2);
+          const elementUnderHeader = document.elementFromPoint(sampleX, sampleY);
+          const onDark = Boolean(elementUnderHeader?.closest('.signature-dark, .site-footer'));
 
           siteHeader.classList.toggle('is-hidden', shouldHide);
+          siteHeader.classList.toggle('is-on-dark', onDark);
           lastScrollY = Math.max(currentScrollY, 0);
           ticking = false;
         };
+
+        updateHeader();
 
         window.addEventListener(
           'scroll',

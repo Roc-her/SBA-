@@ -57,6 +57,12 @@ const homeServiceImages = [
   liveSiteImages.propertyStorm,
   liveSiteImages.propertyOutdoor,
 ];
+
+const nextSteps = [
+  ['i', 'Bring the question', 'No polished brief required. Start with what feels unclear.'],
+  ['ii', 'Name the pressure', 'Sarah helps separate urgency, emotion and actual risk.'],
+  ['iii', 'Choose the next move', 'Buy, pause or wait with a decision that feels protected.'],
+];
 ---
 
 <Layout
@@ -74,11 +80,10 @@ const homeServiceImages = [
           Strategic protection and advocacy for busy buyers who want clarity.
         </p>
 
-        <!-- TODO: replace with Sarah's real Google rating / review count / experience before launch -->
         <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-semibold text-soft-light">
           <div class="inline-flex items-center gap-3">
             <span class="gold-text tracking-[0.08em]" aria-label="5 star rating">★★★★★</span>
-            <span><span class="text-gold-bright">5.0</span> · {'{{REVIEW_COUNT}}'} client reviews</span>
+            <span><span class="text-gold-bright">5.0</span> · Google reviews</span>
           </div>
           <span class="hidden h-5 w-px gold-fill sm:inline-block" aria-hidden="true"></span>
           <span>Independent advocacy across Bendigo & regional Victoria</span>
@@ -206,7 +211,62 @@ const homeServiceImages = [
     </div>
   </section>
 
-  <section class="signature-dark border-t border-line-dark mt-5">
+  <section class="page-section">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8">
+        <p class="section-kicker">Services</p>
+        <h2 class="mt-4 max-w-4xl text-5xl sm:text-6xl">
+          Support shaped around where you <em class="gold-text italic">are.</em>
+        </h2>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
+          Three calm starting points. Choose the help that matches your pressure point.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        {serviceCards.map(([roman, title, copy, bestFor], index) => (
+          <a
+            href="/services"
+            class="scroll-reveal gold-card group relative overflow-hidden rounded-xl p-0 transition duration-300 hover:-translate-y-[10px] hover:border-gold hover:bg-white hover:shadow-[0_34px_90px_-42px_rgba(11,11,11,.75)]"
+            style={`--reveal-delay: ${index * 80}ms`}
+          >
+            <div class="relative overflow-hidden border-b border-line">
+              <img
+                src={homeServiceImages[index]}
+                alt=""
+                class="aspect-[16/8] w-full object-cover transition duration-500 group-hover:scale-[1.06]"
+              />
+              <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,11,11,0)_40%,rgba(11,11,11,.58)_100%)] opacity-80 transition group-hover:opacity-95"></div>
+              <div class="absolute bottom-4 left-5 rounded-full border border-gold bg-black/85 px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-gold-bright shadow-[0_14px_34px_-20px_rgba(0,0,0,.8)]">
+                {serviceMoments[index]}
+              </div>
+            </div>
+            <div class="absolute right-6 top-[calc(50%+1rem)] font-serif text-7xl leading-none text-black opacity-[0.035] transition group-hover:opacity-[0.07]" aria-hidden="true">
+              {roman}
+            </div>
+            <div class="relative flex min-h-[210px] flex-col p-7">
+              <p class="font-serif text-3xl italic leading-none gold-text">{roman}</p>
+              <h3 class="mt-2 text-3xl text-ink">{title}</h3>
+              <p class="mt-3 text-[0.9rem] leading-[1.55] text-muted">{copy}</p>
+              <p class="mt-4 border-l border-gold/60 pl-4 text-[0.78rem] font-medium leading-6 text-muted">{bestFor}</p>
+              <div class="mt-auto flex items-center justify-between border-t border-line pt-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep transition group-hover:tracking-[0.2em]">
+                <span>Explore</span>
+                <span class="transition group-hover:translate-x-1" aria-hidden="true">-&gt;</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-7 text-center">
+        <Button href="/services" variant="secondary">
+          View all services -&gt;
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="signature-dark border-t border-line-dark">
     <div class="py-10">
       <div class="section-shell">
       <div class="scroll-reveal mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -247,66 +307,37 @@ const homeServiceImages = [
 
   <section class="page-section">
     <div class="section-shell">
-      <div class="scroll-reveal mb-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.55fr)] lg:items-end">
+      <div class="scroll-reveal relative overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-[0_26px_80px_-58px_rgba(11,11,11,.65)] md:p-8">
+        <p class="pointer-events-none absolute right-8 top-2 font-serif text-[9rem] leading-none text-black opacity-[0.035]" aria-hidden="true">Next</p>
+        <div class="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
         <div>
-          <p class="section-kicker">Services</p>
+          <p class="section-kicker">What happens next</p>
           <h2 class="mt-4 text-5xl sm:text-6xl">
-            Support shaped around where you <em class="gold-text italic">are.</em>
+            Keep the next step <em class="gold-text italic">simple.</em>
           </h2>
-          <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
-            Three calm starting points. Choose the help that matches your pressure point.
+          <p class="mt-5 max-w-xl text-base leading-8 text-muted">
+            A calm conversation turns the noise into a clear first move.
           </p>
         </div>
 
-        <div class="rounded-xl border border-line bg-white/70 p-5 shadow-[0_22px_70px_-58px_rgba(11,11,11,.6)]">
-          <p class="font-serif text-2xl leading-tight text-ink">Start with the support your decision needs most.</p>
-          <div class="mt-4 grid gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-gold-deep sm:grid-cols-3 lg:grid-cols-1">
-            {serviceMoments.map((moment) => (
-              <span class="border-t border-line pt-2">{moment}</span>
-            ))}
+        <div class="relative">
+          <span class="absolute left-0 right-0 top-[1.7rem] hidden h-px bg-gold md:block" aria-hidden="true"></span>
+          <div class="grid gap-4 md:grid-cols-3">
+          {nextSteps.map(([number, title, copy], index) => (
+            <div class="group relative pt-16" style={`--reveal-delay: ${index * 60}ms`}>
+              <span class="absolute left-0 top-[1.7rem] z-10 flex size-[3.4rem] -translate-y-1/2 items-center justify-center rounded-full border border-gold bg-white shadow-[0_14px_36px_-28px_rgba(11,11,11,.85)] transition duration-300 group-hover:scale-110">
+                <span class="font-serif text-2xl leading-none text-ink">{number}</span>
+              </span>
+              <div class="h-full border-t border-line pt-5 transition duration-300 group-hover:-translate-y-1 group-hover:border-gold">
+                <h3 class="text-3xl leading-tight">{title}</h3>
+                <p class="mt-2 text-sm leading-7 text-muted">{copy}</p>
+                <span class="mt-5 block h-px w-10 bg-gold transition duration-300 group-hover:w-20" aria-hidden="true"></span>
+              </div>
+            </div>
+          ))}
           </div>
         </div>
-      </div>
-
-      <div class="grid gap-5 md:grid-cols-3">
-        {serviceCards.map(([roman, title, copy, bestFor], index) => (
-          <a
-            href="/services"
-            class="scroll-reveal gold-card group relative overflow-hidden rounded-xl p-0 transition duration-300 hover:-translate-y-[10px] hover:border-gold hover:bg-white hover:shadow-[0_34px_90px_-42px_rgba(11,11,11,.75)]"
-            style={`--reveal-delay: ${index * 80}ms`}
-          >
-            <div class="relative overflow-hidden border-b border-line">
-              <img
-                src={homeServiceImages[index]}
-                alt=""
-                class="aspect-[16/8] w-full object-cover transition duration-500 group-hover:scale-[1.06]"
-              />
-              <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,11,11,0)_40%,rgba(11,11,11,.58)_100%)] opacity-80 transition group-hover:opacity-95"></div>
-              <div class="absolute bottom-4 left-5 rounded-full border border-gold/70 bg-black/80 px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-offwhite shadow-[0_14px_34px_-20px_rgba(0,0,0,.8)]">
-                {serviceMoments[index]}
-              </div>
-            </div>
-            <div class="absolute right-6 top-[calc(50%+1rem)] font-serif text-7xl leading-none text-black opacity-[0.035] transition group-hover:opacity-[0.07]" aria-hidden="true">
-              {roman}
-            </div>
-            <div class="relative flex min-h-[210px] flex-col p-7">
-              <p class="font-serif text-3xl italic leading-none gold-text">{roman}</p>
-              <h3 class="mt-2 text-3xl text-ink">{title}</h3>
-              <p class="mt-3 text-[0.9rem] leading-[1.55] text-muted">{copy}</p>
-              <p class="mt-4 border-l border-gold/60 pl-4 text-[0.78rem] font-medium leading-6 text-muted">{bestFor}</p>
-              <div class="mt-auto flex items-center justify-between border-t border-line pt-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep transition group-hover:tracking-[0.2em]">
-                <span>Explore</span>
-                <span class="transition group-hover:translate-x-1" aria-hidden="true">-&gt;</span>
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <div class="mt-7 text-center">
-        <Button href="/services" variant="secondary">
-          View all services -&gt;
-        </Button>
+        </div>
       </div>
     </div>
   </section>

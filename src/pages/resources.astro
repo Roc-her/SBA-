@@ -6,15 +6,15 @@ import { liveSiteImages } from '../data/liveSiteImages';
 const filters = ['All', 'Free Guides', 'Calculators', 'Quizzes'];
 
 const resources = [
-  ['Free Guides', 'Buyer\'s Checklist', 'A calm checklist for brief, budget, due diligence and next steps.'],
-  ['Free Guides', 'Due Diligence Guide', 'Simple prompts for testing risk before emotion takes over.'],
-  ['Free Guides', '7 Costly Mistakes', 'A practical guide to the decisions buyers often regret later.'],
-  ['Calculators', 'Borrowing Power', 'Estimate your buying range before you start comparing homes.'],
-  ['Calculators', 'Stamp Duty', 'Check one of the easiest costs to underestimate.'],
-  ['Calculators', 'Deposit', 'Understand how your savings translate into usable buying power.'],
-  ['Calculators', 'Rent vs Buy', 'Compare the trade-offs without turning the decision into noise.'],
-  ['Quizzes', 'Are You Ready to Buy?', 'A quick check for budget, brief, data and emotional readiness.'],
-  ['Quizzes', 'Should You Use a Buyer\'s Agent?', 'Work out whether support would protect this decision.'],
+  ['Free Guides', 'Buyer\'s Checklist', 'A calm checklist for brief, budget, due diligence and next steps.', 'i'],
+  ['Free Guides', 'Due Diligence Guide', 'Simple prompts for testing risk before emotion takes over.', 'ii'],
+  ['Free Guides', '7 Costly Mistakes', 'A practical guide to the decisions buyers often regret later.', 'iii'],
+  ['Calculators', 'Borrowing Power', 'Estimate your buying range before you start comparing homes.', 'iv'],
+  ['Calculators', 'Stamp Duty', 'Check one of the easiest costs to underestimate.', 'v'],
+  ['Calculators', 'Deposit', 'Understand how your savings translate into usable buying power.', 'vi'],
+  ['Calculators', 'Rent vs Buy', 'Compare the trade-offs without turning the decision into noise.', 'vii'],
+  ['Quizzes', 'Are You Ready to Buy?', 'A quick check for budget, brief, data and emotional readiness.', 'viii'],
+  ['Quizzes', 'Should You Use a Buyer\'s Agent?', 'Work out whether support would protect this decision.', 'ix'],
 ];
 ---
 
@@ -59,19 +59,38 @@ const resources = [
       </div>
 
       <div class="mb-8 flex flex-wrap gap-3">
-        {filters.map((filter) => (
-          <button class="resource-filter btn-outline" type="button" data-filter={filter}>
+        {filters.map((filter, index) => (
+          <button class:list={['resource-filter btn-outline', index === 0 ? 'is-active' : '']} type="button" data-filter={filter}>
             {filter}
           </button>
         ))}
       </div>
 
-      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {resources.map(([group, title, copy], index) => (
-          <article class="resource-card scroll-reveal gold-card rounded-lg p-7" data-group={group} style={`--reveal-delay: ${index * 45}ms`}>
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">{group}</p>
-            <h3 class="mt-5 text-4xl">{title}</h3>
-            <p class="mt-4 text-sm leading-7 text-muted">{copy}</p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {resources.map(([group, title, copy, roman], index) => (
+          <article
+            class="resource-card resource-premium-card scroll-reveal group overflow-hidden rounded-2xl border border-[#E4E2DC] bg-white shadow-[0_2px_4px_rgba(20,17,9,.05)]"
+            data-group={group}
+            style={`--reveal-delay: ${index * 45}ms`}
+          >
+            <div class="relative overflow-hidden bg-[linear-gradient(160deg,#121212,#0B0B0B)] p-[22px]">
+              <div class="pointer-events-none absolute right-[-3rem] top-[-4rem] size-40 rounded-full bg-[radial-gradient(circle,rgba(228,201,126,.24),transparent_68%)] transition duration-500 group-hover:scale-125" aria-hidden="true"></div>
+              <div class="relative flex items-start justify-between gap-4">
+                <p class="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-gold-bright">{group}</p>
+                <p class="font-serif text-3xl italic leading-none gold-text">{roman}</p>
+              </div>
+              <span class="absolute inset-x-0 bottom-0 h-px gold-fill" aria-hidden="true"></span>
+            </div>
+
+            <div class="flex min-h-[14.5rem] flex-col p-[26px]">
+              <h3 class="text-[1.55rem] leading-tight text-ink">{title}</h3>
+              <p class="mt-3 text-sm leading-7 text-muted">{copy}</p>
+
+              <a href="/contact" class="mt-auto flex items-center justify-between gap-4 border-t border-[#E4E2DC] pt-5 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-gold-deep transition duration-300 hover:text-ink">
+                <span>Explore this resource</span>
+                <span class="transition duration-300 group-hover:translate-x-2" aria-hidden="true">-&gt;</span>
+              </a>
+            </div>
           </article>
         ))}
       </div>
@@ -87,6 +106,7 @@ const resources = [
     filters.forEach((filter) => {
       filter.addEventListener('click', () => {
         const selected = filter.getAttribute('data-filter');
+        filters.forEach((item) => item.classList.toggle('is-active', item === filter));
         cards.forEach((card) => {
           card.classList.toggle('hidden', selected !== 'All' && card.getAttribute('data-group') !== selected);
         });

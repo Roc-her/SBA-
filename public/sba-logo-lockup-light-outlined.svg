@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 132" role="img" aria-labelledby="title desc">
+  <title id="title">SBA Buyers Agency</title>
+  <desc id="desc">SBA Buyers Agency logo lockup for dark backgrounds.</desc>
+  <defs>
+    <linearGradient id="sbaGoldLight" x1="0" y1="0" x2="132" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E4C97E"/>
+      <stop offset="0.45" stop-color="#C2A05B"/>
+      <stop offset="1" stop-color="#9C7C38"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(6 6)">
+    <circle cx="60" cy="60" r="55" fill="#0B0B0B" stroke="url(#sbaGoldLight)" stroke-width="4"/>
+    <circle cx="60" cy="60" r="41" fill="none" stroke="url(#sbaGoldLight)" stroke-width="2" opacity="0.48"/>
+    <g transform="translate(60 60) scale(.82) translate(-60 -60)" fill="none" stroke="url(#sbaGoldLight)" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M45 48c-7-8-26-7-30 5-3 11 9 16 20 21 13 5 24 11 19 25-5 15-30 18-43 6" stroke-width="5.3"/>
+      <path d="M67 46v38" stroke-width="5"/>
+      <path d="M67 47h13c11 0 14 12 5 17 12 4 9 20-4 20H67" stroke-width="4.8"/>
+      <path d="M67 64h14" stroke-width="4.5"/>
+      <path d="M92 84l15-38 15 38" stroke-width="5.2"/>
+      <path d="M99 70h16" stroke-width="4.5"/>
+    </g>
+  </g>
+  <text x="148" y="58" fill="#F2F2F0" font-family="Georgia, 'Times New Roman', serif" font-size="37" font-weight="600" letter-spacing=".2">SBA Buyers Agency</text>
+  <text x="150" y="92" fill="#E4C97E" font-family="Montserrat, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="6">BENDIGO VIC</text>
+</svg>
