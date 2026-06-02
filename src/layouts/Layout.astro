@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
-import Button from '../components/Button.astro';
+import BookCallButton from '../components/BookCallButton.astro';
+import BookCallModal from '../components/BookCallModal.astro';
+import VexurScripts from '../components/VexurScripts.astro';
 
 const {
   title = 'SBA Buyers Agency',
@@ -17,10 +19,10 @@ const navItems = [
 
 const learnItems = [
   ['Resources', '/resources'],
+  ['Client Stories', '/client-stories'],
   ['Blog', '/blog'],
 ];
 
-const calendlyUrl = 'https://calendly.com/sarah-sbabuyersagency';
 const facebookUrl = 'https://www.facebook.com/people/Sarah-Smith-Regional-Vic-Most-Trusted-Buyers-Agent/61565111191180/';
 const linkedInUrl = 'https://www.linkedin.com/in/sarah-smith-73b183345';
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -81,6 +83,7 @@ const localBusinessSchema = {
     <meta name="twitter:image" content={imageUrl} />
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     <title>{title}</title>
+    <VexurScripts />
   </head>
   <body>
     <a
@@ -90,15 +93,16 @@ const localBusinessSchema = {
       Skip to content
     </a>
 
-    <header class="site-header fixed inset-x-0 top-0 z-40 border-b backdrop-blur">
+    <header class="site-header is-at-top fixed inset-x-0 top-0 z-40">
       <div class="section-shell flex min-h-[86px] items-center justify-between gap-8 py-2">
         <a href="/" class="site-logo group inline-flex shrink-0 items-center" aria-label="SBA Buyers Agency home">
           <img
             src="/sba-logo-transparent.png"
-            alt="SBA Buyers Agency"
-            class="site-logo-img object-contain"
-            width="76"
-            height="76"
+            alt=""
+            class="site-logo-img site-logo-img--lockup object-contain"
+            width="280"
+            height="72"
+            decoding="async"
           />
         </a>
 
@@ -189,6 +193,10 @@ const localBusinessSchema = {
           })()}
         </nav>
 
+        <BookCallButton class="hidden lg:inline-flex">
+          Book a Call
+        </BookCallButton>
+
         <details class="relative lg:hidden">
           <summary class="cursor-pointer list-none rounded-full border border-gold/45 px-4 py-2 text-sm font-semibold text-current">
             Menu
@@ -230,28 +238,23 @@ const localBusinessSchema = {
                   })}
                 </div>
               </div>
-              {(() => {
-                const active = isActivePath('/contact');
-                return (
-                  <a
-                    class:list={[
-                      'rounded-lg px-2 py-2 transition hover:bg-white hover:text-black',
-                      active ? 'bg-white text-black' : '',
-                    ]}
-                    href="/contact"
-                    aria-current={active ? 'page' : undefined}
-                  >
-                    Contact
-                  </a>
-                );
-              })()}
+              <a
+                class:list={[
+                  'rounded-lg px-2 py-2 transition hover:bg-white hover:text-black',
+                  isActivePath('/contact') ? 'bg-white text-black' : '',
+                ]}
+                href="/contact"
+                aria-current={isActivePath('/contact') ? 'page' : undefined}
+              >
+                Contact
+              </a>
+              <BookCallButton class="mt-2 w-full">
+                Book a Call
+              </BookCallButton>
             </nav>
           </div>
         </details>
 
-        <Button href={calendlyUrl} class="hidden lg:inline-flex">
-          Book a Call
-        </Button>
       </div>
     </header>
 
@@ -266,10 +269,11 @@ const localBusinessSchema = {
           <a href="/" class="inline-flex items-center" aria-label="SBA Buyers Agency home">
             <img
               src="/sba-logo-transparent.png"
-              alt="SBA Buyers Agency"
-              class="footer-logo-img object-contain"
-              width="96"
-              height="96"
+              alt=""
+              class="footer-logo-img footer-logo-img--lockup object-contain"
+              width="240"
+              height="62"
+              decoding="async"
             />
           </a>
           <p class="mt-4 max-w-sm text-sm leading-7 text-soft-light">
@@ -310,8 +314,9 @@ const localBusinessSchema = {
           <p class="text-xs font-semibold uppercase tracking-[0.22em] text-gold-bright">Learn</p>
           <nav class="mt-5 grid gap-3 text-sm text-soft-light" aria-label="Learning navigation">
             <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources">Resources</a>
-            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources">Calculators</a>
-            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources">Free Guides</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/client-stories">Client Stories</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources/borrowing-power">Borrowing Calculator</a>
+            <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/resources/property-readiness-quiz">Readiness Quiz</a>
             <a class="transition hover:translate-x-1 hover:text-gold-bright" href="/blog">Blog</a>
           </nav>
         </div>
@@ -334,10 +339,13 @@ const localBusinessSchema = {
       </div>
     </footer>
 
+    <BookCallModal />
+
     <script>
       const siteHeader = document.querySelector('.site-header');
 
       if (siteHeader) {
+        const scrollSolidThreshold = 48;
         let lastScrollY = window.scrollY;
         let ticking = false;
 
@@ -351,6 +359,7 @@ const localBusinessSchema = {
           const onDark = Boolean(elementUnderHeader?.closest('.signature-dark, .site-footer'));
 
           siteHeader.classList.toggle('is-hidden', shouldHide);
+          siteHeader.classList.toggle('is-at-top', currentScrollY < scrollSolidThreshold);
           siteHeader.classList.toggle('is-on-dark', onDark);
           lastScrollY = Math.max(currentScrollY, 0);
           ticking = false;

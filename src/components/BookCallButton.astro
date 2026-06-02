@@ -1,0 +1,24 @@
+---
+import Button from './Button.astro';
+import BookCallTrigger from './BookCallTrigger.astro';
+import { bookCallHref } from '../data/vexur';
+
+const { variant = 'primary', class: className = '', useModal = true, ...attrs } = Astro.props;
+const href = bookCallHref(Astro.url.pathname);
+const btnClass =
+  variant === 'secondary'
+    ? 'btn-outline inline-flex focus-visible:outline-gold-bright'
+    : 'btn-gold inline-flex focus-visible:outline-gold-bright';
+---
+
+{
+  useModal ? (
+    <BookCallTrigger class:list={[btnClass, className]} {...attrs}>
+      <slot />
+    </BookCallTrigger>
+  ) : (
+    <Button href={href} variant={variant} class={className} {...attrs}>
+      <slot />
+    </Button>
+  )
+}

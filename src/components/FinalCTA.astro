@@ -1,20 +1,47 @@
 ---
-import Button from './Button.astro';
+import BookCallTrigger from './BookCallTrigger.astro';
 
-const calendlyUrl = 'https://calendly.com/sarah-sbabuyersagency';
+/** Single page-end CTA block — use once per page (omit on Contact; quiz uses its own results CTA). */
+
+const variants = [
+  {
+    lead: 'Start with one calm conversation and no pressure to move before you are ready.',
+    buttonLabel: 'Book a Call',
+  },
+  {
+    lead: 'You do not need a perfect strategy or every answer before you reach out. Five Minutes of Courage is a simple conversation about where you are, where you want to be, and whether Sarah can help — no pressure, no obligation.',
+    buttonLabel: 'Book a call with Sarah',
+  },
+] as const;
+
+interface Props {
+  /** Force a variant: 0 = short lead, 1 = extended lead. Omit to auto-pick from page path. */
+  variant?: 0 | 1;
+}
+
+const { variant: forcedVariant } = Astro.props;
+
+const pathKey = Astro.url.pathname.replace(/\/$/, '') || '/';
+const autoVariant =
+  [...pathKey].reduce((sum, char) => sum + char.charCodeAt(0), 0) % variants.length;
+const variant = variants[forcedVariant ?? autoVariant];
 ---
 
-<section class="signature-dark">
+<section id="book-call" class="signature-dark" data-page-cta aria-label="Book a call">
   <div class="section-shell py-12 text-center md:py-[68px]">
-    <p class="section-kicker justify-center text-gold-bright before:bg-[linear-gradient(135deg,#E4C97E_0%,#C2A05B_45%,#9C7C38_100%)]">
-      Five Minutes of Courage
-    </p>
-    <h2 class="mx-auto mt-5 max-w-3xl font-serif text-5xl font-semibold leading-tight text-offwhite md:text-6xl">
-      Five minutes could save you <em class="gold-text italic">years</em> of costly mistakes.
-    </h2>
-    <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-soft-light">
-      Start with one calm conversation and no pressure to move before you are ready.
-    </p>
-    <Button href={calendlyUrl} class="mt-8">Book a Call</Button>
+    <div class="mx-auto max-w-3xl">
+      <p class="section-kicker justify-center text-gold-bright before:bg-[linear-gradient(135deg,#E4C97E_0%,#C2A05B_45%,#9C7C38_100%)]">
+        Five Minutes of Courage
+      </p>
+      <h2 class="mx-auto mt-5 max-w-3xl font-serif text-5xl font-semibold leading-tight text-offwhite md:text-6xl">
+        Five minutes could save you <em class="gold-text italic">years</em> of costly mistakes.
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-soft-light">
+        {variant.lead}
+      </p>
+      <BookCallTrigger class="btn-gold mx-auto mt-8 inline-flex focus-visible:outline-gold-bright">
+        {variant.buttonLabel}
+      </BookCallTrigger>
+    </div>
   </div>
 </section>

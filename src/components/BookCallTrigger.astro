@@ -1,0 +1,7 @@
+---
+const { class: className = '', ...attrs } = Astro.props;
+---
+
+<button type="button" class:list={className} data-book-call-trigger {...attrs}>
+  <slot />
+</button>

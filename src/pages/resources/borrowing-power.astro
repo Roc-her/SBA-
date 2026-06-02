@@ -1,0 +1,22 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import ComingSoonPanel from '../../components/ComingSoonPanel.astro';
+import FinalCTA from '../../components/FinalCTA.astro';
+---
+
+<ToolPageShell
+  title="Borrowing Power Calculator | SBA Buyers Agency"
+  description="Borrowing power calculator — coming soon from SBA Buyers Agency."
+  kicker="Calculator"
+  heading="Borrowing"
+  headingEm="power."
+  intro="Understand your likely buying range before you fall in love with a property outside it. This calculator is on its way to the resource library."
+>
+  <ComingSoonPanel title="Borrowing power calculator" />
+
+  <p class="scroll-reveal mt-6 text-center text-xs leading-6 text-muted">
+    This tool is for general planning only. Speak with a licensed broker or financial adviser before making decisions.
+  </p>
+
+  <FinalCTA slot="after" />
+</ToolPageShell>

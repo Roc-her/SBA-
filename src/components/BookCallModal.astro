@@ -1,0 +1,163 @@
+---
+import VexurCalendar from './VexurCalendar.astro';
+---
+
+<dialog id="book-call-modal" class="book-call-modal" aria-labelledby="book-call-modal-title">
+  <div class="book-call-modal__panel">
+    <button type="button" class="book-call-modal__close" data-book-call-close aria-label="Close booking">
+      <span aria-hidden="true">×</span>
+    </button>
+    <p id="book-call-modal-title" class="book-call-modal__kicker">Five Minutes of Courage</p>
+    <h2 class="book-call-modal__title">Book a call with Sarah</h2>
+    <p class="book-call-modal__lead">
+      A calm conversation about your goals — no pressure to move forward.
+    </p>
+    <div class="vexur-calendar-shell book-call-modal__calendar">
+      <VexurCalendar />
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const modal = document.getElementById('book-call-modal');
+
+  if (modal instanceof HTMLDialogElement) {
+    const openModal = () => {
+      if (typeof modal.showModal === 'function') modal.showModal();
+    };
+
+    const closeModal = () => modal.close();
+
+    const bindBookCallTriggers = () => {
+      document.querySelectorAll('[data-book-call-trigger]').forEach((trigger) => {
+        if (trigger instanceof HTMLElement && trigger.dataset.bookCallBound === 'true') return;
+        if (trigger instanceof HTMLElement) trigger.dataset.bookCallBound = 'true';
+        trigger.addEventListener('click', (event) => {
+          event.preventDefault();
+          openModal();
+        });
+      });
+    };
+
+    const bindBookCallAnchors = () => {
+      document.querySelectorAll('a[href="#book-call"], a[href$="#book-call"]').forEach((link) => {
+        if (link instanceof HTMLAnchorElement && link.dataset.bookCallBound === 'true') return;
+        if (link instanceof HTMLAnchorElement) link.dataset.bookCallBound = 'true';
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const url = new URL(link.href, window.location.href);
+          if (url.pathname === window.location.pathname) {
+            history.replaceState(null, '', '#book-call');
+          } else {
+            window.location.assign(link.href);
+            return;
+          }
+          openModal();
+        });
+      });
+    };
+
+    const openFromHash = () => {
+      if (window.location.hash === '#book-call') openModal();
+    };
+
+    bindBookCallTriggers();
+    bindBookCallAnchors();
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+    document.addEventListener('astro:page-load', () => {
+      bindBookCallTriggers();
+      bindBookCallAnchors();
+      openFromHash();
+    });
+
+    modal.querySelectorAll('[data-book-call-close]').forEach((btn) => {
+      btn.addEventListener('click', closeModal);
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal();
+    });
+
+    modal.addEventListener('cancel', closeModal);
+  }
+</script>
+
+<style>
+  .book-call-modal {
+    width: min(100% - 1.5rem, 32rem);
+    max-height: calc(100vh - 2rem);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0.85rem;
+    background: transparent;
+    overflow: visible;
+  }
+
+  .book-call-modal::backdrop {
+    background: rgba(11, 11, 11, 0.72);
+    backdrop-filter: blur(4px);
+  }
+
+  .book-call-modal__panel {
+    position: relative;
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.25rem 1.15rem 1.15rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(194, 160, 91, 0.35);
+    background: #fff;
+    box-shadow: 0 28px 80px -40px rgba(11, 11, 11, 0.45);
+  }
+
+  .book-call-modal__close {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(11, 11, 11, 0.06);
+    font-size: 1.35rem;
+    line-height: 1;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 160ms ease;
+  }
+
+  .book-call-modal__close:hover {
+    background: rgba(228, 201, 126, 0.25);
+  }
+
+  .book-call-modal__kicker {
+    padding-right: 2rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+
+  .book-call-modal__title {
+    font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
+    font-size: 1.65rem;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  .book-call-modal__lead {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .book-call-modal__calendar {
+    margin-top: 0.35rem;
+    min-height: 20rem;
+  }
+</style>

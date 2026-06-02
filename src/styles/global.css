@@ -192,10 +192,10 @@
     align-items: center;
     justify-content: center;
     border-radius: 100px;
-    padding: 1.05em 2em;
-    font-size: 0.875rem;
+    padding: 0.625rem 1.35rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     transition:
       transform 200ms ease,
@@ -214,9 +214,9 @@
   }
 
   .btn-gold:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     background-position: right center;
-    box-shadow: 0 22px 48px -24px rgba(228, 201, 126, 0.95);
+    box-shadow: 0 20px 40px -26px rgba(228, 201, 126, 0.9);
   }
 
   .btn-outline {
@@ -230,13 +230,64 @@
   }
 
   .btn-outline:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     border-color: transparent;
     background-image: var(--grad-gold);
     background-size: 180% 180%;
     background-position: right center;
     color: var(--black);
     box-shadow: 0 18px 38px -26px rgba(228, 201, 126, 0.85);
+  }
+
+  /* Home hero — Montserrat headline */
+  .signature-dark .home-hero-title {
+    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: clamp(2.125rem, 3.75vw + 0.7rem, 3.125rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--offwhite);
+  }
+
+  .signature-dark .home-hero-title .gold-text {
+    font-family: inherit;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .home-hero-grid {
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .home-hero-grid {
+      gap: 4.25rem;
+    }
+  }
+
+  .home-hero-media {
+    justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    .home-hero-media {
+      justify-content: flex-start;
+      padding-left: 0.75rem;
+      transform: translateX(-1.25rem);
+    }
+  }
+
+  .home-hero-actions :is(.btn-gold, .btn-outline) {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    box-shadow: 0 12px 28px -22px rgba(228, 201, 126, 0.75);
+  }
+
+  .home-hero-actions .btn-gold:hover,
+  .home-hero-actions .btn-outline:hover {
+    box-shadow: 0 16px 34px -22px rgba(228, 201, 126, 0.85);
   }
 
   .flare-border-y {
@@ -364,12 +415,28 @@
     will-change: transform;
   }
 
-  .site-header.is-on-dark {
+  /* Fully transparent at top — scroll only switches to solid bar */
+  .site-header.is-at-top {
+    background: transparent;
+    border-color: transparent;
+    color: var(--offwhite);
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  /* Light scrolled bar over page-section content */
+  .site-header:not(.is-at-top):not(.is-on-dark) {
+    color: var(--ink);
+  }
+
+  /* Scrolled bar over signature-dark / footer */
+  .site-header.is-on-dark:not(.is-at-top) {
     background:
       linear-gradient(180deg, rgba(11, 11, 11, 0.46), rgba(11, 11, 11, 0.16)),
       linear-gradient(90deg, transparent, rgba(228, 201, 126, 0.08), transparent);
     border-color: rgba(228, 201, 126, 0.16);
     color: var(--offwhite);
+    backdrop-filter: blur(14px) saturate(118%);
     box-shadow:
       inset 0 1px 0 rgba(228, 201, 126, 0.08),
       inset 0 -1px 0 rgba(228, 201, 126, 0.08);
@@ -382,19 +449,36 @@
   }
 
   .site-logo {
-    width: 4.75rem;
-    min-width: 4.75rem;
-    height: 4.75rem;
+    width: auto;
+    max-width: min(17.5rem, 46vw);
+    height: auto;
     overflow: visible;
   }
 
   .site-logo-img {
     display: block;
     width: auto;
-    height: 4.75rem;
-    max-width: none;
+    max-width: 100%;
     overflow: visible;
     transition: opacity 220ms ease;
+  }
+
+  .site-logo-img--lockup {
+    height: 3.35rem;
+    filter: drop-shadow(0 1px 10px rgba(0, 0, 0, 0.28));
+  }
+
+  @media (min-width: 768px) {
+    .site-logo-img--lockup {
+      height: 3.65rem;
+    }
+  }
+
+  .site-header:not(.is-on-dark):not(.is-at-top) .site-logo-img--lockup {
+    filter:
+      drop-shadow(0 0 0.35px rgba(11, 11, 11, 0.85))
+      drop-shadow(0 0 0.35px rgba(11, 11, 11, 0.85))
+      drop-shadow(0 1px 8px rgba(11, 11, 11, 0.12));
   }
 
   .footer-logo-img {
@@ -402,6 +486,173 @@
     width: auto;
     height: 6rem;
     max-width: none;
+  }
+
+  .footer-logo-img--lockup {
+    height: 3.75rem;
+    max-width: min(15rem, 70vw);
+  }
+
+  .signature-accent {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .signature-accent__glow {
+    position: absolute;
+    inset: -15% -8% auto auto;
+    width: min(55vw, 38rem);
+    height: min(55vw, 38rem);
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(228, 201, 126, 0.14), transparent 68%);
+    pointer-events: none;
+  }
+
+  .signature-accent__line {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      118deg,
+      transparent 52%,
+      rgba(194, 160, 91, 0.1) 55%,
+      rgba(228, 201, 126, 0.18) 56%,
+      rgba(194, 160, 91, 0.1) 57%,
+      transparent 62%
+    );
+    pointer-events: none;
+  }
+
+  .signature-accent__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .luxury-pillars {
+    display: grid;
+    gap: 1.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .luxury-pillars--split {
+    gap: 1.5rem 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .luxury-pillars--split {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .luxury-pillar {
+    position: relative;
+    padding-left: 1.35rem;
+    border-left: 1px solid rgba(228, 201, 126, 0.22);
+    transition: border-color 220ms ease;
+  }
+
+  .luxury-pillar::before {
+    content: '';
+    position: absolute;
+    left: -0.2rem;
+    top: 0.55rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    transform: rotate(45deg);
+    background-image: var(--grad-gold);
+    box-shadow:
+      0 0 0 1px rgba(11, 11, 11, 0.9),
+      0 0 16px rgba(228, 201, 126, 0.45);
+  }
+
+  .luxury-pillar:hover {
+    border-left-color: rgba(228, 201, 126, 0.5);
+  }
+
+  .luxury-pillar__copy {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .luxury-pillar__title {
+    font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--gold-bright);
+  }
+
+  .luxury-pillar__text {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: rgba(242, 242, 240, 0.7);
+  }
+
+  .vexur-calendar-shell {
+    min-height: 22rem;
+    border-radius: 0.65rem;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .vexur-calendar-shell--quiz {
+    min-height: 20rem;
+  }
+
+  /* Vexur contact embed wrapper — solid primary + gold gradient on Submit */
+  .sba-vexur-contact {
+    width: 100%;
+    --vx-primary: #a4853f;
+    --vx-primary-hover: #c2a05b;
+    --vx-surface: #f7f7f5;
+    --vx-border: #d3d3cf;
+    --vx-text: #1a1a1a;
+    --vx-muted: #6e6e6e;
+    --vx-radius: 0.5rem;
+    --vx-font: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--vx-font);
+    color-scheme: light;
+  }
+
+  .sba-vexur-contact .vexur-widget {
+    width: 100%;
+    min-height: 24rem;
+  }
+
+  .sba-vexur-contact :is(iframe) {
+    display: block;
+    width: 100% !important;
+    min-height: 24rem;
+    border: 0;
+    border-radius: var(--vx-radius);
+  }
+
+  .sba-vexur-contact :is(button[type='submit'], input[type='submit']) {
+    border: 0 !important;
+    background-color: transparent !important;
+    background-image: var(--grad-gold) !important;
+    background-size: 180% 180% !important;
+    color: var(--black) !important;
+    font-weight: 600 !important;
+    box-shadow: 0 18px 38px -26px rgba(228, 201, 126, 0.85) !important;
+    transition:
+      transform 200ms ease,
+      background-position 260ms ease,
+      box-shadow 260ms ease !important;
+  }
+
+  .sba-vexur-contact :is(button[type='submit'], input[type='submit']):hover {
+    transform: translateY(-2px);
+    background-position: right center !important;
+    box-shadow: 0 22px 48px -24px rgba(228, 201, 126, 0.95) !important;
+  }
+
+  .widget-slot :is(iframe, object, embed) {
+    width: 100%;
+    min-height: 280px;
+    border: 0;
+    border-radius: 0.5rem;
   }
 
   .resource-filter {

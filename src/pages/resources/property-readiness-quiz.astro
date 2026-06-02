@@ -1,0 +1,282 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import BookCallTrigger from '../../components/BookCallTrigger.astro';
+import Button from '../../components/Button.astro';
+---
+
+<ToolPageShell
+  title="Property Readiness Quiz | SBA Buyers Agency"
+  description="A short property readiness quiz to understand where you are in your buying journey and what your next step might be."
+  kicker="Quiz"
+  heading="Property readiness"
+  headingEm="quiz."
+  intro="Six calm questions — no login, no pressure. See where you sit today and what might help you move forward with more clarity."
+>
+  <div
+    class="quiz-card scroll-reveal overflow-hidden rounded-xl border border-line-dark bg-black-2 shadow-soft"
+    data-readiness-quiz
+  >
+    <div class="border-b border-line-dark px-6 py-5 md:px-8">
+      <div class="flex items-center justify-between gap-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep">
+        <span data-quiz-step-label>Question 1 of 6</span>
+        <span data-quiz-progress>17%</span>
+      </div>
+      <div class="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
+        <div class="h-full gold-fill transition-all duration-500" data-quiz-progress-bar style="width: 17%"></div>
+      </div>
+    </div>
+
+    <form class="p-6 md:p-8" data-quiz-form>
+      <fieldset class="min-w-0 border-0 p-0" data-quiz-fieldset>
+        <legend class="font-serif text-3xl leading-tight text-offwhite" data-quiz-question></legend>
+        <div class="mt-6 grid gap-3" data-quiz-options></div>
+      </fieldset>
+
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
+        <button
+          type="button"
+          class="btn-outline px-5 py-3 text-sm font-semibold disabled:pointer-events-none disabled:opacity-40"
+          data-quiz-back
+          disabled
+        >
+          Back
+        </button>
+        <button type="button" class="btn-gold px-6 py-3 text-sm font-semibold" data-quiz-next>
+          Next
+        </button>
+      </div>
+    </form>
+
+    <div class="hidden p-6 md:p-8" data-quiz-results data-page-cta aria-label="Quiz results and next steps">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold-bright">Your result</p>
+      <h2 class="mt-4 font-serif text-4xl leading-tight text-offwhite" data-quiz-result-title></h2>
+      <p class="mt-4 text-[0.9375rem] leading-7 text-soft-light" data-quiz-result-copy></p>
+      <ul class="mt-6 space-y-2" data-quiz-result-tips></ul>
+      <BookCallTrigger id="book-call" class="btn-gold mt-8 inline-flex px-6 py-3 text-sm font-semibold focus-visible:outline-gold-bright" aria-label="Book a call">
+        Book a call with Sarah
+      </BookCallTrigger>
+      <div class="mt-6">
+        <Button href="/resources" variant="secondary">Browse Resources</Button>
+      </div>
+      <button type="button" class="mt-6 text-sm font-semibold text-gold-bright underline-offset-4 hover:underline" data-quiz-restart>
+        Retake quiz
+      </button>
+    </div>
+  </div>
+</ToolPageShell>
+
+<script>
+  type QuizQuestion = {
+    question: string;
+    options: { label: string; score: number }[];
+  };
+
+  const questions: QuizQuestion[] = [
+    {
+      question: 'Do you have a clear budget range (including costs beyond the purchase price)?',
+      options: [
+        { label: 'Yes — I know my comfortable range', score: 2 },
+        { label: 'Partly — I have a rough idea', score: 1 },
+        { label: 'Not yet — I am still working it out', score: 0 },
+      ],
+    },
+    {
+      question: 'Have you spoken with a broker or lender about borrowing capacity?',
+      options: [
+        { label: 'Yes — I understand my capacity', score: 2 },
+        { label: 'I have started the conversation', score: 1 },
+        { label: 'No — not yet', score: 0 },
+      ],
+    },
+    {
+      question: 'Do you know which regions or suburbs you are seriously considering?',
+      options: [
+        { label: 'Yes — I have a focused short list', score: 2 },
+        { label: 'I have a few areas in mind', score: 1 },
+        { label: 'No — I am still exploring broadly', score: 0 },
+      ],
+    },
+    {
+      question: 'Have you separated must-haves from nice-to-haves in your brief?',
+      options: [
+        { label: 'Yes — my brief is clear', score: 2 },
+        { label: 'Somewhat — still refining', score: 1 },
+        { label: 'No — I have not written it down', score: 0 },
+      ],
+    },
+    {
+      question: 'How do you feel when you think about making an offer?',
+      options: [
+        { label: 'Calm — I want a process I can trust', score: 2 },
+        { label: 'Mixed — excited but cautious', score: 1 },
+        { label: 'Stressed — fear of getting it wrong', score: 0 },
+      ],
+    },
+    {
+      question: 'Would independent advocacy help protect this decision?',
+      options: [
+        { label: 'Yes — I want someone in my corner', score: 2 },
+        { label: 'Maybe — for parts of the journey', score: 1 },
+        { label: 'Unsure — I am still deciding', score: 0 },
+      ],
+    },
+  ];
+
+  const results = [
+    {
+      max: 5,
+      title: 'Still building foundations',
+      copy: 'You are asking the right questions, but a few foundations still need attention before pressure makes the decisions for you. That is normal — and far better to notice now.',
+      tips: [
+        'Clarify budget and purchasing costs before inspecting',
+        'Use free guides on the Resources page',
+        'Consider a Five Minutes of Courage call when ready',
+      ],
+    },
+    {
+      max: 9,
+      title: 'Getting clearer — protect the next step',
+      copy: 'You have meaningful pieces in place, but gaps remain around strategy, due diligence or emotional readiness. This is a good stage to tighten the process before you commit.',
+      tips: [
+        'Narrow regions and write a clear brief',
+        'Test borrowing capacity with a professional',
+        'Explore the 5-4-3-2-1 Method on the site',
+      ],
+    },
+    {
+      max: 12,
+      title: 'Strong readiness — stay disciplined',
+      copy: 'You are approaching property with thought and structure. The focus now is keeping discipline when excitement, auctions or urgency appear.',
+      tips: [
+        'Keep protection before excitement',
+        'Book advocacy if you want support at offer time',
+        'Walk away when something does not stack up',
+      ],
+    },
+  ];
+
+  function initQuiz(root: HTMLElement) {
+    const form = root.querySelector('[data-quiz-form]') as HTMLElement;
+    const resultsEl = root.querySelector('[data-quiz-results]') as HTMLElement;
+    const questionEl = root.querySelector('[data-quiz-question]') as HTMLElement;
+    const optionsEl = root.querySelector('[data-quiz-options]') as HTMLElement;
+    const stepLabel = root.querySelector('[data-quiz-step-label]') as HTMLElement;
+    const progressText = root.querySelector('[data-quiz-progress]') as HTMLElement;
+    const progressBar = root.querySelector('[data-quiz-progress-bar]') as HTMLElement;
+    const backBtn = root.querySelector('[data-quiz-back]') as HTMLButtonElement;
+    const nextBtn = root.querySelector('[data-quiz-next]') as HTMLButtonElement;
+    const restartBtn = root.querySelector('[data-quiz-restart]') as HTMLButtonElement;
+    const resultTitle = root.querySelector('[data-quiz-result-title]') as HTMLElement;
+    const resultCopy = root.querySelector('[data-quiz-result-copy]') as HTMLElement;
+    const resultTips = root.querySelector('[data-quiz-result-tips]') as HTMLUListElement;
+
+    let step = 0;
+    const answers: number[] = [];
+
+    const renderQuestion = () => {
+      const current = questions[step];
+      const progress = Math.round(((step + 1) / questions.length) * 100);
+
+      questionEl.textContent = current.question;
+      stepLabel.textContent = `Question ${step + 1} of ${questions.length}`;
+      progressText.textContent = `${progress}%`;
+      progressBar.style.width = `${progress}%`;
+      backBtn.disabled = step === 0;
+      nextBtn.textContent = step === questions.length - 1 ? 'See results' : 'Next';
+
+      optionsEl.innerHTML = current.options
+        .map(
+          (option, index) => `
+          <label class="quiz-option flex cursor-pointer items-start gap-4 rounded-lg border border-line-dark bg-black/50 px-5 py-4 transition hover:border-gold/60 has-[:checked]:border-gold has-[:checked]:bg-[rgba(228,201,126,.08)]">
+            <input class="mt-1 size-4 accent-[#C2A05B]" type="radio" name="quiz-answer" value="${option.score}" data-option-index="${index}" ${answers[step] === option.score ? 'checked' : ''} required />
+            <span class="text-sm leading-6 text-soft-light">${option.label}</span>
+          </label>
+        `,
+        )
+        .join('');
+    };
+
+    const getSelectedScore = () => {
+      const selected = root.querySelector('input[name="quiz-answer"]:checked') as HTMLInputElement | null;
+      return selected ? Number(selected.value) : null;
+    };
+
+    const showResults = () => {
+      const total = answers.reduce((sum, value) => sum + value, 0);
+      const result = results.find((entry) => total <= entry.max) ?? results[results.length - 1];
+
+      form.classList.add('hidden');
+      resultsEl.classList.remove('hidden');
+      resultTitle.textContent = result.title;
+      resultCopy.textContent = result.copy;
+      resultTips.innerHTML = result.tips
+        .map(
+          (tip) =>
+            `<li class="flex items-start gap-3 text-sm leading-6 text-soft-light"><span class="mt-2 size-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true"></span><span>${tip}</span></li>`,
+        )
+        .join('');
+    };
+
+    const reset = () => {
+      step = 0;
+      answers.length = 0;
+      form.classList.remove('hidden');
+      resultsEl.classList.add('hidden');
+      renderQuestion();
+    };
+
+    backBtn.addEventListener('click', () => {
+      if (step > 0) {
+        step -= 1;
+        renderQuestion();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const score = getSelectedScore();
+      if (score === null) {
+        optionsEl.classList.add('quiz-shake');
+        window.setTimeout(() => optionsEl.classList.remove('quiz-shake'), 400);
+        return;
+      }
+
+      answers[step] = score;
+
+      if (step < questions.length - 1) {
+        step += 1;
+        renderQuestion();
+        return;
+      }
+
+      showResults();
+    });
+
+    restartBtn.addEventListener('click', reset);
+    renderQuestion();
+  }
+
+  document.querySelectorAll('[data-readiness-quiz]').forEach((root) => {
+    initQuiz(root as HTMLElement);
+  });
+</script>
+
+<style>
+  .quiz-shake {
+    animation: quiz-shake 0.4s ease;
+  }
+
+  @keyframes quiz-shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-4px);
+    }
+
+    75% {
+      transform: translateX(4px);
+    }
+  }
+</style>

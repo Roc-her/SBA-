@@ -1,10 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BookCallButton from '../components/BookCallButton.astro';
 import Button from '../components/Button.astro';
 import FinalCTA from '../components/FinalCTA.astro';
+import ReviewsCarousel from '../components/ReviewsCarousel.astro';
+import WhySbaSection from '../components/WhySbaSection.astro';
 import { liveSiteImages } from '../data/liveSiteImages';
 
-const calendlyUrl = 'https://calendly.com/sarah-sbabuyersagency';
 
 const trustItems = [
   'Independent advocacy',
@@ -14,15 +16,39 @@ const trustItems = [
 ];
 
 const problemPoints = [
-  ['Endless noise', 'Every podcast, agent and headline says something different.'],
-  ['High stakes', 'One wrong move on a purchase this size is expensive to undo.'],
-  ['No one in your corner', 'Every other agent in the deal is paid to act for the seller.'],
+  [
+    'Endless noise',
+    'You have probably read the articles, listened to the podcasts and followed the experts — yet the market still feels louder than it feels clear. Most buyers are not short on information; they are short on someone to help them sort what actually matters.',
+  ],
+  [
+    'High stakes',
+    'Property is one of the biggest financial decisions most people will make, and the weight of getting it wrong can sit with you for years. That pressure is normal — especially when you are responsible, thoughtful and trying to do the right thing for your family.',
+  ],
+  [
+    'No one in your corner',
+    'Almost everyone else in the transaction is paid to represent the seller. SBA exists so you have independent advocacy, honest guidance and protection before excitement or urgency takes over.',
+  ],
 ];
 
 const methodRows = [
-  ['5', 'Minutes of Courage', 'Start with one honest conversation.', 'Begin'],
-  ['4', 'Pillars of Strategy', 'Clarify budget, brief, suburb and fit.', 'Foundation'],
-  ['3', 'Layers of Protection', 'Test data, contract risk and emotion.', 'Safeguard'],
+  [
+    '5',
+    'Minutes of Courage',
+    'Every meaningful journey starts with a conversation. Five Minutes of Courage is a simple, no-pressure chat about your goals, concerns and whether working together makes sense — no sales pitch required.',
+    'Begin',
+  ],
+  [
+    '4',
+    'Pillars of Strategy',
+    'Before we look at properties, we build foundations: region, long-term fit, risk and financial boundaries. That keeps today\'s decision aligned with the life you are trying to build.',
+    'Foundation',
+  ],
+  [
+    '3',
+    'Layers of Protection',
+    'Due diligence, contract risk and emotional bias are tested before you commit. Protection is not an afterthought here — it is built into every recommendation and every negotiation.',
+    'Safeguard',
+  ],
 ];
 
 const reviews = [
@@ -45,9 +71,24 @@ const reviews = [
 ];
 
 const serviceCards = [
-  ['i', 'Full Buyer\'s Advocacy', 'Strategy, search, due diligence and settlement support.', 'Best when you want the whole process held.'],
-  ['ii', 'Negotiation Only', 'Unemotional negotiation when you have found the property.', 'Best when the property is found but the pressure is high.'],
-  ['iii', 'Strategic Advisory', 'Clarity before you buy, wait or change direction.', 'Best when you need the next right move.'],
+  [
+    'i',
+    'Full Buyer\'s Advocacy',
+    'End-to-end support from strategy through settlement: search, due diligence, negotiation and guidance at every stage. Ideal when you want an experienced advocate beside you, not another opinion in the noise.',
+    'Best when you want the whole process held with calm, clear protection.',
+  ],
+  [
+    'ii',
+    'Negotiation Only',
+    'You have found the property — now you need discipline on price, terms and strategy. Sarah helps remove emotion from the negotiation so the decision stays grounded in facts, not fear of missing out.',
+    'Best when the property is right but the pressure at offer time is high.',
+  ],
+  [
+    'iii',
+    'Strategic Advisory',
+    'Not everyone is ready to buy immediately. Sometimes the most valuable step is a focused conversation to explore options, test assumptions and understand what makes sense before you commit.',
+    'Best when you need clarity on the next right move — buy, wait or change direction.',
+  ],
 ];
 
 const serviceMoments = ['Strategy first', 'Pressure removed', 'Decision clarity'];
@@ -57,12 +98,6 @@ const homeServiceImages = [
   liveSiteImages.propertyStorm,
   liveSiteImages.propertyOutdoor,
 ];
-
-const nextSteps = [
-  ['i', 'Bring the question', 'No polished brief required. Start with what feels unclear.'],
-  ['ii', 'Name the pressure', 'Sarah helps separate urgency, emotion and actual risk.'],
-  ['iii', 'Choose the next move', 'Buy, pause or wait with a decision that feels protected.'],
-];
 ---
 
 <Layout
@@ -70,35 +105,32 @@ const nextSteps = [
   description="Buy property with confidence, not pressure, with SBA Buyers Agency in Bendigo, Victoria."
 >
   <section class="signature-dark overflow-hidden">
-    <div class="section-shell grid items-center gap-10 pb-12 pt-9 lg:grid-cols-2 lg:gap-14">
+    <div class="section-shell home-hero-grid grid items-center gap-10 pb-12 pt-9 lg:grid-cols-2">
       <div class="scroll-reveal max-w-[540px]">
         <p class="section-kicker text-gold-bright">Property Without Pressure</p>
-        <h1 class="mt-5 text-6xl sm:text-7xl">
-          Buy property with <em class="gold-text italic">confidence,</em> not pressure.
+        <h1 class="home-hero-title font-sans mt-5">
+          Buy property with <span class="gold-text">confidence,</span> not pressure.
         </h1>
-        <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
-          Strategic protection and advocacy for busy buyers who want clarity.
+        <p class="mt-8 max-w-xl text-base leading-8 text-soft-light">
+          You do not need to know everything about property. You need someone honest beside you — clear strategy, independent advocacy and protection before pressure takes over.
+        </p>
+        <p class="mt-4 max-w-xl text-sm leading-7 text-soft-light/90">
+          SBA Buyers Agency helps capable buyers across Bendigo and regional Victoria move from overwhelm to calm, confident decisions.
         </p>
 
-        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-semibold text-soft-light">
-          <div class="inline-flex items-center gap-3">
-            <span class="gold-text tracking-[0.08em]" aria-label="5 star rating">★★★★★</span>
-            <span><span class="text-gold-bright">5.0</span> · Google reviews</span>
-          </div>
-          <span class="hidden h-5 w-px gold-fill sm:inline-block" aria-hidden="true"></span>
-          <span>Independent advocacy across Bendigo & regional Victoria</span>
+        <div class="home-hero-actions mt-6 flex flex-wrap items-center gap-3">
+          <Button href="/start-here">Start Here</Button>
+          <BookCallButton>Book a Call</BookCallButton>
         </div>
-
-        <div class="mt-8 flex flex-wrap items-center gap-5">
-          <Button href={calendlyUrl}>Book a Call</Button>
-          <a href="/method" class="group inline-flex items-center gap-2 text-sm font-semibold text-gold-bright">
-            Explore the Method
-            <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span>
+        <p class="mt-4">
+          <a href="/method" class="inline-flex items-center gap-2 text-sm font-semibold text-gold-bright transition hover:gap-3">
+            Explore the 5-4-3-2-1 Method
+            <span aria-hidden="true">→</span>
           </a>
-        </div>
+        </p>
       </div>
 
-      <div class="scroll-reveal flex justify-start lg:justify-end" style="--reveal-delay: 120ms">
+      <div class="home-hero-media scroll-reveal flex" style="--reveal-delay: 120ms">
         <figure class="relative w-full max-w-[440px]">
           <div class="absolute -inset-4 rounded-[1.75rem] bg-[radial-gradient(circle_at_65%_20%,rgba(228,201,126,.26),transparent_18rem)] blur-xl"></div>
           <div class="relative rounded-[1.75rem] p-px gold-fill shadow-soft">
@@ -134,6 +166,8 @@ const nextSteps = [
     </div>
   </section>
 
+  <WhySbaSection />
+
   <section class="page-section">
     <div class="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
       <div class="scroll-reveal relative max-w-3xl overflow-hidden rounded-lg border border-line bg-white p-7 shadow-[0_22px_70px_-52px_rgba(11,11,11,.5)]">
@@ -147,7 +181,7 @@ const nextSteps = [
             It isn't property. It's the fear of <em class="gold-text italic">getting it wrong.</em>
           </h2>
           <p class="mt-5 max-w-xl text-base leading-8 text-muted">
-            Buyers drown in information when what they really need is clarity.
+            If you are here, you are probably not looking for more information — you are already surrounded by it. What most thoughtful buyers need is clarity: someone who can help you understand what matters, what does not, and how to decide from strategy rather than fear.
           </p>
           <p class="mt-5 max-w-xl font-serif text-3xl leading-tight text-ink">
             More information is not the same as protection.
@@ -170,7 +204,7 @@ const nextSteps = [
               <span class="absolute left-[9px] top-[31px] z-10 size-[18px] -translate-x-1/2 rounded-full border-2 border-gold bg-white transition duration-200 group-hover:scale-125 group-hover:border-transparent group-hover:bg-[linear-gradient(135deg,#E4C97E_0%,#C2A05B_45%,#9C7C38_100%)] group-hover:shadow-[0_0_22px_rgba(228,201,126,.42)]"></span>
               <article class="rounded-lg border border-line bg-white p-[22px] transition duration-200 group-hover:-translate-y-[5px] group-hover:border-gold group-hover:shadow-soft">
                 <h3 class="text-3xl">{title}</h3>
-                <p class="mt-2 text-sm leading-7 text-muted">{copy}</p>
+                <p class="mt-2 text-[0.9375rem] leading-7 text-muted">{copy}</p>
               </article>
             </div>
           ))}
@@ -187,7 +221,7 @@ const nextSteps = [
           The 5·4·3·2·1 Method
         </h2>
         <p class="mt-5 max-w-2xl text-base leading-8 text-soft-light">
-          Five calm steps that take you from overwhelmed to a confident decision — here are the first three.
+          The 5-4-3-2-1 Method replaces confusion with a process you can trust — from one honest conversation through strategy, protection and mindset to one calm, confident decision. Here are the first three steps.
         </p>
       </div>
 
@@ -196,7 +230,7 @@ const nextSteps = [
           <article class="group scroll-reveal border-b border-soft-light bg-black/80 p-6 transition hover:bg-[rgba(228,201,126,.08)] md:border-b-0 md:border-r md:last:border-r-0" style={`--reveal-delay: ${index * 55}ms`}>
             <p class="font-serif text-[3.6rem] leading-none gold-text">{number}</p>
             <h3 class="mt-4 text-3xl">{title}</h3>
-            <p class="mt-3 text-sm leading-6 text-soft-light">{copy}</p>
+            <p class="mt-3 text-[0.9375rem] leading-7 text-soft-light">{copy}</p>
             <p class="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-gold-bright">{tag}</p>
           </article>
         ))}
@@ -211,15 +245,38 @@ const nextSteps = [
     </div>
   </section>
 
+  <section class="signature-dark border-t border-line-dark mt-5">
+    <div class="py-10">
+      <div class="section-shell">
+      <div class="scroll-reveal mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="section-kicker text-gold-bright">Client words</p>
+          <h2 class="mt-3 text-4xl sm:text-5xl">
+            Calm guidance, <em class="gold-text italic">real confidence.</em>
+          </h2>
+          <p class="mt-3 max-w-xl text-sm leading-7 text-soft-light">
+            Clients often tell Sarah they felt heard, understood and protected — not just helped to buy. Relief and confidence matter as much as the outcome.
+          </p>
+          <a href="/client-stories" class="mt-3 inline-flex text-sm font-semibold text-gold-bright transition hover:gap-2">
+            Read client stories →
+          </a>
+        </div>
+      </div>
+
+      <ReviewsCarousel reviews={reviews} />
+      </div>
+    </div>
+  </section>
+
   <section class="page-section">
     <div class="section-shell">
-      <div class="scroll-reveal mb-8">
+      <div class="scroll-reveal mb-8 max-w-3xl">
         <p class="section-kicker">Services</p>
-        <h2 class="mt-4 max-w-4xl text-5xl sm:text-6xl">
+        <h2 class="mt-4 text-5xl sm:text-6xl">
           Support shaped around where you <em class="gold-text italic">are.</em>
         </h2>
         <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
-          Three calm starting points. Choose the help that matches your pressure point.
+          No two property journeys look the same. Whether you need full advocacy, negotiation support or a clarity session first, the goal is the same: honest guidance shaped around where you are today.
         </p>
       </div>
 
@@ -237,7 +294,7 @@ const nextSteps = [
                 class="aspect-[16/8] w-full object-cover transition duration-500 group-hover:scale-[1.06]"
               />
               <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,11,11,0)_40%,rgba(11,11,11,.58)_100%)] opacity-80 transition group-hover:opacity-95"></div>
-              <div class="absolute bottom-4 left-5 rounded-full border border-gold bg-black/85 px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-gold-bright shadow-[0_14px_34px_-20px_rgba(0,0,0,.8)]">
+              <div class="absolute bottom-4 left-5 rounded-full border border-gold/70 bg-black/80 px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-offwhite shadow-[0_14px_34px_-20px_rgba(0,0,0,.8)]">
                 {serviceMoments[index]}
               </div>
             </div>
@@ -262,82 +319,6 @@ const nextSteps = [
         <Button href="/services" variant="secondary">
           View all services -&gt;
         </Button>
-      </div>
-    </div>
-  </section>
-
-  <section class="signature-dark border-t border-line-dark">
-    <div class="py-10">
-      <div class="section-shell">
-      <div class="scroll-reveal mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p class="section-kicker text-gold-bright">Client words</p>
-          <h2 class="mt-3 text-4xl sm:text-5xl">
-            Calm guidance, <em class="gold-text italic">real confidence.</em>
-          </h2>
-        </div>
-      </div>
-      </div>
-
-      <div class="overflow-hidden py-2" aria-label="Client reviews">
-        <div class="review-marquee">
-          {[0, 1].map((group) => (
-            <div class="review-marquee-group" aria-hidden={group === 1 ? 'true' : undefined}>
-              {reviews.map(([name, quote]) => (
-                <article class="relative flex min-h-[205px] w-[min(76vw,29rem)] shrink-0 flex-col rounded-xl border border-white/10 bg-black-2 p-6 text-offwhite shadow-[0_22px_60px_-42px_rgba(228,201,126,.42)] md:min-h-[218px]">
-                  <div class="flex items-center justify-between gap-5">
-                    <p class="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold-bright">Client note</p>
-                    <p class="gold-text text-xs tracking-[0.12em]" aria-label="5 star review">★★★★★</p>
-                  </div>
-                  <p class="mt-6 font-serif text-[1.25rem] leading-tight text-offwhite md:text-[1.4rem]">
-                    {quote}
-                  </p>
-                  <div class="mt-auto flex items-center gap-3 pt-6">
-                    <span class="h-px w-9 gold-fill" aria-hidden="true"></span>
-                    <p class="font-serif text-xl leading-none text-offwhite">{name}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page-section">
-    <div class="section-shell">
-      <div class="scroll-reveal relative overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-[0_26px_80px_-58px_rgba(11,11,11,.65)] md:p-8">
-        <p class="pointer-events-none absolute right-8 top-2 font-serif text-[9rem] leading-none text-black opacity-[0.035]" aria-hidden="true">Next</p>
-        <div class="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-        <div>
-          <p class="section-kicker">What happens next</p>
-          <h2 class="mt-4 text-5xl sm:text-6xl">
-            Keep the next step <em class="gold-text italic">simple.</em>
-          </h2>
-          <p class="mt-5 max-w-xl text-base leading-8 text-muted">
-            A calm conversation turns the noise into a clear first move.
-          </p>
-        </div>
-
-        <div class="relative">
-          <span class="absolute left-0 right-0 top-[1.7rem] hidden h-px bg-gold md:block" aria-hidden="true"></span>
-          <div class="grid gap-4 md:grid-cols-3">
-          {nextSteps.map(([number, title, copy], index) => (
-            <div class="group relative pt-16" style={`--reveal-delay: ${index * 60}ms`}>
-              <span class="absolute left-0 top-[1.7rem] z-10 flex size-[3.4rem] -translate-y-1/2 items-center justify-center rounded-full border border-gold bg-white shadow-[0_14px_36px_-28px_rgba(11,11,11,.85)] transition duration-300 group-hover:scale-110">
-                <span class="font-serif text-2xl leading-none text-ink">{number}</span>
-              </span>
-              <div class="h-full border-t border-line pt-5 transition duration-300 group-hover:-translate-y-1 group-hover:border-gold">
-                <h3 class="text-3xl leading-tight">{title}</h3>
-                <p class="mt-2 text-sm leading-7 text-muted">{copy}</p>
-                <span class="mt-5 block h-px w-10 bg-gold transition duration-300 group-hover:w-20" aria-hidden="true"></span>
-              </div>
-            </div>
-          ))}
-          </div>
-        </div>
-        </div>
       </div>
     </div>
   </section>

@@ -1,0 +1,146 @@
+<!--
+  SBA × Vexur contact form — paste into any page (e.g. WordPress HTML block).
+  Primary colour: #A4853F (solid only in Vexur dashboard).
+  Submit button: gold gradient via .sba-vexur-contact wrapper + script below.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  .sba-vexur-contact {
+    width: 100%;
+    max-width: 42rem;
+    margin: 0 auto;
+    --vx-primary: #a4853f;
+    --vx-primary-hover: #c2a05b;
+    --vx-surface: #f7f7f5;
+    --vx-border: #d3d3cf;
+    --vx-text: #1a1a1a;
+    --vx-muted: #6e6e6e;
+    --vx-radius: 0.5rem;
+    --vx-font: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--vx-font);
+    color-scheme: light;
+  }
+  .sba-vexur-contact .vexur-widget {
+    width: 100%;
+    min-height: 24rem;
+  }
+  .sba-vexur-contact :is(iframe) {
+    display: block;
+    width: 100% !important;
+    min-height: 24rem;
+    border: 0;
+    border-radius: var(--vx-radius);
+  }
+  .sba-vexur-contact :is(button[type='submit'], input[type='submit']) {
+    border: 0 !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(135deg, #e4c97e 0%, #c2a05b 45%, #9c7c38 100%) !important;
+    background-size: 180% 180% !important;
+    color: #0b0b0b !important;
+    font-weight: 600 !important;
+    box-shadow: 0 18px 38px -26px rgba(228, 201, 126, 0.85) !important;
+    transition:
+      transform 200ms ease,
+      background-position 260ms ease,
+      box-shadow 260ms ease !important;
+  }
+  .sba-vexur-contact :is(button[type='submit'], input[type='submit']):hover {
+    transform: translateY(-2px);
+    background-position: right center !important;
+    box-shadow: 0 22px 48px -24px rgba(228, 201, 126, 0.95) !important;
+  }
+</style>
+
+<div class="sba-vexur-contact">
+  <div
+    class="vexur-widget"
+    data-widget="contact"
+    data-agent="138ad568-71f5-4210-8578-418c138b745c"
+    data-loader="v2"
+    data-theme="light"
+    data-primary-color="#A4853F"
+    data-show-branding="true"
+    data-consent="pending"
+    data-vx-no-fallback="true"
+    data-vx-param-form-widget-build-id="form-af2182b4-9700-439d-a73d-6874a84cdeba"
+    data-vx-param-form-id="af2182b4-9700-439d-a73d-6874a84cdeba"
+    data-vx-param-v="2026-06-02T08:24:18.754+00:00"
+  ></div>
+</div>
+
+<script
+  src="https://embed.vexur.com.au/v1.1.4/loader.js"
+  integrity="sha384-RoAkctLKXQcPKL41H7otn69Qv8gal1dG8Tz7ka/3PpTIltFaPfJhrHUIqanA7F9V"
+  crossorigin="anonymous"
+></script>
+<script>
+  (function () {
+    var SUBMIT_STYLE_ID = 'sba-vexur-submit-gradient';
+    var SUBMIT_CSS =
+      'button[type="submit"],input[type="submit"],[data-testid="submit"],.vx-submit-button,form button.primary{border:0!important;background-color:transparent!important;background-image:linear-gradient(135deg,#E4C97E 0%,#C2A05B 45%,#9C7C38 100%)!important;background-size:180% 180%!important;color:#0B0B0B!important;font-weight:600!important;box-shadow:0 18px 38px -26px rgba(228,201,126,.85)!important;transition:transform 200ms ease,background-position 260ms ease,box-shadow 260ms ease!important}button[type="submit"]:hover,input[type="submit"]:hover{transform:translateY(-2px);background-position:right center!important;box-shadow:0 22px 48px -24px rgba(228,201,126,.95)!important}';
+
+    function injectSubmitStyles(shadow) {
+      if (shadow.querySelector('#' + SUBMIT_STYLE_ID)) return;
+      var style = document.createElement('style');
+      style.id = SUBMIT_STYLE_ID;
+      style.textContent = SUBMIT_CSS;
+      shadow.appendChild(style);
+    }
+
+    function styleSubmitButton(button) {
+      if (button.dataset.sbaGoldSubmit === 'true') return;
+      button.dataset.sbaGoldSubmit = 'true';
+      button.style.setProperty('border', 'none', 'important');
+      button.style.setProperty('background-color', 'transparent', 'important');
+      button.style.setProperty(
+        'background-image',
+        'linear-gradient(135deg, #E4C97E 0%, #C2A05B 45%, #9C7C38 100%)',
+        'important'
+      );
+      button.style.setProperty('background-size', '180% 180%', 'important');
+      button.style.setProperty('color', '#0B0B0B', 'important');
+      button.style.setProperty('font-weight', '600', 'important');
+      button.style.setProperty('box-shadow', '0 18px 38px -26px rgba(228, 201, 126, 0.85)', 'important');
+    }
+
+    function scanRoot(root) {
+      root.querySelectorAll('button[type="submit"], input[type="submit"]').forEach(function (node) {
+        styleSubmitButton(node);
+      });
+      root.querySelectorAll('button').forEach(function (node) {
+        if (/^submit$/i.test((node.textContent || '').trim())) styleSubmitButton(node);
+      });
+      root.querySelectorAll('*').forEach(function (el) {
+        if (el.shadowRoot) {
+          injectSubmitStyles(el.shadowRoot);
+          scanRoot(el.shadowRoot);
+        }
+      });
+    }
+
+    function init() {
+      document.querySelectorAll('.sba-vexur-contact').forEach(function (shell) {
+        scanRoot(shell);
+        new MutationObserver(function () {
+          scanRoot(shell);
+        }).observe(shell, { childList: true, subtree: true });
+        [400, 1200, 3000, 6000].forEach(function (delay) {
+          setTimeout(function () {
+            scanRoot(shell);
+          }, delay);
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

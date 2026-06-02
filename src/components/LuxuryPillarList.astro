@@ -1,0 +1,32 @@
+---
+interface Pillar {
+  title: string;
+  copy?: string;
+}
+
+const { pillars, layout = 'stack', class: className = '', ...attrs } = Astro.props as {
+  pillars: Pillar[];
+  layout?: 'stack' | 'split';
+  class?: string;
+};
+---
+
+<ul
+  class:list={[
+    'luxury-pillars',
+    layout === 'split' && 'luxury-pillars--split',
+    className,
+  ]}
+  {...attrs}
+>
+  {
+    pillars.map((pillar) => (
+      <li class="luxury-pillar">
+        <div class="luxury-pillar__copy">
+          <p class="luxury-pillar__title">{pillar.title}</p>
+          {pillar.copy && <p class="luxury-pillar__text">{pillar.copy}</p>}
+        </div>
+      </li>
+    ))
+  }
+</ul>

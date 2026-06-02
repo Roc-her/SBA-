@@ -13,4 +13,7 @@ export const liveSiteImages = {
   propertyOutdoor: '/images/landing-sarah-3.jpeg',
   sarahWallLegacy: '/images/about-us-secondary.jpg',
   sarahPortraitLegacy: '/images/about-us-sarah.jpeg',
+  whySbaSarah: '/images/sarah-cozy-moment.png',
+  servicesBridge: '/images/services-bridge-twilight.png',
+  sarahGateNotebook: '/images/sarah-gate-notebook.png',
 };

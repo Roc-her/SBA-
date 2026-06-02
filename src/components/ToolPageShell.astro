@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  kicker: string;
+  heading: string;
+  headingEm?: string;
+  intro: string;
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  title,
+  description,
+  kicker,
+  heading,
+  headingEm,
+  intro,
+  backHref = '/resources',
+  backLabel = 'Back to Resources',
+} = Astro.props;
+---
+
+<Layout {title} {description}>
+  <section class="signature-dark">
+    <div class="section-shell pb-8 pt-9">
+      <a
+        href={backHref}
+        class="scroll-reveal inline-flex items-center gap-2 text-sm font-semibold text-gold-bright transition hover:gap-3"
+      >
+        <span aria-hidden="true">←</span>
+        {backLabel}
+      </a>
+      <div class="scroll-reveal mt-6 max-w-3xl">
+        <p class="section-kicker text-gold-bright">{kicker}</p>
+        <h1 class="mt-5 text-5xl sm:text-6xl">
+          {heading}
+          {headingEm && (
+            <>
+              {' '}
+              <em class="gold-text italic">{headingEm}</em>
+            </>
+          )}
+        </h1>
+        <p class="mt-6 max-w-2xl text-base leading-8 text-soft-light">{intro}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section pt-0">
+    <div class="section-shell max-w-3xl">
+      <slot />
+    </div>
+  </section>
+
+  <slot name="after" />
+</Layout>

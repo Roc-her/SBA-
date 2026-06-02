@@ -2,26 +2,60 @@
 import Layout from '../layouts/Layout.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 
+const methodRows = [
+  [
+    '5',
+    'Minutes of Courage',
+    'The hardest step is often the first one. This is a simple, no-obligation conversation about where you are, what you are trying to achieve and whether SBA is the right fit — no expectation that you already have all the answers.',
+    'Begin',
+  ],
+  [
+    '4',
+    'Pillars of Strategy',
+    'Property should not start with scrolling listings. Together we clarify region, long-term alignment, risk and financial boundaries so every opportunity is assessed against your goals — not headlines or hype.',
+    'Foundation',
+  ],
+  [
+    '3',
+    'Layers of Protection',
+    'Every recommendation is filtered through due diligence, contract risk and negotiation strategy. The aim is to protect your capital and reduce costly mistakes before excitement replaces clear thinking.',
+    'Safeguard',
+  ],
+  [
+    '2',
+    'Mindset Shifts',
+    'Strong buyers treat property as a business decision before an emotional one, and they trust discipline over luck or perfect timing. These shifts are simple — but they change how you respond when pressure appears.',
+    'Reframe',
+  ],
+  [
+    '1',
+    'Confident Decision',
+    'The outcome is not a rushed yes. It is a calm decision you can stand behind — to act, pause or walk away — because the risks, strategy and process have been tested properly.',
+    'Arrive',
+  ],
+];
+
+const beliefs = [
+  [
+    'Wealth should support life',
+    'Financial decisions should create more freedom and choice, not demand endless sacrifice. Property is a vehicle for the life you are building — not the other way around.',
+  ],
+  [
+    'Confidence comes from process',
+    'More information rarely creates certainty on its own. A clear structure helps you navigate uncertainty when the stakes are high and the opinions are loud.',
+  ],
+  [
+    'Protection is progress',
+    'Sometimes the best outcome is avoiding the wrong property. Walking away with your capital and confidence intact is a successful result, not a failure.',
+  ],
+];
+
 const chartSteps = [
   ['5', 'Courage', '40%'],
   ['4', 'Strategy', '55%'],
   ['3', 'Protection', '70%'],
   ['2', 'Mindset', '85%'],
   ['1', 'Decision', '100%'],
-];
-
-const methodSteps = [
-  ['5', 'Minutes of Courage', 'One honest conversation that names the decision.'],
-  ['4', 'Pillars of Strategy', 'Budget, brief, location and life fit.'],
-  ['3', 'Layers of Protection', 'Data, contract risk and emotional bias tested.'],
-  ['2', 'Mindset Shifts', 'From panic to process; walking away is valid.'],
-  ['1', 'Confident Decision', 'Clear enough to act, pause or stop.'],
-];
-
-const philosophyRows = [
-  ['01', 'Noise is not', 'research.', 'More opinions do not always create better decisions.'],
-  ['02', 'Urgency is not', 'strategy.', 'Pressure should be tested before it is trusted.'],
-  ['03', 'Protection is', 'progress.', 'Avoiding the wrong purchase is a successful outcome.'],
 ];
 ---
 
@@ -37,101 +71,95 @@ const philosophyRows = [
           A process built on protection, clarity and <em class="gold-text italic">confidence.</em>
         </h1>
         <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
-          Confidence comes from process, not knowing everything.
+          The 5-4-3-2-1 Method was built from lived experience — not as a marketing exercise, but as a way to move from uncertainty to clarity with protection, discipline and long-term thinking at the centre.
+        </p>
+        <p class="mt-4 max-w-xl text-sm leading-7 text-soft-light/90">
+          Confidence comes from process, not from knowing everything.
         </p>
       </div>
 
       <div class="scroll-reveal hidden lg:block" style="--reveal-delay: 140ms" aria-label="5-4-3-2-1 Method progress chart">
-        <div class="relative ml-auto max-w-[540px] overflow-hidden rounded-[1.35rem] border border-line-dark bg-black-2/70 p-7 shadow-soft backdrop-blur">
-          <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(228,201,126,.13),transparent_16rem)]"></div>
-          <div class="relative grid h-[300px] grid-cols-5 items-end gap-5 border-b border-line-dark px-2 pb-8">
-            {chartSteps.map(([number, label, height]) => (
-              <div class="group flex h-full min-w-0 flex-col items-center justify-end">
-                <div
-                  class="flex w-full max-w-[3.7rem] flex-col items-center transition duration-300 group-hover:-translate-y-1 group-hover:brightness-110"
-                  style={`height: ${height}`}
-                >
-                  <p class="mb-2 font-serif text-5xl leading-none gold-text transition duration-300 group-hover:brightness-125">
-                    {number}
-                  </p>
+        <div class="relative ml-auto max-w-[540px] rounded-[1.35rem] border border-line-dark bg-black-2/70 p-7 shadow-soft backdrop-blur">
+          <div class="pointer-events-none absolute inset-0 rounded-[1.35rem] bg-[radial-gradient(circle_at_72%_18%,rgba(228,201,126,.13),transparent_16rem)]"></div>
+          <div class="relative grid grid-cols-5 gap-6 px-1">
+            {chartSteps.map(([number, label, height], index) => (
+              <div class="group flex min-w-0 flex-col items-center">
+                <div class="relative flex h-[262px] w-full items-end justify-center border-b border-line-dark">
                   <div
-                    class="w-full flex-1 rounded-t-[1.15rem] bg-[linear-gradient(180deg,#E4C97E_0%,#C2A05B_48%,#9C7C38_100%)] opacity-90 shadow-[0_0_28px_-14px_rgba(228,201,126,.9)] transition duration-300 group-hover:opacity-100 group-hover:shadow-[0_0_34px_-10px_rgba(228,201,126,1)]"
+                    class="flex w-full flex-col items-center transition duration-300 group-hover:-translate-y-1"
+                    style={`height: ${height}`}
+                  >
+                    <p class="mb-3 font-serif text-5xl leading-none gold-text transition duration-300 group-hover:brightness-125">
+                      {number}
+                    </p>
+                  <div
+                    class="min-h-0 w-full max-w-[3.35rem] flex-1 rounded-t-[1.2rem] bg-[linear-gradient(180deg,#E4C97E_0%,#C2A05B_48%,#9C7C38_100%)] opacity-90 shadow-[0_0_28px_-14px_rgba(228,201,126,.9)] transition duration-300 group-hover:opacity-100 group-hover:brightness-110 group-hover:shadow-[0_0_34px_-10px_rgba(228,201,126,1)]"
                     aria-hidden="true"
                   ></div>
+                  </div>
                 </div>
-                <p class="absolute bottom-3 text-center text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-gold-bright">
+                <p class="mt-4 text-center text-[0.6rem] font-semibold uppercase tracking-[0.11em] text-gold-bright">
                   {label}
                 </p>
               </div>
             ))}
           </div>
           <p class="relative mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-soft-light">
-            Building from one conversation to one confident decision.
+            Building from one conversation to one confident decision
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="signature-dark border-t border-line-dark">
-    <div class="section-shell py-16">
+  <section class="page-section">
+    <div class="section-shell">
       <div class="scroll-reveal mb-8 max-w-3xl">
-        <p class="section-kicker text-gold-bright">The Method, step by step</p>
+        <p class="section-kicker">What most people get wrong</p>
         <h2 class="mt-4 text-5xl sm:text-6xl">
-          Five steps down to one clear <em class="gold-text italic">decision.</em>
+          They try to feel certain before they have a <em class="gold-text italic">process.</em>
         </h2>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
+          Many capable buyers have done months of research yet still feel stuck — not because they lack intelligence, but because information and clarity are not the same thing. This method gives uncertainty a structure, so each step has a clear job.
+        </p>
       </div>
 
-      <div class="relative max-w-5xl pl-[38px]">
-        <span class="absolute bottom-5 left-[1rem] top-5 w-[2px] bg-[linear-gradient(180deg,rgba(228,201,126,.18),rgba(228,201,126,.5),rgba(164,133,63,.5),rgba(164,133,63,.18))]" aria-hidden="true"></span>
-        <div class="divide-y divide-line-dark">
-          {methodSteps.map(([number, title, copy], index) => (
-            <article class="group relative py-3.5 transition duration-300 hover:translate-x-1.5" style={`--reveal-delay: ${index * 55}ms`}>
-              <span class="absolute left-[-2.1rem] top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gold bg-black transition duration-300 group-hover:scale-125 group-hover:border-transparent group-hover:bg-[linear-gradient(135deg,#E4C97E_0%,#C2A05B_45%,#9C7C38_100%)] group-hover:shadow-[0_0_22px_rgba(228,201,126,.5)]" aria-hidden="true"></span>
-              <div class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
-                <p class="font-serif text-[1.5rem] leading-none gold-text">{number}</p>
-                <h3 class="text-[1.3rem] leading-tight text-offwhite">{title}</h3>
-                <p class="text-sm leading-6 text-soft-light sm:pt-1">{copy}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+      <div class="overflow-hidden border-y border-line">
+        {methodRows.map(([number, title, copy, tag], index) => (
+          <article class="group scroll-reveal grid gap-4 border-b border-line py-[30px] transition last:border-b-0 hover:translate-x-2 md:grid-cols-[7rem_1fr_auto] md:items-center" style={`--reveal-delay: ${index * 70}ms`}>
+            <p class="font-serif text-7xl leading-none gold-text">{number}</p>
+            <div>
+              <h3 class="text-4xl">{title}</h3>
+              <p class="mt-2 max-w-3xl text-sm leading-7 text-muted">{copy}</p>
+            </div>
+            <span class="w-fit rounded-full border border-line px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold-deep">
+              {tag}
+            </span>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="page-section py-[70px] md:py-[70px]">
-    <div class="section-shell">
-      <div class="scroll-reveal relative overflow-hidden rounded-[20px] border border-line bg-white p-7 shadow-[0_34px_110px_-72px_rgba(11,11,11,.72)] md:p-[60px]">
-        <div class="absolute inset-x-0 top-0 h-1 gold-fill" aria-hidden="true"></div>
-        <div class="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full bg-[radial-gradient(circle,rgba(228,201,126,.16),transparent_68%)]" aria-hidden="true"></div>
-        <div class="pointer-events-none absolute -bottom-28 -left-24 size-80 rounded-full bg-[radial-gradient(circle,rgba(164,133,63,.13),transparent_68%)]" aria-hidden="true"></div>
-        <p class="pointer-events-none absolute bottom-4 right-8 font-serif text-[6rem] italic leading-none text-transparent opacity-20 md:text-[11rem]" style="-webkit-text-stroke: 1px rgba(164,133,63,.58);" aria-hidden="true">
-          calm.
+  <section class="signature-dark">
+    <div class="section-shell py-10 md:py-14">
+      <div class="scroll-reveal mb-8 max-w-3xl">
+        <p class="section-kicker text-gold-bright">Philosophy</p>
+        <h2 class="mt-4 text-5xl sm:text-6xl">
+          Strong decisions are calm before they are <em class="gold-text italic">confident.</em>
+        </h2>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-soft-light">
+          Three beliefs sit underneath every step: your wealth should support your life, you deserve honest guidance without judgement, and protection matters as much as opportunity.
         </p>
+      </div>
 
-        <div class="relative">
-          <div class="max-w-3xl">
-            <p class="section-kicker">Philosophy</p>
-            <h2 class="mt-4 max-w-[18ch] text-5xl sm:text-6xl">
-              Strong decisions are calm before they are <em class="gold-text italic">confident.</em>
-            </h2>
-          </div>
-
-          <div class="mt-9 border-y border-[#E6E6E3]">
-            {philosophyRows.map(([number, lead, goldWord, explainer], index) => (
-              <div class="group grid gap-4 border-b border-[#E6E6E3] py-6 transition duration-300 last:border-b-0 hover:translate-x-2 md:grid-cols-[6rem_1fr] md:items-start" style={`--reveal-delay: ${index * 70}ms`}>
-                <p class="font-serif text-5xl leading-none gold-text">{number}</p>
-                <div>
-                  <h3 class="font-serif text-[2rem] leading-tight text-ink">
-                    {lead} <em class="gold-text italic">{goldWord}</em>
-                  </h3>
-                  <p class="mt-2 text-sm leading-7 text-muted">{explainer}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div class="grid gap-5 md:grid-cols-3">
+        {beliefs.map(([title, copy], index) => (
+          <article class="scroll-reveal rounded-lg border border-soft-light bg-soft-light p-7" style={`--reveal-delay: ${index * 70}ms`}>
+            <h3 class="text-4xl">{title}</h3>
+            <p class="mt-4 text-[0.9375rem] leading-7 text-soft-light">{copy}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>

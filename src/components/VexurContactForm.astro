@@ -1,0 +1,111 @@
+---
+import { vexurContactForm } from '../data/vexur';
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['sba-vexur-contact', className]}>
+  <div
+    class="vexur-widget"
+    data-widget="contact"
+    data-agent={vexurContactForm.agentId}
+    data-loader={vexurContactForm.loader}
+    data-theme={vexurContactForm.theme}
+    data-primary-color={vexurContactForm.primaryColor}
+    data-show-branding="true"
+    data-consent="pending"
+    data-vx-no-fallback="true"
+    data-vx-param-form-widget-build-id={vexurContactForm.formWidgetBuildId}
+    data-vx-param-form-id={vexurContactForm.formId}
+    data-vx-param-v={vexurContactForm.version}
+  ></div>
+</div>
+
+<script>
+  const SUBMIT_STYLE_ID = 'sba-vexur-submit-gradient';
+  const SUBMIT_CSS = `
+    button[type="submit"],
+    input[type="submit"],
+    [data-testid="submit"],
+    .vx-submit-button,
+    form button.primary {
+      border: 0 !important;
+      background-color: transparent !important;
+      background-image: linear-gradient(135deg, #E4C97E 0%, #C2A05B 45%, #9C7C38 100%) !important;
+      background-size: 180% 180% !important;
+      color: #0B0B0B !important;
+      font-weight: 600 !important;
+      box-shadow: 0 18px 38px -26px rgba(228, 201, 126, 0.85) !important;
+      transition: transform 200ms ease, background-position 260ms ease, box-shadow 260ms ease !important;
+    }
+    button[type="submit"]:hover,
+    input[type="submit"]:hover {
+      transform: translateY(-2px);
+      background-position: right center !important;
+      box-shadow: 0 22px 48px -24px rgba(228, 201, 126, 0.95) !important;
+    }
+  `;
+
+  function injectSubmitStyles(shadow: ShadowRoot) {
+    if (shadow.querySelector(`#${SUBMIT_STYLE_ID}`)) return;
+    const style = document.createElement('style');
+    style.id = SUBMIT_STYLE_ID;
+    style.textContent = SUBMIT_CSS;
+    shadow.appendChild(style);
+  }
+
+  function styleSubmitButton(button: HTMLButtonElement | HTMLInputElement) {
+    if (button.dataset.sbaGoldSubmit === 'true') return;
+    button.dataset.sbaGoldSubmit = 'true';
+    button.style.setProperty('border', 'none', 'important');
+    button.style.setProperty('background-color', 'transparent', 'important');
+    button.style.setProperty(
+      'background-image',
+      'linear-gradient(135deg, #E4C97E 0%, #C2A05B 45%, #9C7C38 100%)',
+      'important',
+    );
+    button.style.setProperty('background-size', '180% 180%', 'important');
+    button.style.setProperty('color', '#0B0B0B', 'important');
+    button.style.setProperty('font-weight', '600', 'important');
+    button.style.setProperty('box-shadow', '0 18px 38px -26px rgba(228, 201, 126, 0.85)', 'important');
+  }
+
+  function scanRoot(root: ParentNode) {
+    root.querySelectorAll('button[type="submit"], input[type="submit"]').forEach((node) => {
+      if (node instanceof HTMLButtonElement || node instanceof HTMLInputElement) {
+        styleSubmitButton(node);
+      }
+    });
+
+    root.querySelectorAll('button').forEach((node) => {
+      if (!(node instanceof HTMLButtonElement)) return;
+      if (/^submit$/i.test(node.textContent?.trim() ?? '')) {
+        styleSubmitButton(node);
+      }
+    });
+
+    root.querySelectorAll('*').forEach((el) => {
+      if (el instanceof HTMLElement && el.shadowRoot) {
+        injectSubmitStyles(el.shadowRoot);
+        scanRoot(el.shadowRoot);
+      }
+    });
+  }
+
+  function initVexurSubmitTheme() {
+    document.querySelectorAll('.sba-vexur-contact').forEach((shell) => {
+      scanRoot(shell);
+      const observer = new MutationObserver(() => scanRoot(shell));
+      observer.observe(shell, { childList: true, subtree: true });
+    });
+
+    document.querySelectorAll('.sba-vexur-contact').forEach((shell) => {
+      [400, 1200, 3000, 6000].forEach((delay) => {
+        window.setTimeout(() => scanRoot(shell), delay);
+      });
+    });
+  }
+
+  initVexurSubmitTheme();
+  document.addEventListener('astro:page-load', initVexurSubmitTheme);
+</script>

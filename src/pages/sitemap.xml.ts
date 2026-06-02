@@ -4,10 +4,15 @@ const staticPages = [
   '/',
   '/start-here/',
   '/about-sarah/',
+  '/client-stories/',
   '/services/',
   '/method/',
   '/resources/',
+  '/resources/borrowing-power/',
+  '/resources/stamp-duty/',
+  '/resources/property-readiness-quiz/',
   '/contact/',
+  '/blog/',
 ];
 
 export async function GET({ site }) {

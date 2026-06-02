@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">Sarah Smith SBA Buyers Agency</title>
+  <defs>
+    <path id="top-arc" d="M 105 167 Q 250 55 395 167" />
+    <path id="bottom-arc" d="M 92 334 Q 250 448 408 334" />
+  </defs>
+  <circle cx="250" cy="250" r="214" fill="none" stroke="#171717" stroke-width="8" />
+  <text
+    fill="#171717"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="43"
+    font-weight="700"
+    letter-spacing="7"
+  >
+    <textPath href="#top-arc" startOffset="50%" text-anchor="middle">SARAH SMITH</textPath>
+  </text>
+  <text
+    x="250"
+    y="262"
+    fill="#171717"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="119"
+    font-weight="700"
+    text-anchor="middle"
+  >
+    SBA
+  </text>
+  <text
+    x="250"
+    y="319"
+    fill="#171717"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="39"
+    font-weight="700"
+    letter-spacing="4"
+    text-anchor="middle"
+  >
+    BUYERS AGENCY
+  </text>
+  <text
+    fill="#171717"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="40"
+    font-weight="700"
+    letter-spacing="9"
+  >
+    <textPath href="#bottom-arc" startOffset="50%" text-anchor="middle">0438 784 423</textPath>
+  </text>
+</svg>

@@ -1,13 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FinalCTA from '../components/FinalCTA.astro';
+import LuxuryPillarList from '../components/LuxuryPillarList.astro';
 import { liveSiteImages } from '../data/liveSiteImages';
+
+const protectionPoints = [
+  {
+    title: 'Due diligence before emotion takes over',
+    copy: 'Facts, structure and strategy land first — before urgency or excitement shapes the call.',
+  },
+  {
+    title: 'Risk tested against your real goals',
+    copy: 'Every option is weighed against the life you are building, not just the price on the page.',
+  },
+  {
+    title: 'Walking away when it does not stack up',
+    copy: 'Sometimes the strongest move is no move — and you should feel supported when that is true.',
+  },
+  {
+    title: 'Negotiation grounded in strategy, not fear',
+    copy: 'Discipline at the table protects your capital and your confidence long after settlement.',
+  },
+];
 
 const storyBeats = [
   {
     number: '01',
     label: 'Nurse first',
-    summary: 'Sarah worked nights, double shifts and weekends because hard work felt like the safest path.',
+    summary:
+      'Sarah worked nights, double shifts and weekends because hard work felt like the safest path.',
     paragraphs: [
       'She believed doing more would create security. So she picked up the extra shifts, said yes to the hard rosters and kept pushing.',
       'It is a belief many capable people carry: if the future feels uncertain, work harder until it feels safer.',
@@ -16,7 +37,8 @@ const storyBeats = [
   {
     number: '02',
     label: 'Missing moments',
-    summary: 'School assemblies and sport days slipped past while she kept trying to build security.',
+    summary:
+      'School assemblies and sport days slipped past while she kept trying to build security.',
     quote: 'You said you\'d come, Mum.',
     paragraphs: [
       'The milestones she could not get back made her realise working harder was costing the life she was trying to protect.',
@@ -26,7 +48,8 @@ const storyBeats = [
   {
     number: '03',
     label: 'The property lesson',
-    summary: 'A costly emotional purchase taught her that hope and trust are not enough.',
+    summary:
+      'A costly emotional purchase taught her that hope and trust are not enough.',
     paragraphs: [
       'Trusting the wrong advice and buying emotionally cost her dearly. It knocked her confidence and changed how she looked at risk.',
       'Good property decisions come from structure, protection and discipline, not hope.',
@@ -35,7 +58,8 @@ const storyBeats = [
   {
     number: '04',
     label: 'Why SBA exists',
-    summary: 'She built SBA so buyers could have structure, truth and protection before pressure arrives.',
+    summary:
+      'She built SBA so buyers could have structure, truth and protection before pressure arrives.',
     quote: 'No buyer should have to learn protection the expensive way.',
     paragraphs: [
       'SBA exists so buyers can make decisions with honest guidance, a clear process and protection before pressure arrives.',
@@ -59,7 +83,13 @@ const values = ['Honest', 'Independent', 'Protective', 'Strategic'];
           The person who'll be in your <em class="gold-text italic">corner.</em>
         </h1>
         <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
-          Sarah brings lived experience, calm strategy and honest buyer advocacy.
+          Sarah is a nurse, mother and buyer's advocate who knows what it feels like to work hard, carry responsibility and still wonder if you are making the right property decisions.
+        </p>
+        <p class="mt-4 max-w-xl text-sm leading-7 text-soft-light/90">
+          She built SBA so capable people could have calm strategy, honest guidance and protection before pressure arrives.
+        </p>
+        <p class="mt-5 max-w-xl border-l border-gold/60 pl-5 text-sm leading-7 text-gold-bright">
+          A property decision without the right protection ultimately cost Sarah more than <strong class="font-semibold text-offwhite">$350,000</strong> once everything was accounted for — a lesson that shapes every part of how SBA works today.
         </p>
       </div>
 
@@ -89,54 +119,77 @@ const values = ['Honest', 'Independent', 'Protective', 'Strategic'];
         </p>
       </div>
 
-      <div class="space-y-4">
+      <div class="story-accordion space-y-4">
         {storyBeats.map((beat, index) => (
           <article
-            class="story-accordion-card scroll-reveal group relative overflow-hidden rounded-xl border border-line bg-white shadow-[0_18px_55px_-44px_rgba(11,11,11,.58)] transition duration-300 hover:-translate-y-[5px] hover:border-gold/70 hover:shadow-[0_34px_90px_-44px_rgba(11,11,11,.76)]"
+            class="story-accordion-card scroll-reveal group"
             style={`--reveal-delay: ${index * 70}ms`}
             data-story-card
           >
-            <span class="story-gold-bar absolute inset-y-0 left-0 w-1 origin-top scale-y-0 gold-fill transition duration-300 group-hover:scale-y-100" aria-hidden="true"></span>
             <button
-              class="grid w-full gap-5 p-[26px] text-left md:grid-cols-[6.8rem_minmax(0,1fr)_auto] md:items-center md:gap-[30px]"
+              class="story-accordion-card__trigger"
               type="button"
               aria-expanded="false"
               aria-controls={`story-panel-${index}`}
               data-story-trigger
             >
-              <div>
-                <p class="font-serif text-[3.4rem] leading-none gold-text">{beat.number}</p>
-              </div>
-              <div>
-                <h3 class="text-[1.6rem] leading-tight text-ink">{beat.label}</h3>
-                <p class="mt-2 text-sm leading-7 text-muted">{beat.summary}</p>
-              </div>
-              <span class="story-chevron flex size-[34px] items-center justify-center rounded-full border border-gold text-gold-deep transition duration-300" aria-hidden="true">
-                <span class="translate-y-[-1px] text-sm font-semibold">v</span>
+              <p class="story-accordion-card__number font-serif gold-text">{beat.number}</p>
+              <span class="story-accordion-card__divider" aria-hidden="true"></span>
+              <span class="story-accordion-card__copy">
+                <span class="story-accordion-card__title">{beat.label}</span>
+                <span class="story-accordion-card__summary">{beat.summary}</span>
+              </span>
+              <span class="story-chevron" aria-hidden="true">
+                <span>v</span>
               </span>
             </button>
             <div
               id={`story-panel-${index}`}
-              class="story-panel max-h-0 overflow-hidden transition-[max-height] duration-500 ease-out"
+              class="story-panel"
               data-story-panel
             >
-              <div class="px-[26px] pb-[26px] md:pl-[calc(6.8rem+56px)]">
-                <div class="border-t border-line pt-5">
-                  {beat.quote && (
-                    <blockquote class="mb-4 border-l border-gold pl-4 font-serif text-3xl leading-tight">
-                      <em class="gold-text italic">{beat.quote}</em>
-                    </blockquote>
-                  )}
-                  <div class="space-y-3 text-sm leading-7 text-muted">
-                    {beat.paragraphs.map((paragraph) => (
-                      <p>{paragraph}</p>
-                    ))}
-                  </div>
+              <div class="story-panel__inner">
+                {beat.quote && (
+                  <blockquote class="story-panel__quote">
+                    <em class="gold-text italic">{beat.quote}</em>
+                  </blockquote>
+                )}
+                <div class="story-panel__body">
+                  {beat.paragraphs.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
                 </div>
               </div>
             </div>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="signature-dark signature-accent border-t border-line-dark" aria-labelledby="protection-heading">
+    <div class="signature-accent__glow" aria-hidden="true"></div>
+    <div class="signature-accent__line" aria-hidden="true"></div>
+
+    <div class="section-shell signature-accent__inner py-10 md:py-14">
+      <div class="scroll-reveal mx-auto max-w-3xl text-center">
+        <p class="section-kicker justify-center text-gold-bright">Why protection matters</p>
+        <h2 id="protection-heading" class="mt-4 text-4xl sm:text-5xl md:text-6xl">
+          Protection before <em class="gold-text italic">property.</em>
+        </h2>
+      </div>
+
+      <div class="scroll-reveal mx-auto mt-8 max-w-2xl space-y-5 text-center text-[0.9375rem] leading-7 text-soft-light md:text-base md:leading-8">
+        <p>
+          When people think about property mistakes, they often think about money first. But the real cost can run deeper — confidence, delayed opportunities, and stress that lasts long after settlement.
+        </p>
+        <p>
+          Sarah's role is not to convince you to buy. It is to help you make decisions you can feel confident about long after the excitement has passed — and sometimes that means walking away.
+        </p>
+      </div>
+
+      <div class="scroll-reveal mx-auto mt-10 max-w-3xl" style="--reveal-delay: 80ms">
+        <LuxuryPillarList pillars={protectionPoints} layout="split" aria-label="How SBA protects buyers" />
       </div>
     </div>
   </section>
@@ -174,8 +227,8 @@ const values = ['Honest', 'Independent', 'Protective', 'Strategic'];
                 <blockquote class="font-serif text-4xl leading-tight sm:text-5xl">
                   <em class="gold-text italic">Wealth should support life, not consume it.</em>
                 </blockquote>
-                <p class="mt-5 max-w-xl text-sm leading-7 text-soft-light">
-                  That belief sits underneath every brief, every negotiation and every moment Sarah tells a buyer to pause.
+                <p class="mt-5 max-w-xl text-[0.9375rem] leading-7 text-soft-light">
+                  That belief sits underneath every brief, every negotiation and every moment Sarah tells a buyer to pause. Property should create more freedom and choice — not demand that you sacrifice the life you are working so hard to build.
                 </p>
               </div>
               <div class="mt-7 grid gap-3 border-t border-line-dark pt-5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold-bright sm:grid-cols-3">
@@ -257,8 +310,130 @@ const values = ['Honest', 'Independent', 'Protective', 'Strategic'];
   </script>
 
   <style>
-    .story-accordion-card[data-open] .story-gold-bar {
-      transform: scaleY(1);
+    .story-accordion-card {
+      overflow: hidden;
+      border-radius: 0.85rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 18px 55px -44px rgba(11, 11, 11, 0.58);
+      transition:
+        transform 300ms ease,
+        border-color 300ms ease,
+        box-shadow 300ms ease;
+    }
+
+    .story-accordion-card:hover {
+      border-color: rgba(194, 160, 91, 0.7);
+      box-shadow: 0 34px 90px -44px rgba(11, 11, 11, 0.76);
+      transform: translateY(-5px);
+    }
+
+    .story-accordion-card__trigger {
+      display: grid;
+      width: 100%;
+      grid-template-columns: 4.75rem 1px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0 1.65rem;
+      padding: 1.5rem 1.65rem;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .story-accordion-card__number {
+      margin: 0;
+      font-size: clamp(2.6rem, 4vw, 3.4rem);
+      line-height: 1;
+    }
+
+    .story-accordion-card__divider {
+      align-self: stretch;
+      width: 1px;
+      min-height: 4.25rem;
+      background: linear-gradient(
+        180deg,
+        rgba(228, 201, 126, 0.15) 0%,
+        rgba(194, 160, 91, 0.95) 18%,
+        rgba(156, 124, 56, 0.85) 82%,
+        rgba(228, 201, 126, 0.15) 100%
+      );
+    }
+
+    .story-accordion-card__copy {
+      display: grid;
+      gap: 0.45rem;
+      min-width: 0;
+    }
+
+    .story-accordion-card__title {
+      font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
+      font-size: clamp(1.35rem, 2vw, 1.6rem);
+      line-height: 1.15;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .story-accordion-card__summary {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .story-chevron {
+      display: grid;
+      place-items: center;
+      width: 2.125rem;
+      height: 2.125rem;
+      flex-shrink: 0;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      color: var(--gold-deep);
+      transition:
+        transform 300ms ease,
+        background 300ms ease,
+        border-color 300ms ease,
+        color 300ms ease;
+    }
+
+    .story-chevron span {
+      margin-top: -1px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .story-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 500ms ease;
+    }
+
+    .story-panel__inner {
+      margin: 0 1.65rem 1.5rem;
+      padding: 1.15rem 0 0.25rem 6.55rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .story-panel__quote {
+      margin: 0 0 1rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--gold);
+      font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
+      font-size: clamp(1.65rem, 2.5vw, 1.9rem);
+      line-height: 1.25;
+    }
+
+    .story-panel__body {
+      display: grid;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .story-panel__body p {
+      margin: 0;
     }
 
     .story-accordion-card[data-open] .story-chevron {
@@ -266,6 +441,23 @@ const values = ['Honest', 'Independent', 'Protective', 'Strategic'];
       border-color: transparent;
       color: var(--black);
       transform: rotate(180deg);
+    }
+
+    @media (max-width: 639px) {
+      .story-accordion-card__trigger {
+        grid-template-columns: 3.5rem 1px minmax(0, 1fr) auto;
+        gap: 0 1rem;
+        padding: 1.15rem 1.15rem;
+      }
+
+      .story-accordion-card__divider {
+        min-height: 3.5rem;
+      }
+
+      .story-panel__inner {
+        margin-inline: 1.15rem;
+        padding-left: 4.9rem;
+      }
     }
   </style>
 </Layout>

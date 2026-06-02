@@ -1,0 +1,14 @@
+---
+const { label = 'Coming soon', title, description } = Astro.props;
+---
+
+<div
+  class="coming-soon-panel scroll-reveal rounded-xl border border-line-dark bg-black-2 px-8 py-12 text-center shadow-soft md:px-12 md:py-14"
+>
+  <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold-bright">{label}</p>
+  {title && <p class="mt-4 font-serif text-3xl text-offwhite md:text-4xl">{title}</p>}
+  <p class="mx-auto mt-4 max-w-md text-sm leading-7 text-soft-light">
+    {description ??
+      'Sarah is preparing this for the resource library. Check back soon — or book a call if you would like guidance in the meantime.'}
+  </p>
+</div>

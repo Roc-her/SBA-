@@ -1,0 +1,20 @@
+---
+import { vexurCalendar } from '../data/vexur';
+
+const { class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={['vexur-widget', className]}
+  data-widget="calendar"
+  data-agent={vexurCalendar.agentId}
+  data-loader={vexurCalendar.loader}
+  data-theme={vexurCalendar.theme}
+  data-primary-color={vexurCalendar.primaryColor}
+  data-show-branding="true"
+  data-consent="pending"
+  data-vx-no-fallback="true"
+  data-vx-param-calendar-widget-build-id={vexurCalendar.buildId}
+  data-vx-param-renderer={vexurCalendar.renderer}
+  data-vx-param-v={vexurCalendar.version}
+></div>

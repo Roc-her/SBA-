@@ -1,14 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BookCallButton from '../components/BookCallButton.astro';
 import Button from '../components/Button.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import { liveSiteImages } from '../data/liveSiteImages';
 
 const steps = [
-  ['1', 'Step One', 'Meet Sarah', 'Read the story behind SBA', '/about-sarah', 'Read Sarah\'s Story ->'],
-  ['2', 'Step Two', 'Understand the Method', 'Confidence comes from a process', '/method', 'Explore the Method ->'],
-  ['3', 'Step Three', 'Use Free Resources', 'Learn without pressure', '/resources', 'Browse Resources ->'],
-  ['4', 'Step Four', 'Book the Call', 'Start with five calm minutes', 'https://calendly.com/sarah-sbabuyersagency', 'Book a Call ->'],
+  {
+    number: '1',
+    label: 'Step One',
+    title: 'Meet Sarah',
+    summary: 'Read the story behind SBA',
+    href: '/about-sarah',
+    cta: "Read Sarah's Story ->",
+    primary: false,
+  },
+  {
+    number: '2',
+    label: 'Step Two',
+    title: 'Understand the Method',
+    summary: 'Confidence comes from a process',
+    href: '/method',
+    cta: 'Explore the Method ->',
+    primary: false,
+  },
+  {
+    number: '3',
+    label: 'Step Three',
+    title: 'Use Free Resources',
+    summary: 'Learn without pressure',
+    href: '/resources',
+    cta: 'Browse Resources ->',
+    primary: false,
+  },
+  {
+    number: '4',
+    label: 'Step Four',
+    title: 'Book the Call',
+    summary: 'Start with five calm minutes',
+    href: '#book-call',
+    cta: 'Book a Call ->',
+    primary: true,
+  },
 ];
 ---
 
@@ -24,7 +57,10 @@ const steps = [
           If You're Feeling Overwhelmed, You're In The <em class="gold-text italic">Right Place.</em>
         </h1>
         <p class="mt-6 max-w-xl text-base leading-8 text-soft-light">
-          You do not need everything figured out today.
+          You have probably spent hours researching, scrolling listings and wondering if you are making the right call. Feeling uncertain does not mean you are behind — it usually means you are taking the decision seriously.
+        </p>
+        <p class="mt-4 max-w-xl text-sm leading-7 text-soft-light/90">
+          This page is simply a calm place to start. You do not need everything figured out today.
         </p>
       </div>
       <figure class="scroll-reveal relative ml-auto w-full max-w-[520px]" style="--reveal-delay: 120ms">
@@ -49,39 +85,142 @@ const steps = [
   </section>
 
   <section class="page-section">
-    <div class="mx-auto max-w-[1080px] px-6 sm:px-10">
-      <div class="scroll-reveal mb-6 max-w-3xl">
+    <div class="section-shell">
+      <div class="scroll-reveal mb-8 max-w-3xl">
         <p class="section-kicker">A guided journey</p>
-        <h2 class="mt-3 text-4xl sm:text-5xl">
+        <h2 class="mt-4 text-4xl sm:text-5xl">
           Four calm steps from unsure to <em class="gold-text italic">clear.</em>
         </h2>
-        <p class="mt-3 max-w-2xl text-sm leading-7 text-muted">
+        <p class="mt-5 max-w-2xl text-base leading-8 text-muted">
           Start with one step, then choose the next move when it feels steady.
         </p>
       </div>
 
-      <div class="space-y-3">
-        {steps.map(([number, label, title, copy, href, cta], index) => (
-          <article class="scroll-reveal group relative overflow-hidden rounded-xl border border-line bg-white px-6 py-5 shadow-[0_18px_55px_-44px_rgba(11,11,11,.58)] transition duration-300 hover:-translate-y-[7px] hover:scale-[1.01] hover:border-gold/70 hover:shadow-[0_34px_90px_-42px_rgba(11,11,11,.78)]" style={`--reveal-delay: ${index * 90}ms`}>
-            <span class="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 gold-fill transition duration-300 group-hover:scale-y-100" aria-hidden="true"></span>
-            <div class="grid gap-5 md:grid-cols-[6rem_minmax(0,1fr)_auto] md:items-center md:gap-6">
-            <div>
-              <p class="font-serif text-[2.8rem] leading-none gold-text">{number}</p>
-              <p class="mt-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-gold-deep">{label}</p>
-            </div>
-            <div>
-              <h3 class="text-[1.45rem] leading-tight text-ink">{title}</h3>
-              <p class="mt-1 text-sm leading-6 text-muted">{copy}</p>
-            </div>
-            <Button href={href} variant={index === 3 ? 'primary' : 'secondary'} class="w-full whitespace-nowrap !px-6 !py-3 text-[0.72rem] md:w-auto">
-              {cta}
-            </Button>
+      <div class="guided-journey space-y-4">
+        {steps.map((step, index) => (
+          <article
+            class="guided-journey-card scroll-reveal group"
+            style={`--reveal-delay: ${index * 90}ms`}
+          >
+            <span class="guided-journey-card__bar" aria-hidden="true"></span>
+            <div class="guided-journey-card__inner">
+              <div class="guided-journey-card__step">
+                <p class="guided-journey-card__number font-serif gold-text">{step.number}</p>
+                <p class="guided-journey-card__label">{step.label}</p>
+              </div>
+              <div class="guided-journey-card__copy">
+                <h3 class="guided-journey-card__title">{step.title}</h3>
+                <p class="guided-journey-card__summary">{step.summary}</p>
+              </div>
+              {step.primary ? (
+                <BookCallButton class="guided-journey-card__cta">{step.cta}</BookCallButton>
+              ) : (
+                <Button href={step.href} variant="secondary" class="guided-journey-card__cta">
+                  {step.cta}
+                </Button>
+              )}
             </div>
           </article>
         ))}
       </div>
     </div>
   </section>
+
+  <style>
+    .guided-journey-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.85rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 18px 55px -44px rgba(11, 11, 11, 0.58);
+      transition:
+        transform 300ms ease,
+        border-color 300ms ease,
+        box-shadow 300ms ease;
+    }
+
+    .guided-journey-card:hover {
+      border-color: rgba(194, 160, 91, 0.7);
+      box-shadow: 0 34px 90px -42px rgba(11, 11, 11, 0.78);
+      transform: translateY(-7px) scale(1.01);
+    }
+
+    .guided-journey-card__bar {
+      position: absolute;
+      inset-block: 0;
+      left: 0;
+      width: 0.25rem;
+      transform-origin: top;
+      transform: scaleY(0);
+      background-image: var(--grad-gold);
+      transition: transform 300ms ease;
+    }
+
+    .guided-journey-card:hover .guided-journey-card__bar,
+    .guided-journey-card:focus-within .guided-journey-card__bar {
+      transform: scaleY(1);
+    }
+
+    .guided-journey-card__inner {
+      display: grid;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .guided-journey-card__inner {
+        grid-template-columns: 6rem minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.25rem 1.5rem;
+      }
+    }
+
+    .guided-journey-card__number {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 2.8rem);
+      line-height: 1;
+    }
+
+    .guided-journey-card__label {
+      margin: 0.25rem 0 0;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+    }
+
+    .guided-journey-card__title {
+      margin: 0;
+      font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
+      font-size: clamp(1.3rem, 2vw, 1.45rem);
+      line-height: 1.15;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .guided-journey-card__summary {
+      margin: 0.25rem 0 0;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .guided-journey-card__cta {
+      width: 100%;
+      white-space: nowrap;
+      padding: 0.75rem 1.5rem !important;
+      font-size: 0.72rem !important;
+    }
+
+    @media (min-width: 768px) {
+      .guided-journey-card__cta {
+        width: auto;
+      }
+    }
+  </style>
 
   <FinalCTA />
 </Layout>
