@@ -22,7 +22,66 @@ const { class: className = '' } = Astro.props;
 </div>
 
 <script>
-  const SUBMIT_STYLE_ID = 'sba-vexur-submit-gradient';
+  const VEXUR_STYLE_ID = 'sba-vexur-form-styles';
+  const VEXUR_FORM_CSS = `
+    h1, h2, h3, legend {
+      font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif !important;
+      font-size: 1.375rem !important;
+      font-weight: 600 !important;
+      line-height: 1.3 !important;
+      letter-spacing: -0.02em !important;
+      color: #1a1a1a !important;
+    }
+    @media (min-width: 768px) {
+      h1, h2, h3, legend {
+        font-size: 1.5rem !important;
+      }
+    }
+  `;
+  const FIELD_CSS = `
+    input:not([type="submit"]):not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+    textarea,
+    select {
+      display: block !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      border: 1px solid #d3d3cf !important;
+      border-radius: 0.5rem !important;
+      background: #ffffff !important;
+      box-shadow: none !important;
+      color: #1a1a1a !important;
+      font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif !important;
+      font-size: 0.9375rem !important;
+      line-height: 1.4 !important;
+      min-height: 2.75rem !important;
+      padding: 0.7rem 0.85rem !important;
+    }
+    textarea {
+      min-height: 6.5rem !important;
+      resize: vertical !important;
+    }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none !important;
+      border-color: #c2a05b !important;
+      box-shadow: 0 0 0 3px rgba(228, 201, 126, 0.22) !important;
+    }
+    div:has(> input:not([type="submit"]):not([type="hidden"])),
+    div:has(> textarea) {
+      border: 1px solid #d3d3cf !important;
+      border-radius: 0.5rem !important;
+      background: #ffffff !important;
+      overflow: hidden;
+    }
+    div:has(> input:not([type="submit"])) input,
+    div:has(> textarea) textarea {
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      min-height: 2.75rem !important;
+    }
+  `;
   const SUBMIT_CSS = `
     button[type="submit"],
     input[type="submit"],
@@ -46,11 +105,11 @@ const { class: className = '' } = Astro.props;
     }
   `;
 
-  function injectSubmitStyles(shadow: ShadowRoot) {
-    if (shadow.querySelector(`#${SUBMIT_STYLE_ID}`)) return;
+  function injectWidgetStyles(shadow: ShadowRoot) {
+    if (shadow.querySelector(`#${VEXUR_STYLE_ID}`)) return;
     const style = document.createElement('style');
-    style.id = SUBMIT_STYLE_ID;
-    style.textContent = SUBMIT_CSS;
+    style.id = VEXUR_STYLE_ID;
+    style.textContent = `${VEXUR_FORM_CSS}\n${FIELD_CSS}\n${SUBMIT_CSS}`;
     shadow.appendChild(style);
   }
 
@@ -86,7 +145,7 @@ const { class: className = '' } = Astro.props;
 
     root.querySelectorAll('*').forEach((el) => {
       if (el instanceof HTMLElement && el.shadowRoot) {
-        injectSubmitStyles(el.shadowRoot);
+        injectWidgetStyles(el.shadowRoot);
         scanRoot(el.shadowRoot);
       }
     });

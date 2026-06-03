@@ -41,14 +41,14 @@ const facebookUrl =
 
   <section class="page-section contact-actions">
     <div class="section-shell contact-actions__grid">
-      <div class="vexur-contact-shell scroll-reveal">
+      <div class="contact-form-cell scroll-reveal">
         <VexurContactForm />
       </div>
 
       <aside class="contact-direct-card scroll-reveal" style="--reveal-delay: 100ms">
         <p class="section-kicker contact-direct-kicker">Direct contact</p>
-        <h2 class="contact-direct-title">
-          Or reach Sarah <em class="gold-text italic">directly.</em>
+        <h2 class="contact-panel-title contact-direct-title">
+          Or reach Sarah <em class="gold-text">directly.</em>
         </h2>
         <p class="contact-direct-lead">
           Prefer to call, email or connect on social? Sarah is based in Bendigo and works across regional Victoria.
@@ -152,31 +152,121 @@ const facebookUrl =
 
   @media (min-width: 1024px) {
     .contact-actions__grid {
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
       gap: 1.35rem;
     }
   }
 
-  /* Vexur contact form — no duplicate site header; widget supplies its own */
-  .vexur-contact-shell {
-    overflow: hidden;
+  /* Matched card headings — form widget + direct contact */
+  .contact-panel-title {
+    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .contact-panel-title .gold-text {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  @media (min-width: 768px) {
+    .contact-panel-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .contact-actions .sba-vexur-contact :is(h1, h2, h3, legend) {
+    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 1.375rem !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.02em !important;
+    color: var(--ink) !important;
+  }
+
+  @media (min-width: 768px) {
+    .contact-actions .sba-vexur-contact :is(h1, h2, h3, legend) {
+      font-size: 1.5rem !important;
+    }
+  }
+
+  /* Form column — single card from Vexur only (no extra site wrapper) */
+  .contact-form-cell {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+  }
+
+  .contact-form-cell .sba-vexur-contact {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
     border-radius: 0.85rem;
     border: 1px solid var(--line);
     background: #fff;
-    box-shadow: 0 18px 50px -36px rgba(11, 11, 11, 0.22);
-    min-height: 26rem;
-    padding: 1.25rem 1.25rem 1.5rem;
+    padding: 1.65rem 1.85rem 1.75rem;
+    box-shadow: 0 18px 50px -36px rgba(11, 11, 11, 0.18);
+    overflow: hidden;
+  }
+
+  .contact-form-cell .sba-vexur-contact .vexur-widget {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Restore bordered fields when widget renders in-page (not iframe) */
+  .contact-actions .sba-vexur-contact :is(
+      input:not([type='submit']):not([type='hidden']):not([type='checkbox']):not([type='radio']),
+      textarea,
+      select
+    ) {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--line) !important;
+    border-radius: 0.5rem !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    color: var(--ink);
+    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    min-height: 2.75rem;
+    padding: 0.7rem 0.85rem;
+  }
+
+  .contact-actions .sba-vexur-contact textarea {
+    min-height: 6.5rem;
+    resize: vertical;
+  }
+
+  .contact-actions .sba-vexur-contact :is(input, textarea):focus {
+    outline: none;
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 0 3px rgba(228, 201, 126, 0.22);
+  }
+
+  .contact-form-cell .sba-vexur-contact :is(iframe) {
+    min-height: 18.5rem !important;
+    border: 0 !important;
   }
 
   /* Direct contact card */
   .contact-direct-card {
     display: flex;
+    height: 100%;
     flex-direction: column;
     border-radius: 0.85rem;
     border: 1px solid var(--line);
     background: #fff;
-    padding: 1.2rem 1.2rem 1.25rem;
+    padding: 1.65rem 1.85rem 1.75rem;
     box-shadow: 0 18px 50px -36px rgba(11, 11, 11, 0.18);
   }
 
@@ -186,24 +276,19 @@ const facebookUrl =
 
   .contact-direct-title {
     margin-top: 0.55rem;
-    font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
-    font-size: clamp(1.75rem, 2.8vw, 2.15rem);
-    line-height: 1.1;
-    font-weight: 600;
-    color: var(--ink);
   }
 
   .contact-direct-lead {
-    margin-top: 0.55rem;
+    margin-top: 0.65rem;
     font-size: 0.875rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--muted);
   }
 
   .contact-detail-list {
-    margin: 1rem 0 0;
+    margin: 1.35rem 0 0;
     display: grid;
-    gap: 0.75rem;
+    gap: 1.35rem;
     list-style: none;
     padding: 0;
   }
@@ -211,7 +296,12 @@ const facebookUrl =
   .contact-detail {
     display: flex;
     align-items: flex-start;
-    gap: 0.7rem;
+    gap: 0.85rem;
+    padding-bottom: 0.15rem;
+  }
+
+  .contact-detail + .contact-detail {
+    padding-top: 0.15rem;
   }
 
   .contact-detail__icon {
@@ -256,15 +346,16 @@ const facebookUrl =
   }
 
   .contact-cta-box {
-    margin-top: 1.25rem;
+    margin-top: 1.65rem;
     flex-shrink: 0;
     border-radius: 0.65rem;
     border: 1px solid rgba(194, 160, 91, 0.45);
     background: rgba(228, 201, 126, 0.1);
-    padding: 0.9rem 0.95rem;
+    padding: 1.35rem 1.4rem 1.4rem;
   }
 
   .contact-cta-box__kicker {
+    margin: 0;
     font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.16em;
@@ -273,14 +364,14 @@ const facebookUrl =
   }
 
   .contact-cta-box__copy {
-    margin-top: 0.4rem;
+    margin-top: 0.65rem;
     font-size: 0.8125rem;
-    line-height: 1.55;
+    line-height: 1.6;
     color: var(--muted);
   }
 
   .contact-cta-box__btn {
-    margin-top: 0.7rem;
+    margin-top: 1rem;
     display: inline-flex;
     width: 100%;
     align-items: center;
@@ -314,8 +405,8 @@ const facebookUrl =
   }
 
   .contact-follow {
-    margin-top: 0.95rem;
-    padding-top: 0.85rem;
+    margin-top: auto;
+    padding-top: 1.15rem;
     border-top: 1px solid var(--line);
   }
 
