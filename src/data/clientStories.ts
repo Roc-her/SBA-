@@ -11,7 +11,7 @@ export const clientStories: ClientStory[] = [
     tag: 'Walked away',
     title: 'A property that looked good on paper',
     summary:
-      'A young buyer was ready to purchase — the numbers seemed reasonable and he had already pictured himself owning it. After independent inspections and deeper due diligence, serious issues surfaced that would have been costly over time.',
+      'A young buyer was ready to purchase. The numbers seemed reasonable and he had already pictured himself owning it. After independent inspections and deeper due diligence, serious issues surfaced that would have been costly over time.',
     outcome: 'He walked away disappointed, then secured a far stronger property with less risk.',
     bullets: [
       'First impressions are not due diligence',
@@ -35,7 +35,7 @@ export const clientStories: ClientStory[] = [
     tag: 'Relocation',
     title: 'Clarity from a distance',
     summary:
-      'Interstate clients relocating to regional Victoria arrived exhausted by conflicting advice, headlines and online opinions. They needed calm, local understanding — not more noise.',
+      'Interstate clients relocating to regional Victoria arrived exhausted by conflicting advice, headlines and online opinions. They needed calm, local understanding, not more noise.',
     outcome: 'They felt heard, understood their options, and moved forward with confidence in the decisions they were making.',
     bullets: [
       'Relief often comes before the purchase',
