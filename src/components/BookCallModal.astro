@@ -27,10 +27,19 @@ import VexurCalendar from './VexurCalendar.astro';
       loader?.refresh?.();
     };
 
+    const refreshVexurWhenReady = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          refreshVexur();
+        });
+      });
+    };
+
     const openModal = () => {
       if (typeof modal.showModal === 'function') modal.showModal();
-      refreshVexur();
-      window.setTimeout(refreshVexur, 120);
+      // Mount after the dialog has layout so Vexur requests the correct width/render payload.
+      refreshVexurWhenReady();
+      window.setTimeout(refreshVexur, 300);
     };
 
     const closeModal = () => modal.close();
@@ -166,5 +175,6 @@ import VexurCalendar from './VexurCalendar.astro';
   .book-call-modal__calendar {
     margin-top: 0.35rem;
     min-height: 20rem;
+    overflow: visible;
   }
 </style>
