@@ -31,6 +31,9 @@ export const vexurCalendar = {
   version: '2026-06-02T08:23:01.347892+00:00',
 } as const;
 
+/** Book-call modal width (~32rem) — used for calendar prerender payload. */
+export const vexurCalendarRenderWidth = 512;
+
 export const vexurContactForm = {
   ...vexurEmbed,
   formId: 'af2182b4-9700-439d-a73d-6874a84cdeba',

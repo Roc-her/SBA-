@@ -1,19 +1,44 @@
 ---
-import { vexurCalendar } from '../data/vexur';
+import {
+  fetchVexurEnvelope,
+  preparePrerenderedVexurHtml,
+  vexurCalendar,
+  vexurCalendarRenderWidth,
+} from '../data/vexur';
+import VexurHydrate from './VexurHydrate.astro';
 
 const { class: className = '' } = Astro.props;
+
+let envelope: Awaited<ReturnType<typeof fetchVexurEnvelope>> | null = null;
+
+try {
+  envelope = await fetchVexurEnvelope('calendar', vexurCalendarRenderWidth);
+} catch (error) {
+  console.warn('[SBA] Vexur calendar prerender failed; falling back to client loader.', error);
+}
 ---
 
-<div
-  class:list={['vexur-widget', className]}
-  data-widget="calendar"
-  data-agent={vexurCalendar.agentId}
-  data-loader={vexurCalendar.loader}
-  data-theme={vexurCalendar.theme}
-  data-primary-color={vexurCalendar.primaryColor}
-  data-show-branding="true"
-  data-consent="pending"
-  data-vx-param-calendar-widget-build-id={vexurCalendar.buildId}
-  data-vx-param-renderer={vexurCalendar.renderer}
-  data-vx-param-v={vexurCalendar.version}
-></div>
+{
+  envelope ? (
+    <div
+      class:list={['vexur-calendar-mount', className]}
+      set:html={preparePrerenderedVexurHtml(envelope.html, 'calendar')}
+    />
+  ) : (
+    <div
+      class:list={['vexur-widget', className]}
+      data-widget="calendar"
+      data-agent={vexurCalendar.agentId}
+      data-loader={vexurCalendar.loader}
+      data-theme={vexurCalendar.theme}
+      data-primary-color={vexurCalendar.primaryColor}
+      data-show-branding="true"
+      data-consent="pending"
+      data-vx-param-calendar-widget-build-id={vexurCalendar.buildId}
+      data-vx-param-renderer={vexurCalendar.renderer}
+      data-vx-param-v={vexurCalendar.version}
+    />
+  )
+}
+
+{envelope && <VexurHydrate envelope={envelope} defer />}

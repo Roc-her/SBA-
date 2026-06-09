@@ -1,7 +1,5 @@
 ---
-import { vexurEmbed, vexurRenderUrl } from '../data/vexur';
-
-const calendarRenderUrl = vexurRenderUrl('calendar');
+import { vexurEmbed } from '../data/vexur';
 ---
 
 <link rel="preconnect" href={vexurEmbed.embedOrigin} crossorigin />
@@ -10,7 +8,6 @@ const calendarRenderUrl = vexurRenderUrl('calendar');
 <link rel="modulepreload" href={vexurEmbed.runtimeScript} crossorigin="anonymous" />
 <link rel="modulepreload" href={vexurEmbed.contactScript} crossorigin="anonymous" />
 <link rel="modulepreload" href={vexurEmbed.calendarScript} crossorigin="anonymous" />
-<link rel="prefetch" href={calendarRenderUrl} as="fetch" crossorigin="anonymous" />
 
 <script
   src={vexurEmbed.scriptSrc}

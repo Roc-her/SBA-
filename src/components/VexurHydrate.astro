@@ -1,0 +1,113 @@
+---
+import type { VexurRenderEnvelope } from '../data/vexur';
+
+type Props = {
+  envelope: VexurRenderEnvelope;
+  /** When true, wait for idle time before loading widget scripts. */
+  defer?: boolean;
+};
+
+const { envelope, defer = false } = Astro.props;
+---
+
+<script
+  is:inline
+  define:vars={{
+    vxConfig: envelope.config,
+    vxMountId: envelope.mount_id,
+    vxScripts: envelope.scripts,
+    vxWidgetId: envelope.config.widgetId,
+    vxDefer: defer,
+  }}
+>
+  (function hydrateVexurWidget() {
+    function upgradeShadowRoots(root) {
+      root
+        .querySelectorAll('template[shadowrootmode="open"], template[shadowroot="open"]')
+        .forEach(function (template) {
+          var host = template.parentElement;
+          if (!host || host.shadowRoot) return;
+          var shadow = host.attachShadow({ mode: 'open' });
+          shadow.appendChild(template.content.cloneNode(true));
+          template.remove();
+        });
+    }
+
+    function findWidget() {
+      return document.querySelector('[data-vx-mount-id="' + vxMountId + '"]');
+    }
+
+    function loadScript(script) {
+      return new Promise(function (resolve, reject) {
+        if (!script || !script.src) return resolve();
+        if (document.querySelector('script[src="' + script.src + '"]')) return resolve();
+        var tag = document.createElement('script');
+        tag.type = 'module';
+        tag.src = script.src;
+        tag.crossOrigin = 'anonymous';
+        if (script.integrity) tag.integrity = script.integrity;
+        tag.onload = function () {
+          resolve();
+        };
+        tag.onerror = reject;
+        document.head.appendChild(tag);
+      });
+    }
+
+    function mountWhenReady(attempt) {
+      var widget = findWidget();
+      if (!widget) {
+        if (attempt < 60) window.setTimeout(function () { mountWhenReady(attempt + 1); }, 50);
+        return;
+      }
+
+      if (widget.getAttribute('data-vx-runtime-mounted') === 'true') return;
+
+      upgradeShadowRoots(widget);
+
+      var runtime = window.vexurEmbedV2;
+      if (
+        runtime &&
+        typeof runtime.mount === 'function' &&
+        (!runtime.hasFactory || runtime.hasFactory(vxWidgetId))
+      ) {
+        runtime.mount(widget, vxConfig);
+        return;
+      }
+
+      if (attempt < 60) window.setTimeout(function () { mountWhenReady(attempt + 1); }, 50);
+    }
+
+    function start() {
+      var widget = findWidget();
+      if (widget) upgradeShadowRoots(widget);
+
+      Promise.all((vxScripts || []).map(loadScript))
+        .then(function () {
+          mountWhenReady(0);
+        })
+        .catch(function () {
+          mountWhenReady(0);
+        });
+    }
+
+    function schedule() {
+      if (!vxDefer) {
+        start();
+        return;
+      }
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(start, { timeout: 1500 });
+      } else {
+        window.setTimeout(start, 120);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', schedule);
+    } else {
+      schedule();
+    }
+  })();
+</script>

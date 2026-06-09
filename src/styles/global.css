@@ -596,6 +596,12 @@
     background: #fff;
   }
 
+  .vexur-calendar-mount,
+  .vexur-calendar-mount .vexur-widget {
+    width: 100%;
+    min-height: 20rem;
+  }
+
   .vexur-calendar-shell--quiz {
     min-height: 20rem;
   }
