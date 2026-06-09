@@ -1,11 +1,79 @@
 ---
-import { vexurEmbed } from '../data/vexur';
+import {
+  vexurCalendar,
+  vexurContactForm,
+  vexurEmbed,
+  vexurRenderUrl,
+} from '../data/vexur';
+
+const contactRenderUrl = vexurRenderUrl('contact');
+const calendarRenderUrl = vexurRenderUrl('calendar');
 ---
 
 <link rel="preconnect" href={vexurEmbed.embedOrigin} crossorigin />
+<link rel="dns-prefetch" href={vexurEmbed.embedOrigin} />
+<link rel="preload" href={vexurEmbed.scriptSrc} as="script" crossorigin="anonymous" />
+<link rel="modulepreload" href={vexurEmbed.runtimeScript} crossorigin="anonymous" />
+<link rel="modulepreload" href={vexurEmbed.contactScript} crossorigin="anonymous" />
+<link rel="modulepreload" href={vexurEmbed.calendarScript} crossorigin="anonymous" />
+<link rel="prefetch" href={contactRenderUrl} as="fetch" crossorigin="anonymous" />
+<link rel="prefetch" href={calendarRenderUrl} as="fetch" crossorigin="anonymous" />
+
 <script
   src={vexurEmbed.scriptSrc}
   integrity={vexurEmbed.scriptIntegrity}
   crossorigin="anonymous"
-  async
+  defer
 ></script>
+
+<script
+  is:inline
+  define:vars={{
+    embedOrigin: vexurEmbed.embedOrigin,
+    agentId: vexurEmbed.agentId,
+    theme: vexurEmbed.theme,
+    primaryColor: vexurEmbed.primaryColor,
+    loader: vexurEmbed.loader,
+    contactFormId: vexurContactForm.formId,
+    contactBuildId: vexurContactForm.formWidgetBuildId,
+    contactVersion: vexurContactForm.version,
+    calendarBuildId: vexurCalendar.buildId,
+    calendarRenderer: vexurCalendar.renderer,
+    calendarVersion: vexurCalendar.version,
+  }}
+>
+  (function warmVexurWidgets() {
+    function renderQuery(widget, width) {
+      var params = new URLSearchParams({
+        'agent-id': agentId,
+        theme: theme,
+        primaryColor: primaryColor,
+        showBranding: 'true',
+        w: String(Math.max(320, Math.min(900, width || 800))),
+        loader: loader,
+        consent: 'pending',
+      });
+
+      if (widget === 'contact') {
+        params.set('form-id', contactFormId);
+        params.set('form-widget-build-id', contactBuildId);
+        params.set('v', contactVersion);
+      } else {
+        params.set('calendar-widget-build-id', calendarBuildId);
+        params.set('renderer', calendarRenderer);
+        params.set('v', calendarVersion);
+      }
+
+      return params.toString();
+    }
+
+    function warm(widget) {
+      var width = Math.max(320, Math.min(900, window.innerWidth || 800));
+      var url = embedOrigin + '/render/' + widget + '?' + renderQuery(widget, width);
+      fetch(url, { mode: 'cors', credentials: 'omit', priority: 'high' }).catch(function () {});
+    }
+
+    warm('contact');
+    warm('calendar');
+  })();
+</script>

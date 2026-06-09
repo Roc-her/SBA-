@@ -22,8 +22,15 @@ import VexurCalendar from './VexurCalendar.astro';
   const modal = document.getElementById('book-call-modal');
 
   if (modal instanceof HTMLDialogElement) {
+    const refreshVexur = () => {
+      const loader = (window as Window & { VexurWidgetLoader?: { refresh?: () => void } }).VexurWidgetLoader;
+      loader?.refresh?.();
+    };
+
     const openModal = () => {
       if (typeof modal.showModal === 'function') modal.showModal();
+      refreshVexur();
+      window.setTimeout(refreshVexur, 120);
     };
 
     const closeModal = () => modal.close();
