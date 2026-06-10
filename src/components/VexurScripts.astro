@@ -3,15 +3,9 @@ import { vexurEmbed } from '../data/vexur';
 ---
 
 <link rel="preconnect" href={vexurEmbed.embedOrigin} crossorigin />
-<link rel="dns-prefetch" href={vexurEmbed.embedOrigin} />
-<link rel="preload" href={vexurEmbed.scriptSrc} as="script" crossorigin="anonymous" />
-<link rel="modulepreload" href={vexurEmbed.runtimeScript} crossorigin="anonymous" />
-<link rel="modulepreload" href={vexurEmbed.contactScript} crossorigin="anonymous" />
-<link rel="modulepreload" href={vexurEmbed.calendarScript} crossorigin="anonymous" />
-
 <script
   src={vexurEmbed.scriptSrc}
   integrity={vexurEmbed.scriptIntegrity}
   crossorigin="anonymous"
-  defer
+  async
 ></script>

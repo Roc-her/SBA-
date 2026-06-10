@@ -17,14 +17,11 @@ try {
 }
 ---
 
-{
-  envelope ? (
-    <div
-      class:list={['sba-vexur-contact', className]}
-      set:html={preparePrerenderedVexurHtml(envelope.html, 'contact')}
-    />
-  ) : (
-    <div class:list={['sba-vexur-contact', className]}>
+<div class:list={['sba-vexur-contact', className]}>
+  {
+    envelope ? (
+      <div set:html={preparePrerenderedVexurHtml(envelope.html, 'contact')} />
+    ) : (
       <div
         class="vexur-widget"
         data-widget="contact"
@@ -34,160 +31,51 @@ try {
         data-primary-color={vexurContactForm.primaryColor}
         data-show-branding="true"
         data-consent="pending"
+        data-vx-no-fallback="true"
         data-vx-param-form-widget-build-id={vexurContactForm.formWidgetBuildId}
         data-vx-param-form-id={vexurContactForm.formId}
         data-vx-param-v={vexurContactForm.version}
       />
-    </div>
-  )
-}
+    )
+  }
+</div>
 
 {envelope && <VexurHydrate envelope={envelope} />}
 
 <script>
-  const VEXUR_STYLE_ID = 'sba-vexur-form-styles';
-  const VEXUR_FORM_CSS = `
-    h1, h2, h3, legend {
-      font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif !important;
-      font-size: 1.375rem !important;
-      font-weight: 600 !important;
-      line-height: 1.3 !important;
-      letter-spacing: -0.02em !important;
-      color: #1a1a1a !important;
-    }
-    @media (min-width: 768px) {
-      h1, h2, h3, legend {
-        font-size: 1.5rem !important;
-      }
-    }
-  `;
-  const FIELD_CSS = `
-    input:not([type="submit"]):not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
-    textarea,
-    select {
-      display: block !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-      border: 1px solid #d3d3cf !important;
-      border-radius: 0.5rem !important;
-      background: #ffffff !important;
-      box-shadow: none !important;
-      color: #1a1a1a !important;
-      font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif !important;
-      font-size: 0.9375rem !important;
-      line-height: 1.4 !important;
-      min-height: 2.75rem !important;
-      padding: 0.7rem 0.85rem !important;
-    }
-    textarea {
-      min-height: 6.5rem !important;
-      resize: vertical !important;
-    }
-    input:focus,
-    textarea:focus,
-    select:focus {
-      outline: none !important;
-      border-color: #c2a05b !important;
-      box-shadow: 0 0 0 3px rgba(228, 201, 126, 0.22) !important;
-    }
-    div:has(> input:not([type="submit"]):not([type="hidden"])),
-    div:has(> textarea) {
-      border: 1px solid #d3d3cf !important;
-      border-radius: 0.5rem !important;
-      background: #ffffff !important;
-      overflow: hidden;
-    }
-    div:has(> input:not([type="submit"])) input,
-    div:has(> textarea) textarea {
-      border: 0 !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
-      min-height: 2.75rem !important;
-    }
-  `;
-  const SUBMIT_CSS = `
-    button[type="submit"],
-    input[type="submit"],
-    [data-testid="submit"],
-    .vx-submit-button,
-    form button.primary {
-      border: 0 !important;
-      background-color: transparent !important;
-      background-image: linear-gradient(135deg, #E4C97E 0%, #C2A05B 45%, #9C7C38 100%) !important;
-      background-size: 180% 180% !important;
-      color: #0B0B0B !important;
-      font-weight: 600 !important;
-      box-shadow: 0 18px 38px -26px rgba(228, 201, 126, 0.85) !important;
-      transition: transform 200ms ease, background-position 260ms ease, box-shadow 260ms ease !important;
-    }
-    button[type="submit"]:hover,
-    input[type="submit"]:hover {
-      transform: translateY(-2px);
-      background-position: right center !important;
-      box-shadow: 0 22px 48px -24px rgba(228, 201, 126, 0.95) !important;
-    }
-  `;
+  const dedupeContactWidget = (shell: Element) => {
+    const host = shell.querySelector('.vexur-widget[data-widget="contact"], .vexur-widget[data-vx-widget="contact"]');
+    if (!(host instanceof HTMLElement)) return;
 
-  function injectWidgetStyles(shadow: ShadowRoot) {
-    if (shadow.querySelector(`#${VEXUR_STYLE_ID}`)) return;
-    const style = document.createElement('style');
-    style.id = VEXUR_STYLE_ID;
-    style.textContent = `${VEXUR_FORM_CSS}\n${FIELD_CSS}\n${SUBMIT_CSS}`;
-    shadow.appendChild(style);
-  }
+    const nested = [...host.querySelectorAll(':scope > .vexur-widget')];
+    if (nested.length <= 1) return;
 
-  function styleSubmitButton(button: HTMLButtonElement | HTMLInputElement) {
-    if (button.dataset.sbaGoldSubmit === 'true') return;
-    button.dataset.sbaGoldSubmit = 'true';
-    button.style.setProperty('border', 'none', 'important');
-    button.style.setProperty('background-color', 'transparent', 'important');
-    button.style.setProperty(
-      'background-image',
-      'linear-gradient(135deg, #E4C97E 0%, #C2A05B 45%, #9C7C38 100%)',
-      'important',
-    );
-    button.style.setProperty('background-size', '180% 180%', 'important');
-    button.style.setProperty('color', '#0B0B0B', 'important');
-    button.style.setProperty('font-weight', '600', 'important');
-    button.style.setProperty('box-shadow', '0 18px 38px -26px rgba(228, 201, 126, 0.85)', 'important');
-  }
+    nested.slice(1).forEach((widget) => widget.remove());
+  };
 
-  function scanRoot(root: ParentNode) {
-    root.querySelectorAll('button[type="submit"], input[type="submit"]').forEach((node) => {
-      if (node instanceof HTMLButtonElement || node instanceof HTMLInputElement) {
-        styleSubmitButton(node);
-      }
-    });
+  const watchContactWidget = (shell: Element) => {
+    const host = shell.querySelector('.vexur-widget[data-widget="contact"], .vexur-widget[data-vx-widget="contact"]');
+    if (!(host instanceof HTMLElement) || host.dataset.vexurDedupeBound === 'true') return;
 
-    root.querySelectorAll('button').forEach((node) => {
-      if (!(node instanceof HTMLButtonElement)) return;
-      if (/^submit$/i.test(node.textContent?.trim() ?? '')) {
-        styleSubmitButton(node);
-      }
-    });
+    host.dataset.vexurDedupeBound = 'true';
+    const observer = new MutationObserver(() => dedupeContactWidget(shell));
+    observer.observe(host, { childList: true });
+    dedupeContactWidget(shell);
+  };
 
-    root.querySelectorAll('*').forEach((el) => {
-      if (el instanceof HTMLElement && el.shadowRoot) {
-        injectWidgetStyles(el.shadowRoot);
-        scanRoot(el.shadowRoot);
-      }
-    });
-  }
-
-  function initVexurSubmitTheme() {
+  const initContactWidget = () => {
     document.querySelectorAll('.sba-vexur-contact').forEach((shell) => {
-      scanRoot(shell);
-      const observer = new MutationObserver(() => scanRoot(shell));
-      observer.observe(shell, { childList: true, subtree: true });
+      watchContactWidget(shell);
     });
+  };
 
-    document.querySelectorAll('.sba-vexur-contact').forEach((shell) => {
-      [400, 1200, 3000, 6000].forEach((delay) => {
-        window.setTimeout(() => scanRoot(shell), delay);
-      });
-    });
-  }
-
-  initVexurSubmitTheme();
-  document.addEventListener('astro:page-load', initVexurSubmitTheme);
+  initContactWidget();
+  document.addEventListener('astro:page-load', initContactWidget);
 </script>
+
+<style>
+  .sba-vexur-contact > .vexur-widget > .vexur-widget:not(:first-child),
+  .sba-vexur-contact .vexur-widget > .vexur-widget:not(:first-child) {
+    display: none !important;
+  }
+</style>

@@ -589,19 +589,6 @@
     color: rgba(242, 242, 240, 0.7);
   }
 
-  .vexur-calendar-shell {
-    min-height: 22rem;
-    border-radius: 0.65rem;
-    overflow: hidden;
-    background: #fff;
-  }
-
-  .vexur-calendar-mount,
-  .vexur-calendar-mount .vexur-widget {
-    width: 100%;
-    min-height: 20rem;
-  }
-
   .vexur-calendar-shell--quiz {
     min-height: 20rem;
   }

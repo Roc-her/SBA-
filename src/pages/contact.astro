@@ -180,21 +180,6 @@ const facebookUrl =
     }
   }
 
-  .contact-actions .sba-vexur-contact :is(h1, h2, h3, legend) {
-    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif !important;
-    font-size: 1.375rem !important;
-    font-weight: 600 !important;
-    line-height: 1.3 !important;
-    letter-spacing: -0.02em !important;
-    color: var(--ink) !important;
-  }
-
-  @media (min-width: 768px) {
-    .contact-actions .sba-vexur-contact :is(h1, h2, h3, legend) {
-      font-size: 1.5rem !important;
-    }
-  }
-
   /* Form column — single card from Vexur only (no extra site wrapper) */
   .contact-form-cell {
     display: flex;
@@ -219,38 +204,6 @@ const facebookUrl =
   .contact-form-cell .sba-vexur-contact .vexur-widget {
     flex: 1;
     min-height: 0;
-  }
-
-  /* Restore bordered fields when widget renders in-page (not iframe) */
-  .contact-actions .sba-vexur-contact :is(
-      input:not([type='submit']):not([type='hidden']):not([type='checkbox']):not([type='radio']),
-      textarea,
-      select
-    ) {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid var(--line) !important;
-    border-radius: 0.5rem !important;
-    background: #fff !important;
-    box-shadow: none !important;
-    color: var(--ink);
-    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
-    font-size: 0.9375rem;
-    line-height: 1.4;
-    min-height: 2.75rem;
-    padding: 0.7rem 0.85rem;
-  }
-
-  .contact-actions .sba-vexur-contact textarea {
-    min-height: 6.5rem;
-    resize: vertical;
-  }
-
-  .contact-actions .sba-vexur-contact :is(input, textarea):focus {
-    outline: none;
-    border-color: var(--gold) !important;
-    box-shadow: 0 0 0 3px rgba(228, 201, 126, 0.22);
   }
 
   .contact-form-cell .sba-vexur-contact :is(iframe) {

@@ -28,7 +28,8 @@ export const vexurCalendar = {
   ...vexurEmbed,
   buildId: 'calendar-07fc20c5',
   renderer: 'calendar-render-v2',
-  version: '2026-06-02T08:23:01.347892+00:00',
+  version: '2026-06-10T08:27:39.948829+00:00',
+  noFallback: true,
 } as const;
 
 /** Book-call modal width (~32rem) — used for calendar prerender payload. */
@@ -39,6 +40,7 @@ export const vexurContactForm = {
   formId: 'af2182b4-9700-439d-a73d-6874a84cdeba',
   formWidgetBuildId: 'form-af2182b4-9700-439d-a73d-6874a84cdeba',
   version: '2026-06-02T08:24:18.754+00:00',
+  noFallback: true,
 } as const;
 
 type RenderWidget = 'contact' | 'calendar';
@@ -136,4 +138,4 @@ export function bookCallHref(pathname: string): string {
   }
   return '#book-call';
 }
-
+
